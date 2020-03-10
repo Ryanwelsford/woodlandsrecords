@@ -1,0 +1,161 @@
+body{
+     background-color: #f6f5f4;
+    /* background-image: linear-gradient(141deg, #9fb8ad 0%,#1fc8db 51%,#2cb5e8 75%); */
+}
+.header{
+    text-align: center;  /*Centralise the header*/
+    position: relative;  /*Changed positon to relative inorder to move the header up */
+    top: -150px;    /* move the header up -150px*/
+    text-decoration: underline;  /* underline the header*/
+}
+
+nav{
+    display: flex; /*use flexbox for nav*/
+    position: relative; /* changed the postion to relative inorder to move the nav bar up */
+    top: -120px; /*moved the nave bar up -120px */
+    flex-direction: row;  /*direction should be in a row */
+    justify-content: center; /* spaced evenly so that all link have enough space */
+    padding-bottom: 0px;  /*space between work area and nav bar */
+    border-bottom-style: solid;   /* solid bottom border line */
+}
+
+.nav{
+    border-style: solid;   /* border box */
+    border-width: 1.5px;   /* size of the border line */
+    border-color: black;  /* color of border */
+    padding-top: 20px;   /* moving the text away from the top of the border */
+    padding-bottom: 20px;  /* moving the text away from the bottom of the border */
+    padding-left: 20px;   /* moving the text away from the left of the border */
+    padding-right: 20px; /* moving the text away from the right of the border */
+    text-decoration: none;   /* take the underline away from the links of the nav */
+}
+nav :hover{
+    background-color: #75F0ED;   /*when the mouse hovers on the nav bar the color changes to light bluse*/
+}
+
+.logo{
+    position: relative;  /* change the postion of the logo to relative in order to move the logo around the page */
+    left: 25px;  /*move the logo to the left*/
+    top: 15px;  /* move the logo up */
+}
+
+.container{
+   /*  display: flex;
+    flex-direction: row; */
+    display: grid;   /*diplay in grid format which makes it easier to put into column format*/
+    grid-template-columns: 50% 40%; /*50% for first column 40% for second column*/
+    grid-column-gap: 10px;  /*put a gap of 10px between the 2 columns*/
+
+}
+.col1{
+    display: grid;   /*display in grid to beable to put the items in the container into a column format*/
+    position: relative;  /*able to move the container arround the page*/
+    left: 32.8%; /*move to the left*/
+    top: -50px; /*move to the top*/
+    width: fit-content;  /*make the border fit properly*/
+    grid-row-gap: 10px;  /*gap between each row*/
+    grid-template-columns: 50% 50%;  /* 50% for each column */
+    border: solid; /*solid border*/
+    padding-right: 30px;  /*text away from border*/
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  /*  border: solid;
+    margin-left: 250px;
+    margin-right: 750px;
+    padding-bottom: 50px; */
+}
+
+.col2{
+    display: grid;
+    position: relative;
+    left: -0.1%;
+    top: -50px;
+    width: fit-content;
+    grid-row-gap: 10px;
+    grid-template-columns: 50% 50%;
+    border: solid;
+    padding: 30px 30px 30px 30px;
+
+   /* border: solid;*/
+}
+
+.sub{
+    position: relative;
+    left: 45.5%;
+    bottom: 35px;
+    font-size: 20px;
+    
+}
+
+.outer{
+/*     border: solid;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-row-gap: 10px;
+    margin: auto; */
+    width: 500px;
+    height: 150px;
+    border: solid;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    grid-column-gap: 10px;
+    position: relative;
+    top: 80px;
+}
+
+.log{
+    /*text-align: center;*/
+    position: relative;
+    top: 100px;
+    left: 47%;
+    font-size: 35px;
+}
+
+.head{
+    text-align: center;
+    text-decoration: underline;
+    border-bottom: solid;
+    position: relative;
+    top: -37px;
+}
+.login{
+   /* display: grid;
+    grid-template-columns: 100%;
+    */
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 25% 25%;
+    grid-row-gap: 15px;
+    padding-top: 40px;
+    padding-right: 10px;
+    padding-left: 10px;
+    position: relative;
+    
+}
+
+.su{
+    position: relative;
+    left: 47%;
+    top: 110px;
+
+}
+
+/* .col1{
+    border-style: solid;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding-right: 900px;
+}
+
+.col2{
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+} */
+
+

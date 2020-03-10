@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <title>Create Student Record</title>
+    </head>
+    <!--new test-->
+    <body>
+        <img class="logo" src="images/new logo.jpg" alt="Logo">
+        <h1 class="header">Create Student Record</h1>
+        <nav>
+            <a class="nav" href="#">Student</a>
+            <a class="nav" href="#">Staff</a>
+            <a class="nav" href="#">Course</a>
+            <a class="nav" href="#">Module</a>
+            <a class="nav" href="">Assignment</a>
+            <a class="nav" href="#">Attendance</a>
+            <a class="nav" href="#">Personal Tutor</a>
+            <a class="nav" href="#">Timetable</a>
+            <a class="nav" href="#">Diary</a>
+            <a class="nav" href="#">Reports</a>
+        </nav>
+        <div class="container">
+        <div class="col1">
+        <label for="status">Student Status: </label>
+        <select id="status">
+            <option name="live">Live</option>
+            <option name="Pro">Provisional</option>
+            <option name="Dor">Dormant</option>
+        </select>
+        <label for="reason">Reason for dormancy: </label> <textarea id="reason" name="dormancy" id="" cols="30" rows="5"></textarea>
+        <label for="fname">First Name: </label> <input type="text" name="first_name" id="fname">
+        <label for="middle">Middle Name: </label> <input type="text" name="middle_name" id="middle">
+        <label for="sname">Surname: </label> <input type="text" name="surname" id="sname" >
+        <label for="term">Term Time Address: </label> <textarea name="term_address" id="term" cols="30" rows="5"></textarea>
+        </div>
+
+        <div class="col2">
+            <label for="non">Non-term Time Address: </label> <input type="text" name="non_term_address" id="non">
+            <label for="id">Student ID: </label> <input type="text" name="student_id" id="id">
+            <label for="num">Phone Number: </label> <input type="text" name="number" id="num">
+            <label for="em">Email: </label> <input type="email" name="email" id="em">
+            <label for="code">Course Code: </label> <input type="text" name="course_code" id="code">
+            <label for="entry">Entry Qualifications: </label> <textarea name="entry_qual" id="entry" cols="30" rows="5"></textarea>
+        </div>
+        </div>
+        <input class="sub" type="submit" name="submit">
+    </body>
+</html>
