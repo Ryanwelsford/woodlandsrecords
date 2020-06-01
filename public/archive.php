@@ -19,7 +19,7 @@ if(isset($_POST['archive']))
         'firstname' => $check['firstname'],
         'middlename' => $check['middlename'],
         'surname' => $check['surname'],
-        'studentstatus' => $check['studentstatus'],
+        'studentstatus' => 'Dormant',
         'dormancyreason' => $check['dormancyreason'],
         'termaddress' => $check['termaddress'],
         'nonaddress' => $check['nonaddress'],
