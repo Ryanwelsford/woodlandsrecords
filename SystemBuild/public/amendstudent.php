@@ -20,6 +20,7 @@ if(isset($_POST['submit']))
         'entryqual' => $_POST['entryqual']
     ];
     $update->execute($record);
+    
 
 }
 
