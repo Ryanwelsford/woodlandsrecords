@@ -11,15 +11,17 @@ if(isset($_POST['archive']))
     $checkstatus->execute($values);
     $check = $checkstatus->fetch();
 
-    if($check['studentstatus'] == 'Live')
-    {
-        echo '<script type="text/JavaScript">alert("The status of this student is Live")</script>';
-    }
+    
 
-    if($check['studentstatus'] == 'Provisional')
-    {
-        echo '<script type="text/JavaScript">alert("The status of this student is Provisional")</script>';
-    }
+    // if($check['studentstatus'] == 'Live')
+    // {
+    //     echo '<script type="text/JavaScript">alert("The status of this student is Live")</script>';
+    // }
+
+    // if($check['studentstatus'] == 'Provisional')
+    // {
+    //     echo '<script type="text/JavaScript">alert("The status of this student is Provisional")</script>';
+    // }
 }
 
 if(isset($_GET['submit']))
