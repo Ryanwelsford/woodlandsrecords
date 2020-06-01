@@ -28,7 +28,7 @@
                         <a class="dropdown-item" href="index.php">Create</a>
                         <a class="dropdown-item" href="amendstudentlist.php">Amend</a>
                         <a class="dropdown-item" href="archive.php">Archive</a>
-                        <a class="dropdown-item" href="#">Display</a>
+                        <a class="dropdown-item" href="displaystudentlist.php">Display</a>
                         <a class="dropdown-item" href="#">Assign</a>
                     </div>
                 </li>

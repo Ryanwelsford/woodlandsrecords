@@ -14,7 +14,8 @@ if(isset($_GET['submit']))
     $stmt = $search->fetchAll();
 
     $templatevars = [
-        'stmt' => $stmt
+        'stmt' => $stmt,
+        'buttonName' => 'Amend'
     ];
 
 
@@ -24,7 +25,9 @@ $stmt = $pdo->prepare('SELECT * FROM students');
 $stmt->execute();
 
 $templatevars = [
-    'stmt' => $stmt
+    'stmt' => $stmt,
+    'buttonName' => 'Amend',
+    'location' => 'amendstudent.php'
 ];
 }
 $content = loadtemplate('../templates/amendstudentlist.html.php',$templatevars);

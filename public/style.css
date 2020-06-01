@@ -34,6 +34,15 @@ nav{
     top: -50px;
 }
 
+.propic{
+    display: flex;
+    justify-content: center;
+    margin-top: -4%;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
 .subcol {
     position: relative;
     top: -50px;
@@ -266,6 +275,7 @@ tr td {
         display: flex;
         justify-content: center;
     }
+    
 }
 
 @media (max-width: 729px)

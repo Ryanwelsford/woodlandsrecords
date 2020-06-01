@@ -24,9 +24,9 @@
                 <td><?= $row['studentid'] ?></td>
                 <td><?=$row['studentstatus']?></td>
                 <td class="am">
-                    <form action="amendstudent.php" method="POST">
+                    <form action="<?=$location?>" method="POST">
                     <input type="hidden" name="id" value=<?= $row['studentid']?>>
-                    <input type="submit" name="amend" value="Amend">
+                    <input type="submit" name="amend" value="<?=$buttonName?>">
                 </form>
             </td>
             </tr>
