@@ -11,7 +11,33 @@ if(isset($_POST['archive']))
     $checkstatus->execute($values);
     $check = $checkstatus->fetch();
 
-    
+    $archive = $pdo->prepare('INSERT INTO archivedstudents (studentid,firstname,middlename,surname,studentstatus,dormancyreason,termaddress,nonaddress,phonenum,email,coursecode,entryqual)
+                                VALUES(:studentid, :firstname, :middlename, :surname, :studentstatus, :dormancyreason, :termaddress, :nonaddress, :phonenum, :email, :coursecode, :entryqual)');
+
+    $values = [
+        'studentid' => $check['studentid'],
+        'firstname' => $check['firstname'],
+        'middlename' => $check['middlename'],
+        'surname' => $check['surname'],
+        'studentstatus' => $check['studentstatus'],
+        'dormancyreason' => $check['dormancyreason'],
+        'termaddress' => $check['termaddress'],
+        'nonaddress' => $check['nonaddress'],
+        'phonenum' => $check['phonenum'],
+        'email' => $check['email'],
+        'coursecode' => $check['coursecode'],
+        'entryqual' => $check['entryqual']
+    ];
+
+    $archive->execute($values);
+
+    $delete = $pdo->prepare('DELETE FROM students WHERE studentid = :studentid');
+
+    $val =[
+        'studentid' => $_POST['id']
+    ];
+
+    $delete->execute($val);
 
     // if($check['studentstatus'] == 'Live')
     // {
