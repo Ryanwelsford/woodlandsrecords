@@ -6,8 +6,13 @@ $studenttable = new databasetable($pdo,'students','studentid');
 
 if(isset($_POST['submit']))
 {
-    $stmt = $pdo->prepare('INSERT INTO students (studentid,firstname,middlename,surname,studentstatus,dormancyreason,termaddress,nonaddress,phonenum,email,coursecode,entryqual)
-                            VALUES (:studentid, :firstname, :middlename, :surname, :studentstatus, :dormancyreason, :termaddress, :nonaddress, :phonenum, :email, :coursecode, :entryqual)');
+    
+        $parts = explode('.', $_FILES['photo']['name']);
+        $extention = end($parts);
+        $filename = uniqid() . '.' . $extension;
+        move_uploaded_file($_FILES['photo']['tmp_name'], 'studentprofiles/' . $filename);
+    $stmt = $pdo->prepare('INSERT INTO students (studentid,firstname,middlename,surname,studentstatus,dormancyreason,termaddress,nonaddress,phonenum,email,coursecode,entryqual,photo)
+                            VALUES (:studentid, :firstname, :middlename, :surname, :studentstatus, :dormancyreason, :termaddress, :nonaddress, :phonenum, :email, :coursecode, :entryqual, :photo)');
     $values = [
         'studentid' => $_POST['studentid'],
         'firstname' => $_POST['firstname'],
@@ -20,7 +25,8 @@ if(isset($_POST['submit']))
         'phonenum' => $_POST['number'],
         'email' => $_POST['email'],
         'coursecode' => $_POST['coursecode'],
-        'entryqual' => $_POST['entryqual']
+        'entryqual' => $_POST['entryqual'],
+        'photo' => $filename
     ];
     $stmt->execute($values);
     

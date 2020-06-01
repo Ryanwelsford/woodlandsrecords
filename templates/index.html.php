@@ -21,6 +21,7 @@
                     <label for="em">Email: </label> <input type="text" name="email" id="em">
                     <label for="code">Course Code: </label> <input type="text" name="coursecode" id="code">
                     <label for="entry">Entry Qualifications: </label> <textarea name="entryqual" id="entry"></textarea>
+                    <label for="studentimg">Student Photo: </label> <input type="file" name="photo" id="studentimg">
                 </div>
                 
             </div>
