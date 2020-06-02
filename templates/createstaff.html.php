@@ -2,7 +2,7 @@
     <div class="row therow">
         <div class="col columns">
             <div class="top">
-                <div class="w3-bar w3-black">
+                <div class="w3-bar" id="mydiv">
                     <button class="w3-bar-item w3-button hvr-pulse-shrink" onclick="openContent('Status')">Status</button>
                     <button class="w3-bar-item w3-button hvr-pulse-shrink" onclick="openContent('Pinfo')">Personal Info</button>
                     <button class="w3-bar-item w3-button hvr-pulse-shrink" onclick="openContent('Contact')">Contact Info</button>
@@ -67,12 +67,26 @@
                 }
                 document.getElementById(cityName).style.display = "block";
             }
+
+            var header = document.getElementById("mydiv");
+            var btns = header.getElementsByClassName("w3-bar-item");
+            for(var i=0;i < btns.length; i++)
+            {
+                btns[i].addEventListener("click", function() {
+                    var current = document.getElementsByClassName("active");
+                    if(current.length > 0)
+                    {
+                        current[0].className = current[0].className.replace(" active", "");
+                    }
+                    this.className += " active";
+                });
+            }            
             </script>
         </div>
     </div>
     <div class="row">
         <div class="col">
-        <input type="submit" name="submit">
+        <input class="hvr-sink" type="submit" name="submit">
         </div>
     </div>
     </form>

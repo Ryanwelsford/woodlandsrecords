@@ -15,7 +15,8 @@ if(isset($_GET['submit']))
 
     $templatevars = [
         'stmt' => $stmt,
-        'buttonName' => 'Amend'
+        'buttonName' => 'Amend',
+        'location' => 'amendstudent.php'
     ];
 
 
