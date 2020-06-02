@@ -25,11 +25,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link hvr-sweep-to-right" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="index.php">Create</a>
-                        <a class="dropdown-item" href="amendstudentlist.php">Amend</a>
-                        <a class="dropdown-item" href="archive.php">Archive</a>
-                        <a class="dropdown-item" href="displaystudentlist.php">Display</a>
-                        <a class="dropdown-item" href="#">Assign</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="index.php">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="amendstudentlist.php">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="archive.php">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="displaystudentlist.php">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Assign</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
