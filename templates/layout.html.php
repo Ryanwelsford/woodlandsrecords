@@ -38,7 +38,7 @@
                         <a class="dropdown-item hvr-grow-shadow" href="createstaff.php">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="liststaff.php">Amend</a>
                         <a class="dropdown-item hvr-grow-shadow" href="archivestaff.php">Archive</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="staffdisplaylist.php">Display</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Assign</a>
 
                     </div>
