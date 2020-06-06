@@ -90,7 +90,7 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personal Tutor</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="personaltutorlist.php">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Assign</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
