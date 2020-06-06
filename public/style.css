@@ -461,6 +461,32 @@ tr td {
 }
 
 
+/* homepage */
+
+.nums{
+  text-align: center;
+}
+
+.col-col{
+  background-color: #C6CFCA;
+}
+
+.ch{
+  display: flex;
+  justify-content: center;
+}
+
+
+.row-row{
+  display: grid;
+  /* justify-items: center; */
+  grid-template-columns: 30% 30%;
+  grid-column-gap: 200px;
+}
+
+.piechart_3d{
+}
+
 
 
 @media (max-width: 992px) {
