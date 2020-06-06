@@ -46,82 +46,82 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Create Structure</a>
-                        <a class="dropdown-item" href="#">Amend</a>
-                        <a class="dropdown-item" href="#">Display</a>
-                        <a class="dropdown-item" href="#">Delete</a>
-                        <a class="dropdown-item" href="#">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Create Structure</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Delete</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Module</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Create</a>
-                        <a class="dropdown-item" href="#">Amend</a>
-                        <a class="dropdown-item" href="#">Delete</a>
-                        <a class="dropdown-item" href="#">Archive</a>
-                        <a class="dropdown-item" href="#">Display</a>
-                        <a class="dropdown-item" href="#">Assign</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Delete</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Assign</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Assignement</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Create</a>
-                        <a class="dropdown-item" href="#">Amend</a>
-                        <a class="dropdown-item" href="#">Delete</a>
-                        <a class="dropdown-item" href="#">Archive</a>
-                        <a class="dropdown-item" href="#">Display</a>
-                        <a class="dropdown-item" href="#">Assign</a>
-                        <a class="dropdown-item" href="#">Mark/Grade</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Delete</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Assign</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Mark/Grade</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Attendance</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Create</a>
-                        <a class="dropdown-item" href="#">Amend</a>
-                        <a class="dropdown-item" href="#">Archive</a>
-                        <a class="dropdown-item" href="#">Monitor</a>
-                        <a class="dropdown-item" href="#">Display</a>
-                        <a class="dropdown-item" href="#">Action Poor Attendance</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Monitor</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Action Poor Attendance</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personal Tutor</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Create</a>
-                        <a class="dropdown-item" href="#">Amend</a>
-                        <a class="dropdown-item" href="#">Assign</a>
-                        <a class="dropdown-item" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Assign</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timetable</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Create</a>
-                        <a class="dropdown-item" href="#">Amend</a>
-                        <a class="dropdown-item" href="#">Delete</a>
-                        <a class="dropdown-item" href="#">Archive</a>
-                        <a class="dropdown-item" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Delete</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diary</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Create</a>
-                        <a class="dropdown-item" href="#">Amend</a>
-                        <a class="dropdown-item" href="#">Delete</a>
-                        <a class="dropdown-item" href="#">Archive</a>
-                        <a class="dropdown-item" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Delete</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Report</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Create</a>
-                        <a class="dropdown-item" href="#">Display</a>
-                        <a class="dropdown-item" href="#">Print</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="#">Print</a>
                     </div>
                 </li>
             </ul>
