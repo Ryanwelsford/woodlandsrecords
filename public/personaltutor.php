@@ -15,9 +15,19 @@ if(isset($_POST['submit']))
     ];
 
     $stmt->execute($values);
+
+    $delete = $pdo->prepare('DELETE FROM unassignedstaff WHERE id=:id');
+
+    $values=[
+        'id' => $_POST['id']
+    ];
+    $delete->execute($values);
+
+    header('location: personaltutorlist.php');
+    
 }
 
-$stmt = $pdo->prepare('SELECT * FROM staff WHERE id = :id');
+$stmt = $pdo->prepare('SELECT * FROM unassignedstaff WHERE id = :id');
 $value = [
     'id' => $_POST['id']
 ];

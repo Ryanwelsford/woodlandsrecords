@@ -4,7 +4,7 @@ require '../loadtemplate.php';
 
 if(isset($_GET['submit']))
 {
-    $search = $pdo->prepare('SELECT * FROM staff WHERE staffid = :staffid');
+    $search = $pdo->prepare('SELECT * FROM unassignedstaff WHERE staffid = :staffid');
 
     $values = [
         'staffid' => $_GET['search']
@@ -18,7 +18,7 @@ if(isset($_GET['submit']))
     ];
 }
 else{
-$stmt = $pdo->prepare('SELECT * FROM staff');
+$stmt = $pdo->prepare('SELECT * FROM unassignedstaff');
 $stmt->execute();
 $templatevars = [
     'stmt' => $stmt,

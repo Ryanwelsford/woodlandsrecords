@@ -19,7 +19,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-1 per">
-                    
+                        <input type="hidden" name="id" value="<?=$staff['id']?>">
                         <input class="hvr-grow" type="submit" name="submit">
                     
                 </div>

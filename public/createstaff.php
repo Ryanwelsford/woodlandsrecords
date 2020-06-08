@@ -6,6 +6,9 @@ if(isset($_POST['submit']))
     $stmt = $pdo->prepare('INSERT INTO staff (staffstatus, dormancyreason, firstname, middlename, surname, staffid, address, phonenumber, email, roles, specialistsub)
                             VALUES (:staffstatus, :dormancyreason, :firstname, :middlename, :surname, :staffid, :address, :phonenumber, :email, :roles, :specialistsub)');
 
+    $unsigned = $pdo->prepare('INSERT INTO unassignedstaff (staffstatus, dormancyreason, firstname, middlename, surname, staffid, address, phonenumber, email, roles, specialistsub)
+                            VALUES (:staffstatus, :dormancyreason, :firstname, :middlename, :surname, :staffid, :address, :phonenumber, :email, :roles, :specialistsub)');
+
     $values = [
         'staffstatus' => $_POST['staffstatus'],
         'dormancyreason' => $_POST['dormancy'],
@@ -21,6 +24,7 @@ if(isset($_POST['submit']))
     ];
 
     $stmt->execute($values);
+    $unsigned->execute($values);
 
 }
 $content = loadtemplate('../templates/createstaff.html.php',[]);
