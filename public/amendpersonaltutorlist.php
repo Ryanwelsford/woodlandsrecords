@@ -15,7 +15,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Select',
-        'location' => '#'
+        'location' => 'amendpersonaltutor.php'
     ];
 }
 else{
@@ -24,7 +24,7 @@ $stmt->execute();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Select',
-    'location' => '#'
+    'location' => 'amendpersonaltutor.php'
 ];
 }
 $content = loadtemplate('../templates/amendpersonaltutorlist.html.php',$templatevars);
