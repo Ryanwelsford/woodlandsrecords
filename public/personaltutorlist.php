@@ -14,7 +14,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Select',
-        'location' => '#'
+        'location' => 'personaltutor.php'
     ];
 }
 else{
@@ -23,7 +23,7 @@ $stmt->execute();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Select',
-    'location' => '#'
+    'location' => 'personaltutor.php'
 ];
 }
 $content = loadtemplate('../templates/liststaff.html.php',$templatevars);
