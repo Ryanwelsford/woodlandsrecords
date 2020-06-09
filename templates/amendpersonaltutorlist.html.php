@@ -10,21 +10,23 @@
 <table class="studentamend" style="width:100%">
             <tr>
                 <th>First name</th>
+                <th>Middle name</th>
                 <th>Surname</th>
-                <th>Staff ID</th>
-                <th>Course</th>
+                <th>Student ID</th>
+                <th>Student Status</th>
                 <th>Action</th>
             </tr>
             <?php foreach($stmt as $row) { ?>
             <tr>
                 <td><?= $row['firstname'] ?></td>
+                <td><?= $row['middlename'] ?></td>
                 <td><?= $row['surname'] ?></td>
-                <td><?= $row['staffid'] ?></td>
-                <td><?= $row['courseteaching'] ?></td>
+                <td><?= $row['studentid'] ?></td>
+                <td><?=$row['studentstatus']?></td>
                 <td class="am">
                     <form action="<?=$location?>" method="POST">
-                    <input type="hidden" name="id" value=<?= $row['id']?>>
-                    <input type="submit" name="archive" value="<?=$buttonName?>">
+                    <input type="hidden" name="id" value=<?= $row['studentid']?>>
+                    <input type="submit" name="amend" value="<?=$buttonName?>">
                 </form>
             </td>
             </tr>
