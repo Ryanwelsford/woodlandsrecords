@@ -93,7 +93,7 @@
                         <a class="dropdown-item hvr-grow-shadow" href="personaltutorlist.php">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="amendpersonaltutorlist.php">Amend</a>
                         <a class="dropdown-item hvr-grow-shadow" href="assignpersonaltutorlist.php">Assign</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="displaytutorlist.php">Display</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

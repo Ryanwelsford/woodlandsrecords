@@ -9,22 +9,22 @@
 </form>
 <table class="studentamend" style="width:100%">
             <tr>
-                <th>First name</th>
-                <th>Surname</th>
-                <th>Staff ID</th>
-                <th>Course</th>
+                <th>Tutee First name</th>
+                <th>Tutee Surname</th>
+                <th>Tutor First name</th>
+                <th>Tutor Surname</th>
                 <th>Action</th>
             </tr>
             <?php foreach($stmt as $row) { ?>
             <tr>
-                <td><?= $row['firstname'] ?></td>
-                <td><?= $row['surname'] ?></td>
-                <td><?= $row['staffid'] ?></td>
-                <td><?=$row['courseteaching']?></td>
+                <td><?= $row['tuteename'] ?></td>
+                <td><?= $row['tuteesurname'] ?></td>
+                <td><?= $row['tutorname'] ?></td>
+                <td><?= $row['tutorsurname'] ?></td>
                 <td class="am">
                     <form action="<?=$location?>" method="POST">
                     <input type="hidden" name="id" value=<?= $row['id']?>>
-                    <input type="submit" name="amend" value="<?=$buttonName?>">
+                    <input type="submit" name="archive" value="<?=$buttonName?>">
                 </form>
             </td>
             </tr>

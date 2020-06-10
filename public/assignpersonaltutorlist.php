@@ -1,7 +1,7 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
-$header = 'Personal Tutor List';
+$header = 'Student List';
 $title = 'Assign Personal Tutor';
 
 if(isset($_GET['submit']))
@@ -28,6 +28,6 @@ $templatevars = [
     'location' => 'assignpersonaltutor.php'
 ];
 }
-$content = loadtemplate('../templates/amendpersonaltutorlist.html.php',$templatevars);
+$content = loadtemplate('../templates/amendstudentlist.html.php',$templatevars);
 require '../templates/layout.html.php';
 ?>
