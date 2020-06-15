@@ -1,6 +1,7 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
+require '../functions.php';
 
 if(isset($_POST['archive']))
 {
@@ -11,8 +12,6 @@ if(isset($_POST['archive']))
     $checkstatus->execute($values);
     $check = $checkstatus->fetch();
 
-    $archive = $pdo->prepare('INSERT INTO archivedstudents (studentid,firstname,middlename,surname,studentstatus,dormancyreason,termaddress,nonaddress,phonenum,email,coursecode,entryqual)
-                                VALUES(:studentid, :firstname, :middlename, :surname, :studentstatus, :dormancyreason, :termaddress, :nonaddress, :phonenum, :email, :coursecode, :entryqual)');
 
     $values = [
         'studentid' => $check['studentid'],
@@ -29,48 +28,25 @@ if(isset($_POST['archive']))
         'entryqual' => $check['entryqual']
     ];
 
-    $archive->execute($values);
+   
 
-    $delete = $pdo->prepare('DELETE FROM students WHERE studentid = :studentid');
+    insert($pdo,'archivedstudents',$values);
 
-    $val =[
-        'studentid' => $_POST['id']
-    ];
-
-    $delete->execute($val);
-
-    // if($check['studentstatus'] == 'Live')
-    // {
-    //     echo '<script type="text/JavaScript">alert("The status of this student is Live")</script>';
-    // }
-
-    // if($check['studentstatus'] == 'Provisional')
-    // {
-    //     echo '<script type="text/JavaScript">alert("The status of this student is Provisional")</script>';
-    // }
+    delete($pdo,'students','studentid',$_POST['id']);
 }
 
 if(isset($_GET['submit']))
 {
-    $search = $pdo->prepare('SELECT * FROM students WHERE studentid= :studentid');
-
-    $values = [
-        'studentid' => $_GET['search']
-    ];
-
-    $search->execute($values);
-    $stmt = $search->fetchAll();
-
+//find the student with the student id entered
+    $stmt = find($pdo,'students','studentid',$_GET['search']);
     $templatevars = [
         'stmt' => $stmt
     ];
 
-
 }
 else{
-$stmt = $pdo->prepare('SELECT * FROM students');
-$stmt->execute();
-
+//get all students in the students table
+$stmt = findAll($pdo,'students');
 $templatevars = [
     'stmt' => $stmt
 ];
