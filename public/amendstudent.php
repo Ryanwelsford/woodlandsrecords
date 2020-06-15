@@ -1,36 +1,18 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
+require '../functions.php';
 
 if(isset($_POST['submit']))
 {
-    $update = $pdo->prepare('UPDATE students SET studentid= :studentid, firstname= :firstname, middlename= :middlename, surname = :surname, studentstatus= :studentstatus, dormancyreason = :dormancyreason, termaddress = :termaddress, nonaddress = :nonaddress, phonenum = :phonenum, email = :email, coursecode = :coursecode, entryqual = :entryqual WHERE studentid = :studentid');
-    $record = [
-        'studentid' => $_POST['studentid'],
-        'firstname' => $_POST['firstname'],
-        'middlename' => $_POST['middlename'],
-        'surname' => $_POST['surname'],
-        'studentstatus' => $_POST['studentstatus'],
-        'dormancyreason' => $_POST['dormancy'],
-        'termaddress' => $_POST['termaddress'],
-        'nonaddress' => $_POST['nontermaddress'],
-        'phonenum' => $_POST['number'],
-        'email' => $_POST['email'],
-        'coursecode' => $_POST['coursecode'],
-        'entryqual' => $_POST['entryqual']
-    ];
-    $update->execute($record);
+    //once the submit button is pressed update the selected student that needed to be amended
+    save($pdo,'students',$_POST['student'], 'id');
     header('location: amendstudentlist.php');
     
 
 }
-
-$stmt = $pdo->prepare('SELECT * FROM students WHERE studentid= :studentid');
-$values = [
-    'studentid' => $_POST['id']
-];
-$stmt->execute($values);
-$student = $stmt->fetch();
+//find the student and display it so that the info can be amended
+$student = find($pdo,'students','id', $_POST['id'])[0];
 
 $templatevars = [
     'student' => $student
