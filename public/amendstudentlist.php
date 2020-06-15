@@ -1,17 +1,12 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
+require '../functions.php';
 
 if(isset($_GET['submit']))
 {
-    $search = $pdo->prepare('SELECT * FROM students WHERE studentid= :studentid');
-
-    $values = [
-        'studentid' => $_GET['search']
-    ];
-
-    $search->execute($values);
-    $stmt = $search->fetchAll();
+    //when searching for a student find the student with the id number entered
+    $stmt = find($pdo, 'students', 'studentid', $_GET['search']);
 
     $templatevars = [
         'stmt' => $stmt,
@@ -19,11 +14,10 @@ if(isset($_GET['submit']))
         'location' => 'amendstudent.php'
     ];
 
-
 }
 else{
-$stmt = $pdo->prepare('SELECT * FROM students');
-$stmt->execute();
+    //get all students in the students table and store it in $stmt
+    $stmt = findAll($pdo, 'students');
 
 $templatevars = [
     'stmt' => $stmt,
@@ -32,9 +26,7 @@ $templatevars = [
 ];
 }
 $content = loadtemplate('../templates/amendstudentlist.html.php',$templatevars);
-// ob_start();
-// require '../templates/amendstudentlist.html.php';
-// $content = ob_get_clean();
+
 $title = 'Student List';
 $header = 'Student List';
 require '../templates/layout.html.php';
