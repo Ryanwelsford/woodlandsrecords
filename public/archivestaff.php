@@ -1,6 +1,7 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
+require 
 
 if(isset($_POST['archive']))
 {
