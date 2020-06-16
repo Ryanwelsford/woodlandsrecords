@@ -17,13 +17,13 @@
                             <p></p>
                             <p></p>
                             <label for="stastatus">Staff Status: </label>
-                            <select id="stastatus" name="staffstatus">
+                            <select id="stastatus" name="staff[staffstatus]">
                                 <option name="live">Live</option>
                                 <option name="Dor">Dormant</option>
                                 <option selected="selected"><?=$staff['staffstatus']?></option>
                             </select>
 
-                            <label for="dor">Reason for dormancy: </label> <textarea id="dor" name="dormancy"><?=$staff['dormancyreason']?></textarea>
+                            <label for="dor">Reason for dormancy: </label> <textarea id="dor" name="staff[dormancyreason]"><?=$staff['dormancyreason']?></textarea>
                         </div>    
                     </div>
 
@@ -31,10 +31,10 @@
                         <div class="data">
                             <p></p>
                             <p></p>
-                            <label id="fname">First name: </label> <input type="text" name="firstname" id="fname" value="<?=$staff['firstname']?>">
-                            <label id="mname">Middle name: </label> <input type="text" name="middlename" id="mname" value="<?=$staff['middlename']?>">
-                            <label id="sname">Surname: </label> <input type="text" name="surname" id="sname" value="<?=$staff['surname']?>">
-                            <label id="id">Staff ID: </label> <input type="text" name="staffid" id="id" value="<?=$staff['staffid']?>">
+                            <label id="fname">First name: </label> <input type="text" name="staff[firstname]" id="fname" value="<?=$staff['firstname']?>">
+                            <label id="mname">Middle name: </label> <input type="text" name="staff[middlename]" id="mname" value="<?=$staff['middlename']?>">
+                            <label id="sname">Surname: </label> <input type="text" name="staff[surname]" id="sname" value="<?=$staff['surname']?>">
+                            <label id="id">Staff ID: </label> <input type="text" name="staff[staffid]" id="id" value="<?=$staff['staffid']?>">
                         </div>
                     </div>
 
@@ -42,9 +42,9 @@
                         <div class="data">
                             <p></p>
                             <p></p>
-                            <label for="add">Address: </label> <textarea id="add" name="address"><?=$staff['address']?></textarea>
-                            <label for="num">Phone Number: </label> <input type="text" name="phonenum" id="num" value="<?=$staff['phonenumber']?>">
-                            <label for="em">Email Address: </label> <input type="text" name="email" id="em" value="<?=$staff['email']?>">
+                            <label for="add">Address: </label> <textarea id="add" name="staff[address]"><?=$staff['address']?></textarea>
+                            <label for="num">Phone Number: </label> <input type="text" name="staff[phonenumber]" id="num" value="<?=$staff['phonenumber']?>">
+                            <label for="em">Email Address: </label> <input type="text" name="staff[email]" id="em" value="<?=$staff['email']?>">
                         </div>
                     </div>
 
@@ -52,8 +52,8 @@
                         <div class="data">
                             <p></p>
                             <p></p>
-                            <label for="ro">Roles: </label> <textarea name="roles" id="ro"><?=$staff['roles']?></textarea>
-                            <label for="spe">Specailist Subjects: </label> <textarea name="specialsub" id="spe"><?=$staff['specialistsub']?></textarea>
+                            <label for="ro">Roles: </label> <textarea name="staff[roles]" id="ro"><?=$staff['roles']?></textarea>
+                            <label for="spe">Specailist Subjects: </label> <textarea name="staff[specialistsub]" id="spe"><?=$staff['specialistsub']?></textarea>
                         </div>
                     </div>
                 </div>

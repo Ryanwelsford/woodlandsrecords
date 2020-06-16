@@ -1,10 +1,10 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
-
+require '../functions.php';
 if(isset($_POST['submit']))
 {
-    $update = $pdo->prepare('UPDATE staff SET staffstatus = :staffstatus, dormancyreason = :dormancyreason, firstname = :firstname, middlename = :middlename, surname = :surname, staffid = :staffid, address = :address, phonenumber = :phonenumber, email = :email, roles = :roles, specialistsub = :specialistsub WHERE id = :id');
+    // $update = $pdo->prepare('UPDATE staff SET staffstatus = :staffstatus, dormancyreason = :dormancyreason, firstname = :firstname, middlename = :middlename, surname = :surname, staffid = :staffid, address = :address, phonenumber = :phonenumber, email = :email, roles = :roles, specialistsub = :specialistsub WHERE id = :id');
 
     $record = [
         'id' => $_POST['id'],
@@ -20,19 +20,16 @@ if(isset($_POST['submit']))
         'roles' => $_POST['roles'],
         'specialistsub' => $_POST['specialsub']
     ];
-    $update->execute($record);
+    // $update->execute($record);
+    // header('location: liststaff.php');
+    save($pdo,'staff',$record,'id');
+    //ONCE THE TABLES ARE EMPTY MAKE SURE TO ALSO ADD THE FUNCTION TO 
+    //UPDATE THE UNASSIGNEDSTAFF TABLE AS THEY WORK HAND IN HAND
     header('location: liststaff.php');
 }
 
-$stmt = $pdo->prepare('SELECT * FROM staff WHERE id = :id');
 
-$values = [
-    'id' => $_POST['id']
-];
-
-$stmt->execute($values);
-$staff = $stmt->fetch();
-
+$staff = find($pdo,'staff','id',$_POST['id'])[0];
 $templatevars = [
     'staff' => $staff
 ];
