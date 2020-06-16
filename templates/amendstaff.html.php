@@ -87,7 +87,7 @@
     </div>
     <div class="row">
         <div class="col">
-        <input type="hidden" name="id" value="<?=$staff['id']?>">
+        <input type="hidden" name="staff[id]" value="<?=$staff['id']?>">
         <input class="hvr-sink" type="submit" name="submit">
         </div>
     </div>
