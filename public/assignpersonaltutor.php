@@ -32,12 +32,7 @@ if(isset($_POST['submit']))
     header('location: assignpersonaltutorlist.php');
 }
 else{
-// $st = $pdo->prepare('SELECT * FROM students WHERE id= :id');
-// $values = [
-//     'id' => $_POST['id']
-// ];
-// $st->execute($values);
-// $student = $st->fetch();
+
 $student = find($pdo,'students','id',$_POST['id'])[0];
 
 $templatevars = [
