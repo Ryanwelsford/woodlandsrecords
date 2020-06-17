@@ -7,12 +7,8 @@ $title = 'Assign Personal Tutor';
 
 if(isset($_GET['submit']))
 {
-    $stmt = $pdo->prepare('SELECT * FROM students WHERE studentid= :studentid');
-    $values = [
-        'studentid' => $_GET['search']
-    ];
 
-    $stmt->execute($values);
+    $stmt = find($pdo,'students','studentid',$_GET['search']);
 
     $templatevars = [
         'stmt' => $stmt,
