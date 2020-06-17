@@ -1,6 +1,7 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
+require '../functions.php';
 $header = 'Student List';
 $title = 'Assign Personal Tutor';
 
@@ -20,8 +21,8 @@ if(isset($_GET['submit']))
     ];
 }
 else{
-$stmt = $pdo->prepare('SELECT * FROM students');
-$stmt->execute();
+
+$stmt = findAll($pdo,'students');
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Assign',
