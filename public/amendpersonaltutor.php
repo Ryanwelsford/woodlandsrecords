@@ -1,7 +1,7 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
-
+require '../functions.php';
 if(isset($_POST['submit']))
 {
     $update = $pdo->prepare('UPDATE personaltutor SET courseteaching = :courseteaching WHERE staffid = :staffid');
@@ -14,12 +14,8 @@ if(isset($_POST['submit']))
     header('location: amendpersonaltutorlist.php');
 }
 else{
-$stmt = $pdo->prepare('SELECT * FROM personaltutor WHERE id=:id');
-$values = [
-    'id' => $_POST['id']
-];
-$stmt->execute($values);
-$staff = $stmt->fetch();
+
+$staff = find($pdo,'personaltutor','id',$_POST['id'])[0];
 $templatevars = [
     'staff' => $staff
 ];
