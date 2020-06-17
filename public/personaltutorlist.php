@@ -1,16 +1,11 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
-
+require '../functions.php';
 if(isset($_GET['submit']))
 {
-    $search = $pdo->prepare('SELECT * FROM unassignedstaff WHERE staffid = :staffid');
 
-    $values = [
-        'staffid' => $_GET['search']
-    ];
-    $search->execute($values);
-    $stmt = $search->fetchAll();
+    $stmt = find($pdo,'unassignedstaff','staffid',$_GET['search']);
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Select',
@@ -18,8 +13,8 @@ if(isset($_GET['submit']))
     ];
 }
 else{
-$stmt = $pdo->prepare('SELECT * FROM unassignedstaff');
-$stmt->execute();
+
+$stmt = findAll($pdo,'unassignedstaff');
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Select',

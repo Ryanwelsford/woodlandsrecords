@@ -1,11 +1,10 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
-
+require '../functions.php';
 if(isset($_POST['submit']))
 {
-    $stmt = $pdo->prepare('INSERT INTO personaltutor (firstname, surname, staffid, courseteaching)
-                            VALUES(:firstname, :surname, :staffid, :courseteaching)');
+ 
 
     $values = [
         'firstname' => $_POST['firstname'],
@@ -14,25 +13,16 @@ if(isset($_POST['submit']))
         'courseteaching' => $_POST['course']
     ];
 
-    $stmt->execute($values);
+    save($pdo,'personaltutor',$values,'id');
 
-    $delete = $pdo->prepare('DELETE FROM unassignedstaff WHERE id=:id');
+    delete($pdo,'unassignedstaff','id',$_POST['id']);
 
-    $values=[
-        'id' => $_POST['id']
-    ];
-    $delete->execute($values);
 
     header('location: personaltutorlist.php');
     
 }
 
-$stmt = $pdo->prepare('SELECT * FROM unassignedstaff WHERE id = :id');
-$value = [
-    'id' => $_POST['id']
-];
-$stmt->execute($value);
-$staff = $stmt->fetch();
+$staff = find($pdo,'unassignedstaff','id',$_POST['id'])[0];
 $templatevars = [
     'staff' => $staff
 ];
