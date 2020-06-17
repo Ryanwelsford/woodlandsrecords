@@ -1,6 +1,7 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
+require '../functions.php';
 $header = 'Personal Tutor';
 $title = 'Personal Tutor';
 $stmt = $pdo->prepare('SELECT * FROM tutees WHERE id=:id');
