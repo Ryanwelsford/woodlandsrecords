@@ -2,11 +2,14 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+$studenttable = new databasetable($pdo,'students','id');
 
 if(isset($_GET['submit']))
 {
     //when searching for a student find the student with the id number entered
-    $stmt = find($pdo, 'students', 'studentid', $_GET['search']);
+    
+    $stmt = $studenttable->find('studentid',$_GET['search']);
 
     $templatevars = [
         'stmt' => $stmt,
@@ -17,7 +20,7 @@ if(isset($_GET['submit']))
 }
 else{
     //get all students in the students table and store it in $stmt
-    $stmt = findAll($pdo, 'students');
+    $stmt = $studenttable->findAll();
 
 $templatevars = [
     'stmt' => $stmt,
