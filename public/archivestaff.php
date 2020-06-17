@@ -12,8 +12,6 @@ if(isset($_POST['archive']))
     $check->execute($values);
     $move = $check->fetch();
 
-    $archive = $pdo->prepare('INSERT INTO archivedstaff (staffstatus, dormancyreason, firstname, middlename, surname, staffid, address, phonenumber, email, roles, specialistsub)
-                                VALUES(:staffid, :dormancyreason, :firstname, :middlename, :surname, :staffid, :address, :phonenumber, :email, :roles, :specialistsub)');
 
     $val = [
         'staffstatus' => $move['staffstatus'],
@@ -28,15 +26,9 @@ if(isset($_POST['archive']))
         'roles' => $move['roles'],
         'specialistsub' => $move['specialistsub']
     ];
-    $archive->execute($val);
+    insert($pdo,'archivedstaff',$val);
 
-    $delete = $pdo->prepare('DELETE FROM staff WHERE id = :id');
-
-    $record = [
-        'id' => $move['id']
-    ];
-
-    $delete->execute($record);
+    delete($pdo,'staff','id',$move['id']);
     
 }
 
