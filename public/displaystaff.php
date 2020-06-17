@@ -1,12 +1,9 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
-$stmt = $pdo->prepare('SELECT * FROM staff WHERE id=:id');
-$values = [
-    'id' => $_POST['id']
-];
-$stmt->execute($values);
-$staff = $stmt->fetch();
+require '../functions.php';
+
+$staff = find($pdo,'staff','id',$_POST['id'])[0];
 $templatevars = [
     'staff' => $staff
 ];
