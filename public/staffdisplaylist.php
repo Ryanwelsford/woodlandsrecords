@@ -1,17 +1,13 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
-
+require '../functions.php';
 
 
 if(isset($_GET['submit']))
 {
-    $stmt = $pdo->prepare('SELECT * FROM staff WHERE staffid = :staffid');
 
-    $values = [
-        'staffid' => $_GET['search']
-    ];
-    $stmt->execute($values);
+    $stmt = find($pdo,'staff','staffid',$_GET['search']);
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Display',
@@ -19,8 +15,8 @@ if(isset($_GET['submit']))
     ];
 }
 else{
-$stmt = $pdo->prepare('SELECT * FROM staff');
-$stmt->execute();
+
+$stmt = findAll($pdo,'staff');
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Display',
