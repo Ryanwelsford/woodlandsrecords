@@ -1,6 +1,7 @@
 <?php
 require '../database.php';
 require '../loadtemplate.php';
+require '../functions.php';
 $stmt = $pdo->prepare('SELECT * FROM personaltutor');
 $stmt->execute();
 
@@ -31,12 +32,14 @@ if(isset($_POST['submit']))
     header('location: assignpersonaltutorlist.php');
 }
 else{
-$st = $pdo->prepare('SELECT * FROM students WHERE studentid= :studentid');
-$values = [
-    'studentid' => $_POST['id']
-];
-$st->execute($values);
-$student = $st->fetch();
+// $st = $pdo->prepare('SELECT * FROM students WHERE id= :id');
+// $values = [
+//     'id' => $_POST['id']
+// ];
+// $st->execute($values);
+// $student = $st->fetch();
+$student = find($pdo,'students','id',$_POST['id'])[0];
+
 $templatevars = [
     'stmt' => $stmt,
     'student' => $student
