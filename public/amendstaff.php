@@ -2,16 +2,20 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$stafftable = new databasetable($pdo,'staff','id');
 if(isset($_POST['submit']))
 {
-    save($pdo,'staff',$_POST['staff'],'id');
+    $stafftable->save($_POST['staff']);
     //ONCE THE TABLES ARE EMPTY MAKE SURE TO ALSO ADD THE FUNCTION TO 
     //UPDATE THE UNASSIGNEDSTAFF TABLE AS THEY WORK HAND IN HAND
     header('location: liststaff.php');
 }
 
 
-$staff = find($pdo,'staff','id',$_POST['id'])[0];
+
+$staff = $stafftable->find('id',$_POST['id'])[0];
 $templatevars = [
     'staff' => $staff
 ];
