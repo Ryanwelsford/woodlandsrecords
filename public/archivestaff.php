@@ -2,6 +2,10 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$stafftable = new databasetable($pdo,'staff','id');
+$archivestafftable = new databasetable($pdo,'archivedstaff','id');
 
 if(isset($_POST['archive']))
 {
@@ -26,16 +30,19 @@ if(isset($_POST['archive']))
         'roles' => $move['roles'],
         'specialistsub' => $move['specialistsub']
     ];
-    insert($pdo,'archivedstaff',$val);
+    //insert the archived staff into the archived staff table
+    $archivestafftable->insert($val);
 
-    delete($pdo,'staff','id',$move['id']);
+    // delete from the staff table as its now archived
+    $stafftable->delete('id',$move['id']);
     
 }
 
 if(isset($_GET['submit']))
 {
 
-    $stmt = find($pdo,'staff','staffid',$_GET['search']);
+
+    $stmt = $stafftable->find('staffid',$_GET['search']);
 
     $templatevars = [
         'stmt' => $stmt,
@@ -44,7 +51,7 @@ if(isset($_GET['submit']))
     ];
 }
 else{
-$stmt = findAll($pdo,'staff');
+$stmt = $stafftable->findAll();
 
 $templatevars = [
     'stmt' => $stmt,
