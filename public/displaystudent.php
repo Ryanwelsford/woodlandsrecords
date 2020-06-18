@@ -2,7 +2,10 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
-$student = find($pdo,'students','id',$_POST['id'])[0];
+require '../databasetable.php';
+$studenttable = new databasetable($pdo,'students','id');
+//get the particular student and display in the input boxes
+$student = $studenttable->find('id',$_POST['id'])[0];
 
 $templatevars = [
     'student' => $student
