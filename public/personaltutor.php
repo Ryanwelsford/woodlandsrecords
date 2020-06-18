@@ -2,6 +2,11 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$unassignedstafftable = new databasetable($pdo,'unassignedstaff','id');
+$personaltutortable = new databasetable($pdo,'personaltutor','id');
+
 if(isset($_POST['submit']))
 {
  
@@ -13,16 +18,16 @@ if(isset($_POST['submit']))
         'courseteaching' => $_POST['course']
     ];
 
-    save($pdo,'personaltutor',$values,'id');
+    $personaltutortable->save($values);
 
-    delete($pdo,'unassignedstaff','id',$_POST['id']);
+    $unassignedstafftable->delete('id',$_POST['id']);
 
 
     header('location: personaltutorlist.php');
     
 }
 
-$staff = find($pdo,'unassignedstaff','id',$_POST['id'])[0];
+$staff = $unassignedstafftable->find('id',$_POST['id'])[0];
 $templatevars = [
     'staff' => $staff
 ];
