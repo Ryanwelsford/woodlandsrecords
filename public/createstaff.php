@@ -2,11 +2,17 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$stafftable = new databasetable($pdo,'staff','id');
+$unassignedstafftable = new databasetable($pdo,'unassignedstaff','id');
 if(isset($_POST['submit']))
 {
 //when submit button pressed insert info in the 2 tables
-    save($pdo,'staff',$_POST['staff'],'id');
-    save($pdo,'unassignedstaff', $_POST['staff'],'id');
+    
+    $stafftable->save($_POST['staff']);
+    
+    $unassignedstafftable->save($_POST['staff']);
 
 }
 $content = loadtemplate('../templates/createstaff.html.php',[]);
