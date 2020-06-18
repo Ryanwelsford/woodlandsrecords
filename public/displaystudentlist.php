@@ -2,8 +2,12 @@
 require '../loadtemplate.php';
 require '../database.php';
 require '../functions.php';
+require '../databasetable.php';
 
-$stmt = findall($pdo,'students');
+$studenttable = new databasetable($pdo,'students','id');
+//get all students and display them in the table
+
+$stmt = $studenttable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Display',
