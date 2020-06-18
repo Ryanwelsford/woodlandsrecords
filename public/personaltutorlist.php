@@ -2,10 +2,13 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$unassignedstafftable = new databasetable($pdo,'unassignedstaff','id');
 if(isset($_GET['submit']))
 {
 
-    $stmt = find($pdo,'unassignedstaff','staffid',$_GET['search']);
+    $stmt = $unassignedstafftable->find('staffid',$_GET['search']);
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Select',
@@ -14,7 +17,7 @@ if(isset($_GET['submit']))
 }
 else{
 
-$stmt = findAll($pdo,'unassignedstaff');
+$stmt = $unassignedstafftable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Select',
