@@ -2,10 +2,14 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$personaltutortable = new databasetable($pdo,'personaltutor','id');
+
 if(isset($_GET['submit']))
 {
 
-    $stmt = find($pdo,'personaltutor','staffid',$_GET['search']);
+    $stmt = $personaltutortable->find('staffid',$_GET['search']);
 
     $templatevars = [
         'stmt' => $stmt,
@@ -15,7 +19,7 @@ if(isset($_GET['submit']))
 }
 else{
 
-$stmt = findAll($pdo,'personaltutor');
+$stmt = $personaltutortable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Select',
