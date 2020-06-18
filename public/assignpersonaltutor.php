@@ -2,6 +2,12 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$studenttable = new databasetable($pdo,'students','id');
+$tuteestable = new databasetable($pdo,'tutees','id');
+$personaltutortable = new databasetable($pdo,'personaltutortable','id');
+
 $stmt = $pdo->prepare('SELECT * FROM personaltutor');
 $stmt->execute();
 
@@ -33,7 +39,7 @@ if(isset($_POST['submit']))
 }
 else{
 
-$student = find($pdo,'students','id',$_POST['id'])[0];
+$student = $studenttable->find('id',$_POST['id'])[0];
 
 $templatevars = [
     'stmt' => $stmt,
