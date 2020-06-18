@@ -2,18 +2,14 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$stafftable = new databasetable($pdo,'staff','id');
 
 if(isset($_GET['submit']))
 {
-    // $search = $pdo->prepare('SELECT * FROM staff WHERE staffid= :staffid');
 
-    // $values = [
-    //     'staffid' => $_GET['search']
-    // ];
-
-    // $search->execute($values);
-    // $stmt = $search->fetchAll();
-    $stmt = find($pdo,'staff','staffid',$_GET['search']);
+    $stmt = $stafftable->find('staffid',$_GET['search']);
 
     $templatevars = [
         'stmt' => $stmt,
@@ -22,7 +18,8 @@ if(isset($_GET['submit']))
     ];
 }
 else{
-$stmt = findAll($pdo,'staff');
+
+$stmt = $stafftable->findAll();
 
 $templatevars = [
     'stmt' => $stmt,
