@@ -2,13 +2,16 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$studenttable = new databasetable($pdo,'students','id');
 $header = 'Student List';
 $title = 'Assign Personal Tutor';
 
 if(isset($_GET['submit']))
 {
 
-    $stmt = find($pdo,'students','studentid',$_GET['search']);
+    $stmt = $studenttable->find('studentid',$_GET['search']);
 
     $templatevars = [
         'stmt' => $stmt,
@@ -18,7 +21,7 @@ if(isset($_GET['submit']))
 }
 else{
 
-$stmt = findAll($pdo,'students');
+$stmt = $studenttable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Assign',
