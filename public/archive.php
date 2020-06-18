@@ -2,6 +2,10 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$studenttable = new databasetable($pdo,'students','id');
+$archivedstudenttable = new databasetable($pdo,'archivedstudents','id');
 
 if(isset($_POST['archive']))
 {
@@ -30,15 +34,18 @@ if(isset($_POST['archive']))
 
    
 
-    insert($pdo,'archivedstudents',$values);
+    //insert into the archived student table
+    $archivedstudenttable->insert($values);
+    // then delete it from the student table
+    $studenttable->delete('studentid',$_POST['id']);
 
-    delete($pdo,'students','studentid',$_POST['id']);
 }
 
 if(isset($_GET['submit']))
 {
 //find the student with the student id entered
-    $stmt = find($pdo,'students','studentid',$_GET['search']);
+    // $stmt = find($pdo,'students','studentid',$_GET['search']);
+    $stmt = $studenttable->find('studentid',$_GET['search']);
     $templatevars = [
         'stmt' => $stmt
     ];
@@ -46,7 +53,7 @@ if(isset($_GET['submit']))
 }
 else{
 //get all students in the students table
-$stmt = findAll($pdo,'students');
+$stmt = $studenttable->findAll();
 $templatevars = [
     'stmt' => $stmt
 ];
