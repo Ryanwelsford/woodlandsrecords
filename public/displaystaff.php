@@ -2,8 +2,10 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+$stafftable = new databasetable($pdo,'staff','id');
 
-$staff = find($pdo,'staff','id',$_POST['id'])[0];
+$staff = $stafftable->find('id',$_POST['id'])[0];
 $templatevars = [
     'staff' => $staff
 ];
