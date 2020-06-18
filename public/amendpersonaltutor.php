@@ -2,6 +2,10 @@
 require '../database.php';
 require '../loadtemplate.php';
 require '../functions.php';
+require '../databasetable.php';
+
+$personaltutortable = new databasetable($pdo,'personaltutor','id');
+
 if(isset($_POST['submit']))
 {
     $update = $pdo->prepare('UPDATE personaltutor SET courseteaching = :courseteaching WHERE staffid = :staffid');
@@ -15,7 +19,8 @@ if(isset($_POST['submit']))
 }
 else{
 
-$staff = find($pdo,'personaltutor','id',$_POST['id'])[0];
+
+$staff = $personaltutortable->find('id',$_POST['id'])[0];
 $templatevars = [
     'staff' => $staff
 ];
