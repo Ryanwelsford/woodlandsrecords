@@ -13,7 +13,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Amend',
-        'location' => 'index.php?page=amendstaff'
+        'location' => '/amendstaff'
     ];
 }
 else{
@@ -23,7 +23,7 @@ $stmt = $stafftable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Amend',
-    'location' => 'index.php?page=amendstaff'
+    'location' => '/amendstaff'
 ];
 }
 $content = loadtemplate('../templates/liststaff.html.php',$templatevars);

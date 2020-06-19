@@ -8,7 +8,7 @@ $stmt = $studenttable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Display',
-    'location' => 'index.php?page=displaystudent'
+    'location' => '/displaystudent'
 ];
 
 $content = loadtemplate('../templates/amendstudentlist.html.php',$templatevars);

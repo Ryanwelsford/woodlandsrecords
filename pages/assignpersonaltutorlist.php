@@ -13,7 +13,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Assign',
-        'location' => 'index.php?page=assignpersonaltutor'
+        'location' => '/assignpersonaltutor'
     ];
 }
 else{
@@ -22,7 +22,7 @@ $stmt = $studenttable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Assign',
-    'location' => 'index.php?page=assignpersonaltutor'
+    'location' => '/assignpersonaltutor'
 ];
 }
 $content = loadtemplate('../templates/amendstudentlist.html.php',$templatevars);

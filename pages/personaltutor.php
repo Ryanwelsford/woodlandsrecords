@@ -20,7 +20,7 @@ if(isset($_POST['submit']))
     $unassignedstafftable->delete('id',$_POST['id']);
 
 
-    header('location: index.php?page=personaltutorlist');
+    header('location: /personaltutorlist');
     
 }
 

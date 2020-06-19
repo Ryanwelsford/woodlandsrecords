@@ -1,5 +1,5 @@
 <div class="container">
-<form action="index.php?page=personaltutor" method=POST>
+<form action="/personaltutor" method=POST>
             <div class="row row1 justify-content-center">
                 <div class="col-md-5 mycol">
 

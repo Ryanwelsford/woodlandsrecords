@@ -10,7 +10,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Display',
-        'location' => 'index.php?page=displaystaff'
+        'location' => '/displaystaff'
     ];
 }
 else{
@@ -19,7 +19,7 @@ $stmt = $stafftable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Display',
-    'location' => 'index.php?page=displaystaff'
+    'location' => '/displaystaff'
 ];
 }
 

@@ -11,7 +11,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'display',
-        'location' => 'index.php?page=displaypersonaltutor'
+        'location' => '/displaypersonaltutor'
     ];
 }
 else{
@@ -21,7 +21,7 @@ $stmt = $tuteestable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName'=> 'display',
-    'location'=> 'index.php?page=displaypersonaltutor'
+    'location'=> '/displaypersonaltutor'
 ];
 }
 $content = loadtemplate('../templates/displaypersonaltutor.html.php',$templatevars);

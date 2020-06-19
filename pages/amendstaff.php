@@ -9,7 +9,7 @@ if(isset($_POST['submit']))
     $stafftable->save($_POST['staff']);
     //ONCE THE TABLES ARE EMPTY MAKE SURE TO ALSO ADD THE FUNCTION TO 
     //UPDATE THE UNASSIGNEDSTAFF TABLE AS THEY WORK HAND IN HAND
-    header('location: index.php?page=liststaff');
+    header('location: /liststaff');
 }
 
 
