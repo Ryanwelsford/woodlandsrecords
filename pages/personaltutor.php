@@ -1,8 +1,5 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
 
 $unassignedstafftable = new databasetable($pdo,'unassignedstaff','id');
 $personaltutortable = new databasetable($pdo,'personaltutor','id');
@@ -23,7 +20,7 @@ if(isset($_POST['submit']))
     $unassignedstafftable->delete('id',$_POST['id']);
 
 
-    header('location: personaltutorlist.php');
+    header('location: index.php?page=personaltutorlist');
     
 }
 
@@ -34,5 +31,4 @@ $templatevars = [
 $content = loadtemplate('../templates/personaltutor.html.php',$templatevars);
 $header = 'Personal Tutor';
 $title = 'Personal Tutor';
-require '../templates/layout.html.php';
 ?>

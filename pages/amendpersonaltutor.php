@@ -12,7 +12,7 @@ if(isset($_POST['submit']))
         'staffid' => $_POST['staffid']
     ];
     $update->execute($record);
-    header('location: amendpersonaltutorlist.php');
+    header('location: index.php?page=amendpersonaltutorlist');
 }
 else{
 

@@ -32,7 +32,7 @@ if(isset($_POST['submit']))
         'course' => $_POST['course']
     ];
     $stmt->execute($values);
-    header('location: assignpersonaltutorlist.php');
+    header('location: index.php?page=assignpersonaltutorlist');
 }
 else{
 

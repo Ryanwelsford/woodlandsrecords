@@ -10,7 +10,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Select',
-        'location' => 'personaltutor.php'
+        'location' => 'index.php?page=personaltutor'
     ];
 }
 else{
@@ -19,7 +19,7 @@ $stmt = $unassignedstafftable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Select',
-    'location' => 'personaltutor.php'
+    'location' => 'index.php?page=personaltutor'
 ];
 }
 $content = loadtemplate('../templates/liststaff.html.php',$templatevars);
