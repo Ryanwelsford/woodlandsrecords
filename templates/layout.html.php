@@ -25,20 +25,20 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link hvr-sweep-to-right" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php">Create</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=amendstudentlist">Amend</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=archive">Archive</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=displaystudentlist">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/amendstudentlist">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/archive">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/displaystudentlist">Display</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Assign</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Staff</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=createstaff">Create</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=liststaff">Amend</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=archivestaff">Archive</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=staffdisplaylist">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/createstaff">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/liststaff">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/archivestaff">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/staffdisplaylist">Display</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Assign</a>
 
                     </div>
@@ -90,10 +90,10 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personal Tutor</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=personaltutorlist">Create</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=amendpersonaltutorlist">Amend</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=assignpersonaltutorlist">Assign</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="index.php?page=displaytutorlist">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/personaltutorlist">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/amendpersonaltutorlist">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/assignpersonaltutorlist">Assign</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/displaytutorlist">Display</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

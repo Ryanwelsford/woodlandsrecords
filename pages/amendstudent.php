@@ -8,7 +8,7 @@ if(isset($_POST['submit']))
     //once the submit button is pressed update the selected student that needed to be amended
 
     $studenttable->save($_POST['student']);
-    header('location: amendstudentlist.php');
+    header('location: /amendstudentlist');
     
 
 }

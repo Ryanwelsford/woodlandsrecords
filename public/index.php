@@ -7,9 +7,10 @@ require '../functions.php';
 $studenttable = new databasetable($pdo,'students','id');
 
 
-if(isset($_GET['page']))
+if($_SERVER['REQUEST_URI'] !== '/')
 {
-    require '../pages/' . $_GET['page'] . '.php';
+    // require '../pages/' . $_GET['page'] . '.php';
+    require '../pages/' .ltrim(explode('?', $_SERVER['REQUEST_URI'])[0], '/') . '.php';
 }
 else
 {

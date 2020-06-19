@@ -12,7 +12,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Amend',
-        'location' => 'index.php?page=amendstudent'
+        'location' => '/amendstudent'
     ];
 
 }
@@ -23,7 +23,7 @@ else{
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Amend',
-    'location' => 'index.php?page=amendstudent'
+    'location' => '/amendstudent'
 ];
 }
 $content = loadtemplate('../templates/amendstudentlist.html.php',$templatevars);
