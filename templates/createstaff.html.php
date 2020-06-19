@@ -9,7 +9,7 @@
                     <button class="w3-bar-item w3-button hvr-pulse-shrink" onclick="openContent('Academic')">Academic Info</button>
                 </div>
             </div>
-            <form action="createstaff.php" method="POST">
+            <form action="index.php?page=createstaff" method="POST">
             <div class="bottom">
                 <div class="inner">
                     <div id="Status" class="w3-container city">
