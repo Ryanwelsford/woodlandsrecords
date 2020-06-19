@@ -45,7 +45,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Archive',
-        'location' => 'archivestaff.php'
+        'location' => 'index.php?page=archivestaff'
     ];
 }
 else{
@@ -54,7 +54,7 @@ $stmt = $stafftable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Archive',
-    'location' => 'archivestaff.php'
+    'location' => 'index.php?page=archivestaff'
 ];
 }
 $content = loadtemplate('../templates/liststaff.html.php', $templatevars);
