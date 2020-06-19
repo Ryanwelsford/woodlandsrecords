@@ -1,8 +1,5 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
 
 $studenttable = new databasetable($pdo,'students','id');
 $archivedstudenttable = new databasetable($pdo,'archivedstudents','id');
@@ -61,5 +58,4 @@ $templatevars = [
 $content = loadtemplate('../templates/archive.html.php', $templatevars);
 $title = 'Archive Student';
 $header = 'Archive Student Record';
-require '../templates/layout.html.php';
 ?>

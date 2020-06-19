@@ -1,8 +1,6 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
+
 $studenttable = new databasetable($pdo,'students','id');
 
 if(isset($_GET['submit']))
@@ -14,7 +12,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Amend',
-        'location' => 'amendstudent.php'
+        'location' => 'index.php?page=amendstudent'
     ];
 
 }
@@ -25,13 +23,13 @@ else{
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Amend',
-    'location' => 'amendstudent.php'
+    'location' => 'index.php?page=amendstudent'
 ];
 }
 $content = loadtemplate('../templates/amendstudentlist.html.php',$templatevars);
 
 $title = 'Student List';
 $header = 'Student List';
-require '../templates/layout.html.php';
+// require '../templates/layout.html.php';
 
 ?>

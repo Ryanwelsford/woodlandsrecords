@@ -1,8 +1,5 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
 
 $tuteestable = new databasetable($pdo,'tutees','id');
 
@@ -14,7 +11,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'display',
-        'location' => 'displaypersonaltutor.php'
+        'location' => 'index.php?page=displaypersonaltutor'
     ];
 }
 else{
@@ -24,11 +21,10 @@ $stmt = $tuteestable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName'=> 'display',
-    'location'=> 'displaypersonaltutor.php'
+    'location'=> 'index.php?page=displaypersonaltutor'
 ];
 }
 $content = loadtemplate('../templates/displaypersonaltutor.html.php',$templatevars);
 $header = 'Personal Tutor List';
 $title = 'Display Personal Tutor';
-require '../templates/layout.html.php';
 ?>

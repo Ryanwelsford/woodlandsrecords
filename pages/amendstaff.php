@@ -1,8 +1,7 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
+
+
 
 $stafftable = new databasetable($pdo,'staff','id');
 if(isset($_POST['submit']))
@@ -23,5 +22,4 @@ $templatevars = [
 $content = loadtemplate('../templates/amendstaff.html.php', $templatevars);
 $header = 'Amend Staff Record';
 $title = 'Amend Staff Record';
-require '../templates/layout.html.php';
 ?>

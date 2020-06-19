@@ -1,8 +1,5 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
 
 $studenttable = new databasetable($pdo,'students','id');
 
@@ -26,5 +23,4 @@ $templatevars = [
 $content = loadtemplate('../templates/amendstudent.html.php',$templatevars);
 $header = 'Amend Student Record';
 $title = "Amend Student Record";
-require '../templates/layout.html.php';
 ?>

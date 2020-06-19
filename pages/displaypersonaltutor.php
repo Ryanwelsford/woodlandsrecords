@@ -1,8 +1,5 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
 
 $tuteestable = new databasetable($pdo,'tutees','id');
 
@@ -15,5 +12,5 @@ $templatevars = [
     'student' => $student
 ];
 $content = loadtemplate('../templates/personaltutordisplay.html.php',$templatevars);
-require '../templates/layout.html.php';
+
 ?>

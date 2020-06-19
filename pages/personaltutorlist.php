@@ -1,8 +1,6 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
+
 
 $unassignedstafftable = new databasetable($pdo,'unassignedstaff','id');
 if(isset($_GET['submit']))
@@ -27,5 +25,4 @@ $templatevars = [
 $content = loadtemplate('../templates/liststaff.html.php',$templatevars);
 $header = 'Staff List';
 $title = 'Personal Tutor';
-require '../templates/layout.html.php';
 ?>

@@ -1,8 +1,5 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
 
 $personaltutortable = new databasetable($pdo,'personaltutor','id');
 
@@ -28,5 +25,4 @@ $templatevars = [
 $content = loadtemplate('../templates/amendpersonaltutor.html.php',$templatevars);
 $header = 'Amend Personal Tutor';
 $title = 'Amend Personal Tutor';
-require '../templates/layout.html.php';
 ?>

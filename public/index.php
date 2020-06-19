@@ -12,8 +12,16 @@ if(isset($_POST['submit']))
     $studenttable->save($_POST['student']);
     
 }
-$content = loadtemplate('../templates/index.html.php',[]);
-$header = 'Create Student Record';
-$title = 'Create Student Record';
+if(!isset($_GET['page']))
+{
+    $content = loadtemplate('../templates/index.html.php',[]);
+    $header = 'Create Student Record';
+    $title = 'Create Student Record';
+}
+else
+{
+    require '../pages/' . $_GET['page'] . '.php';
+}
+
 require '../templates/layout.html.php';
 ?>

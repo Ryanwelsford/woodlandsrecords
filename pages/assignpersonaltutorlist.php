@@ -1,8 +1,5 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
 
 $studenttable = new databasetable($pdo,'students','id');
 $header = 'Student List';
@@ -16,7 +13,7 @@ if(isset($_GET['submit']))
     $templatevars = [
         'stmt' => $stmt,
         'buttonName' => 'Assign',
-        'location' => 'assignpersonaltutor.php'
+        'location' => 'index.php?page=assignpersonaltutor'
     ];
 }
 else{
@@ -25,9 +22,8 @@ $stmt = $studenttable->findAll();
 $templatevars = [
     'stmt' => $stmt,
     'buttonName' => 'Assign',
-    'location' => 'assignpersonaltutor.php'
+    'location' => 'index.php?page=assignpersonaltutor'
 ];
 }
 $content = loadtemplate('../templates/amendstudentlist.html.php',$templatevars);
-require '../templates/layout.html.php';
 ?>

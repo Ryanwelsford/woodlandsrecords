@@ -1,8 +1,6 @@
 <?php
 require '../database.php';
-require '../loadtemplate.php';
-require '../functions.php';
-require '../databasetable.php';
+
 
 $stafftable = new databasetable($pdo,'staff','id');
 $archivestafftable = new databasetable($pdo,'archivedstaff','id');
@@ -62,6 +60,5 @@ $templatevars = [
 $content = loadtemplate('../templates/liststaff.html.php', $templatevars);
 $header = 'Archive Staff Record';
 $title = 'Archive Staff Record';
-require '../templates/layout.html.php';
 
 ?>
