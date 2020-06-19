@@ -1,5 +1,5 @@
 <div class="container">
-<form action="amendstudent.php" method="POST">
+<form action="/amendstudent" method="POST">
             <div class="row row1 justify-content-between">
                 
                 <div class="col-md-5 mycol">

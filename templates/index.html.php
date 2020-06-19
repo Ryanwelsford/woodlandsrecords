@@ -1,5 +1,5 @@
 <div class="container">
-<form action="index.php" method=POST>
+<form action="/" method=POST>
             <div class="row row1 justify-content-between">
                 <div class="col-md-5 mycol">
                     <label for="status">Student Status: </label>
