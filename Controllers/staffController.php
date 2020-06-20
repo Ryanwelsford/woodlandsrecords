@@ -2,11 +2,13 @@
 class staffController{
     private $stafftable;
     private $unassignedstafftable;
+    private $archivestafftable;
 
-    public function __construct($stafftable, $unassignedstafftable)
+    public function __construct($stafftable, $unassignedstafftable,$archivestafftable)
     {
         $this->stafftable = $stafftable;
         $this->unassignedstafftable = $unassignedstafftable;
+        $this->archivestafftable = $archivestafftable;
     }
 
     public function createstaff()
@@ -83,7 +85,106 @@ class staffController{
             ];
     }
 
+
+    public function archivestaff()
+    {
+        if(isset($_POST['archive']))
+{
     
+    $move = $this->stafftable->find('id',$_POST['id'])[0];
+
+    $val = [
+        'staffstatus' => $move['staffstatus'],
+        'dormancyreason' => $move['dormancyreason'],
+        'firstname' => $move['firstname'],
+        'middlename' => $move['middlename'],
+        'surname' => $move['surname'],
+        'staffid' => $move['staffid'],
+        'address' => $move['address'],
+        'phonenumber' => $move['phonenumber'],
+        'email' => $move['email'],
+        'roles' => $move['roles'],
+        'specialistsub' => $move['specialistsub']
+    ];
+    //insert the archived staff into the archived staff table
+    $this->archivestafftable->insert($val);
+
+    // delete from the staff table as its now archived
+    $this->stafftable->delete('id',$move['id']);
+    
+}
+
+if(isset($_GET['submit']))
+{
+
+
+            $stmt = $this->stafftable->find('staffid',$_GET['search']);
+
+            
+        }
+        else{
+        $stmt = $this->stafftable->findAll();
+
+        
+        }
+
+        return [
+            'template' => 'liststaff.html.php',
+            'title' => 'Archive Staff Record',
+            'header' => 'Archive Staff Record',
+            'variables' => [
+                'stmt' => $stmt,
+                'buttonName' => 'Archive',
+                'location' => '/archivestaff'
+            ]
+            ];
+
+    }
+
+
+    public function staffdisplaylist()
+    {
+        if(isset($_GET['submit']))
+{
+
+    $stmt = $this->stafftable->find('staffid',$_GET['search']);
+    
+}
+else{
+
+$stmt = $this->stafftable->findAll();
+
+}
+
+
+
+return [
+    'template' => 'liststaff.html.php',
+    'title' => 'Staff List',
+    'header' => 'Staff List',
+    'variables' => [
+        'stmt' => $stmt,
+        'buttonName' => 'Display',
+        'location' => '/displaystaff'
+    ]
+    ];
+    }
+
+
+    public function displaystaff()
+    {
+        $staff = $this->stafftable->find('id',$_POST['id'])[0];
+
+
+return [
+    'template' => 'displaystaff.html.php',
+    'title' => 'Staff Record',
+    'header' => 'Staff Record',
+    'variables' => [
+        'staff' => $staff
+    ]
+    ];
+    }
 
 }
 ?>
