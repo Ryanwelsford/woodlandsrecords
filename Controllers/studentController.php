@@ -1,4 +1,5 @@
 <?php
+namespace Controllers;
 require '../database.php';
 class studentController {
     private $studenttable;
@@ -71,7 +72,7 @@ class studentController {
         {
             //once the submit button is pressed update the selected student that needed to be amended
 
-            $this->studenttable->save($_POST['student']);
+            $this->studenttable->update($_POST['student']);
             header('location: /amendstudentlist');
     
 

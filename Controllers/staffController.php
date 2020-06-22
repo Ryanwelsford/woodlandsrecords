@@ -1,4 +1,5 @@
 <?php
+namespace Controllers;
 class staffController{
     private $stafftable;
     private $unassignedstafftable;
@@ -65,7 +66,7 @@ class staffController{
     {
         if(isset($_POST['submit']))
         {
-            $this->stafftable->save($_POST['staff']);
+            $this->stafftable->update($_POST['staff']);
             //ONCE THE TABLES ARE EMPTY MAKE SURE TO ALSO ADD THE FUNCTION TO 
             //UPDATE THE UNASSIGNEDSTAFF TABLE AS THEY WORK HAND IN HAND
             header('location: /liststaff');

@@ -1,5 +1,5 @@
 <?php
-
+namespace Classes;
 class databasetable{
     private $table;
     private $pdo;
@@ -72,10 +72,10 @@ public function delete($field, $value)
 public function save($record)
 {
     try{
-        insert($this->pdo,$this->table,$record);
+        $this->insert($record);
     }
     catch(Exception $e) {
-        update($this->pdo, $this->table, $record, $this->primarykey);
+        $this->update($record);
     }
 }
 

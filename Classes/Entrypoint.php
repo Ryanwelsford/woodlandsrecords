@@ -1,18 +1,17 @@
 <?php
-// require '../database.php';
-require '../Classes/databasetable.php';
-require '../loadtemplate.php';
-// require '../functions.php';
-// require '../Controllers/studentController.php';
-// require '../Controllers/staffController.php';
-// require '../Controllers/personaltutorController.php';
-require '../autoloader/autoloader.php';
+namespace Classes;
+class Entrypoint {
+    private $routes;
 
-$routes = new \wucdb\routes();
-$entrypoint = new \Classes\Entrypoint($routes);
-$entrypoint->run();
+    public function __construct($routes) {
+        $this->routes = $routes;
+    }
 
-// $studenttable = new databasetable($pdo,'students','id');
+    public function run() {
+        $route = ltrim(explode('?', $_SERVER['REQUEST_URI'])[0], '/');
+        $page = $this->routes->callControllerFunction($route);
+//         require '../database.php';
+//         $studenttable = new databasetable($pdo,'students','id');
 // $archivestudenttable = new databasetable($pdo,'archivedstudents','id');
 // $stafftable = new databasetable($pdo,'staff','id');
 // $unassignedstafftable = new databasetable($pdo,'unassignedstaff','id');
@@ -107,8 +106,20 @@ $entrypoint->run();
 // {
 //     $page = $personaltutorcontroller->displaypersonaltutor();
 // }
-// $content = loadtemplate('../templates/' . $page['template'], $page['variables']);
-// $title = $page['title'];
-// $header = $page['header'];
-// require '../templates/layout.html.php';
+$content = loadtemplate('../templates/' . $page['template'], $page['variables']);
+$title = $page['title'];
+$header = $page['header'];
+require '../templates/layout.html.php';
+    }
+
+    function loadtemplate($filename,$templatevars)
+    {
+        extract($templatevars);
+        ob_start();
+        require $filename;
+        $output = ob_get_clean();
+        return $output;
+    }
+}
+
 ?>
