@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <script type="text/javascript" src="/tabScript.js"></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/diary.css"/>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         <title><?=$title?></title>
     </head>
     <body>
-        <img class="logo" src="images/new logo.jpg" alt="logo">
+
+        <?php 
+            if(isset($layout)) {
+                //maybe load a template at this point for login box or etc
+                ?>
+                <?=$layout;?>
+                <?php
+            }
+            else {
+        ?>
+        
+        <img class="logo" src="/images/new logo.jpg" alt="logo">
         <div class="top">
-            <h1 class="header"><?= $header ?></h1>
+            <h1 class="header"><?= $header ?? ''?></h1>
         </div>
         <nav class="navbar navbar-expand-lg justify-content-center">
             
@@ -23,7 +36,7 @@
             <!-- <div class="collapse navbar-collapse " id="navbarMenu"> -->        
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link hvr-sweep-to-right" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student</a>
+                    <a class="nav-link hvr-sweep-to-left" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Student</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="/">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/amendstudentlist">Amend</a>
@@ -54,7 +67,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Module</a>
+                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Module</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
@@ -65,7 +78,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Assignement</a>
+                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Assignement</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
@@ -77,7 +90,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Attendance</a>
+                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Attendance</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
@@ -88,7 +101,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personal Tutor</a>
+                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personal Tutor</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="/personaltutorlist">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/amendpersonaltutorlist">Amend</a>
@@ -97,27 +110,27 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timetable</a>
+                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timetable</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/select">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Delete</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/view">Display</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diary</a>
+                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diary</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Delete</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/diary/create">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/diary/results">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/diary/results">Delete</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/diary/view">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/diary/results">Search</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Report</a>
+                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Report</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
@@ -128,7 +141,10 @@
         <!-- </div> -->
         </nav>
 
-        <?= $content ?>
+        <?= $output ?>
 
         </body>
+        <?php
+        }
+        ?>
 </html>

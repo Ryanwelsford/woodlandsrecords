@@ -14,7 +14,6 @@ class studentController {
 
     public function home()
     {
-        session_start();
         if(isset($_POST['loginsubmit']))
         {
             if($_POST['username'] == 'admin' && $_POST['password'] == 'test')
@@ -24,11 +23,11 @@ class studentController {
         }
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
-        if(isset($_POST['submit']))
-        {
+            if(isset($_POST['submit']))
+            {
             //when submit button is pressed submit the information to the students table
             $this->studenttable->save($_POST['student']);
-        }
+            }
             // $content = loadtemplate('../templates/index.html.php',[]);
             // $header = 'Create Student Record';
             // $title = 'Create Student Record';
