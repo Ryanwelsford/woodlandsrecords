@@ -102,7 +102,7 @@ else if($route == 'home')
 {
     $page = $studentcontroller->home();
 }
-
+//testing
 return $page;
     }
 }
