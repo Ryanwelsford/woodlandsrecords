@@ -98,6 +98,10 @@ if($route == 'displaypersonaltutor')
 {
     $page = $personaltutorcontroller->displaypersonaltutor();
 }
+else if($route == 'home')
+{
+    $page = $studentcontroller->home();
+}
 
 return $page;
     }

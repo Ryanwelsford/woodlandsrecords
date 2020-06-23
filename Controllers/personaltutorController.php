@@ -16,6 +16,9 @@ class personaltutorController{
 
     public function personaltutorlist()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_GET['submit']))
         {
 
@@ -32,6 +35,7 @@ class personaltutorController{
         return [
             'template' => 'liststaff.html.php',
             'title' => 'Personal Tutor',
+            'layout' => 'layout',
             'header' => 'Staff List',
             'variables' => [
                 'stmt' => $stmt,
@@ -39,12 +43,24 @@ class personaltutorController{
                 'location' => '/personaltutor'
         ]
         ];
-
+    }
+    else{
+        return [
+            'template' => 'login.html.php',
+            'title' => 'Login',
+            'layout' => 'loginlayout',
+            'header' => 'Login',
+            'variables' => []
+        ];
+    }
 
     }
 
     public function personaltutor()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_POST['submit']))
         {
  
@@ -71,16 +87,30 @@ class personaltutorController{
         return [
             'template' => 'personaltutor.html.php',
             'title' => 'Personal Tutor',
+            'layout' => 'layout',
             'header' => 'Personal Tutor',
         'variables' => [
                 'staff' => $staff
             ]
             ];
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
     }
 
 
     public function amendpersonaltutorlist()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_GET['submit']))
 {
 
@@ -97,6 +127,7 @@ $stmt = $this->personaltutortable->findAll();
 return [
     'template' => 'amendpersonaltutorlist.html.php',
     'title' => 'Amend Personal Tutor',
+    'layout' => 'layout',
     'header' => 'Personal Tutor List',
     'variables' => [
         'stmt' => $stmt,
@@ -104,11 +135,24 @@ return [
         'location' => '/amendpersonaltutor'
     ]
     ];
+}
+else{
+    return [
+        'template' => 'login.html.php',
+        'title' => 'Login',
+        'layout' => 'loginlayout',
+        'header' => 'Login',
+        'variables' => []
+    ];
+}
 
     }
 
     public function amendpersonaltutor()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         $pdo = new \PDO('mysql:dbname=woodlands;host=127.0.0.1', 'student', 'student', [\PDO::ATTR_ERRMODE =>  \PDO::ERRMODE_EXCEPTION ]);
         if(isset($_POST['submit']))
         {
@@ -129,17 +173,30 @@ return [
             return [
                 'template' => 'amendpersonaltutor.html.php',
                 'title' => 'Amend Personal Tutor',
+                'layout' => 'layout',
                 'header' => 'Amend Personal Tutor',
                 'variables' => [
                     'staff' => $staff
                 ]
                 ];
+            }
+            else{
+                return [
+                    'template' => 'login.html.php',
+                    'title' => 'Login',
+                    'layout' => 'loginlayout',
+                    'header' => 'Login',
+                    'variables' => []
+                ];
+            }
     }
 
     public function assignpersonaltutorlist()
     {
+        session_start();
 
-
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_GET['submit']))
         {
 
@@ -155,6 +212,7 @@ return [
         return [
             'template' => 'amendstudentlist.html.php',
             'title' => 'Assign Personal Tutor',
+            'layout' => 'layout',
             'header' => 'Student List',
             'variables' => [
                 'stmt' => $stmt,
@@ -162,11 +220,23 @@ return [
                 'location' => '/assignpersonaltutor'
             ]
             ];
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
     }
 
     public function assignpersonaltutor()
     {
-
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         $stmt = $this->personaltutortable->findAll();
 
         if(isset($_POST['submit']))
@@ -205,17 +275,31 @@ return [
         return [
             'template' => 'assignpersonaltutor.html.php',
             'title' => 'Assign Personal Tutor',
+            'layout'=> 'layout',
             'header' => 'Assign Personal Tutor',
             'variables' => [
                 'stmt' => $stmt,
                 'student' => $student
             ]
             ];
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
 
     }
 
     public function displaytutorlist()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_GET['submit']))
         {
    
@@ -231,6 +315,7 @@ return [
         return [
             'template' => 'displaypersonaltutor.html.php',
             'title' => 'Display Personal Tutor',
+            'layout'=> 'layout',
             'header' => 'Personal Tutor List',
             'variables' => [
                 'stmt' => $stmt,
@@ -238,20 +323,43 @@ return [
                 'location' => '/displaypersonaltutor'
             ]
             ];
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
     }
 
     public function displaypersonaltutor()
     {
-
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         $student = $this->tuteestable->find('id',$_POST['id'])[0];
         return [
             'template' => 'personaltutordisplay.html.php',
             'title' => 'Personal Tutor',
+            'layout'=>'layout',
             'header' => 'Personal Tutor',
             'variables' => [
                 'student' => $student
             ]
             ];
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
     }
 
 }

@@ -109,7 +109,7 @@ class Entrypoint {
 $content = loadtemplate('../templates/' . $page['template'], $page['variables']);
 $title = $page['title'];
 $header = $page['header'];
-require '../templates/layout.html.php';
+require '../templates/' . $page['layout']. '.html.php';
     }
 
     function loadtemplate($filename,$templatevars)

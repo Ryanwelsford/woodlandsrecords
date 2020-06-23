@@ -14,6 +14,16 @@ class studentController {
 
     public function home()
     {
+        session_start();
+        if(isset($_POST['loginsubmit']))
+        {
+            if($_POST['username'] == 'admin' && $_POST['password'] == 'test')
+            {
+                $_SESSION['loggedin'] = true;
+            }
+        }
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_POST['submit']))
         {
             //when submit button is pressed submit the information to the students table
@@ -25,17 +35,29 @@ class studentController {
             
             return [
                 'template' => 'index.html.php',
+                'layout' => 'layout',
                 'title' => 'Create Student Record',
                 'header' => 'Create Student Record',
                 'variables' => []
             ];
-
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'layout' => 'loginlayout',
+                'title' => 'Login',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
     }
 
 
     public function amendstudentlist()
     {
-
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_GET['submit']))
         {
             //when searching for a student find the student with the id number entered
@@ -54,6 +76,7 @@ class studentController {
         return [
             'template' => 'amendstudentlist.html.php',
             'title' => 'Student List',
+            'layout' => 'layout',
             'header' => 'Student List',
             'variables' => [
                 'stmt' => $stmt,
@@ -62,12 +85,26 @@ class studentController {
             ]
             ];
 
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
+
 
     }
 
 
     public function amendstudent()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_POST['submit']))
         {
             //once the submit button is pressed update the selected student that needed to be amended
@@ -86,16 +123,29 @@ class studentController {
         return [
             'template' => 'amendstudent.html.php',
             'title' => 'Amend Student Record',
+            'layout' => 'layout',
             'header' => 'Amend Student Record',
             'variables' => [
                 'student' => $student
             ] 
             ];
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables'=> []
+            ];
+        }
     }
 
 
     public function archive()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
         if(isset($_POST['archive']))
 {
     $check = $this->studenttable->find('studentid',$_POST['id'])[0];
@@ -140,13 +190,24 @@ $stmt = $this->studenttable->findAll();
         return [
             'template' => 'archive.html.php',
             'title' => 'Archive Student',
+            'layout' => 'layout',
             'header' => 'Archive Student',
             'variables' => [
                 'stmt' => $stmt
             ]
             ];
 
+        }
+        else{
 
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
 
     }
 
@@ -154,11 +215,15 @@ $stmt = $this->studenttable->findAll();
 
 public function displaystudentlist()
 {
+    session_start();
+    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+    {
     $stmt = $this->studenttable->findAll();
 
 return [
     'template' => 'amendstudentlist.html.php',
     'title' => 'Student List',
+    'layout' => 'layout',
     'header' => 'Student List',
     'variables' => [
         'stmt' => $stmt,
@@ -166,29 +231,46 @@ return [
         'location' => '/displaystudent'
     ]
     ];
-
+    }
+    else{
+        return [
+            'template' => 'login.html.php',
+            'title' => 'Login',
+            'layout' => 'loginlayout',
+            'header' => 'Login',
+            'variables' => []
+        ];
+    }
 
 }
 
 public function displaystudent()
 {
+    session_start();
+    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+    {
     $student = $this->studenttable->find('id',$_POST['id'])[0];
 
-    // $templatevars = [
-    //     'student' => $student
-    // ];
-    // $content = loadtemplate('../templates/displaystudent.html.php',$templatevars);
-    // $title = 'Student Information';
-    // $header = 'Student Information';
 
     return [
         'template' => 'displaystudent.html.php',
         'title' => 'Student Information',
+        'layout' => 'layout',
         'header' => 'Student Information',
         'variables' => [
             'student' => $student
         ]
         ];
+    }
+    else{
+        return [
+            'template' => 'login.html.php',
+            'title' => 'Login',
+            'layout' => 'loginlayout',
+            'header' => 'Login',
+            'variables' => []
+        ];
+    }
 }
 
 

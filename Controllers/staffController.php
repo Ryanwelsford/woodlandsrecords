@@ -14,6 +14,9 @@ class staffController{
 
     public function createstaff()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_POST['submit']))
         {
         //when submit button pressed insert info in the 2 tables
@@ -26,15 +29,28 @@ class staffController{
             return[
                 'template' => 'createstaff.html.php',
                 'title' => 'Create Staff Record',
+                'layout' => 'layout',
                 'header' => 'Create Staff Record',
                 'variables' => []
             ];
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
     }
 
 
     public function liststaff()
     {
-
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_GET['submit']))
         {
 
@@ -51,6 +67,7 @@ class staffController{
     return [
         'template' => 'liststaff.html.php',
         'title' => 'Staff List',
+        'layout' => 'layout',
         'header' => 'Staff List',
         'variables' => [
             'stmt' => $stmt,
@@ -58,12 +75,24 @@ class staffController{
             'location' => '/amendstaff'
         ]
         ];
-
+    }
+    else{
+        return [
+            'template' => 'login.html.php',
+            'title' => 'Login',
+            'layout' => 'loginlayout',
+            'header' => 'Login',
+            'variables' => []
+        ];
+    }
 
     }
 
     public function amendstaff()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_POST['submit']))
         {
             $this->stafftable->update($_POST['staff']);
@@ -79,16 +108,30 @@ class staffController{
         return [
             'template' => 'amendstaff.html.php',
             'title' => 'Amend Staff Record',
+            'layout' => 'layout',
             'header' => 'Amend Staff Record',
             'variables' => [
                 'staff' => $staff
             ]
             ];
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
     }
 
 
     public function archivestaff()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_POST['archive']))
 {
     
@@ -132,6 +175,7 @@ if(isset($_GET['submit']))
         return [
             'template' => 'liststaff.html.php',
             'title' => 'Archive Staff Record',
+            'layout' => 'layout',
             'header' => 'Archive Staff Record',
             'variables' => [
                 'stmt' => $stmt,
@@ -139,12 +183,25 @@ if(isset($_GET['submit']))
                 'location' => '/archivestaff'
             ]
             ];
+        }
+        else{
+            return [
+                'template' => 'login.html.php',
+                'title' => 'Login',
+                'layout' => 'loginlayout',
+                'header' => 'Login',
+                'variables' => []
+            ];
+        }
 
     }
 
 
     public function staffdisplaylist()
     {
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         if(isset($_GET['submit']))
 {
 
@@ -162,6 +219,7 @@ $stmt = $this->stafftable->findAll();
 return [
     'template' => 'liststaff.html.php',
     'title' => 'Staff List',
+    'layout' => 'layout',
     'header' => 'Staff List',
     'variables' => [
         'stmt' => $stmt,
@@ -169,22 +227,48 @@ return [
         'location' => '/displaystaff'
     ]
     ];
+
+}
+else{
+    return [
+        'template' => 'login.html.php',
+        'title' => 'Login',
+        'layout' => 'loginlayout',
+        'header' => 'Login',
+        'variables' => []
+    ];
+}
     }
 
 
     public function displaystaff()
     {
+        session_start();
+
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
+        {
         $staff = $this->stafftable->find('id',$_POST['id'])[0];
 
 
 return [
     'template' => 'displaystaff.html.php',
     'title' => 'Staff Record',
+    'layout' => 'layout',
     'header' => 'Staff Record',
     'variables' => [
         'staff' => $staff
     ]
     ];
+}
+else{
+    return [
+        'template' => 'login.html.php',
+        'title' => 'Login',
+        'layout' => 'loginlayout',
+        'header' => 'Login',
+        'variables' => []
+    ];
+}
     }
 
 }
