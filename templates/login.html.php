@@ -10,7 +10,7 @@
             <!-- <input id="login-button" class="button" type="submit" name="submit" value="Login"> -->
             <div class="logbutton">
             <!-- <input id="login-button" class="button" type="submit" name="loginsubmit" value="Login"> -->
-            <input type="submit" name="loginsubmit">
+            <input type="submit" name="loginsubmit" value="Login">
             </div>
         </form>
     </div>
