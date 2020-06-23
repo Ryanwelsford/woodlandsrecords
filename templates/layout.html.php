@@ -13,23 +13,37 @@
         <title><?=$title?></title>
     </head>
     <body>
-
+    
         <?php 
-            if(isset($layout)) {
+        //var_dump($route);
+        
+            if($route == 'login') {
                 //maybe load a template at this point for login box or etc
                 ?>
-                <?=$layout;?>
+                <img class="logo" src="/images/new logo.jpg" alt="logo"> 
+                <?=$output;?>
                 <?php
             }
             else {
         ?>
-        
-        <img class="logo" src="/images/new logo.jpg" alt="logo">
-        <div class="top">
-            <h1 class="header"><?= $header ?? ''?></h1>
-        </div>
-        <nav class="navbar navbar-expand-lg justify-content-center">
+        <div class = "logo-container">
+            <img class="logo" src="/images/new logo.jpg" alt="logo">
+            <div class="login-info">
+                <img class="usericon" src="/images/usericon.png"> <?=$user->name ?? 'Admin'?>
+                <div class="btn-group">
+                <button class="btn btn-secondary btn-sm dropdown-toggle logout-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item hvr-grow-shadow" href="/">Logout</a>
+                    <a class="dropdown-item hvr-grow-shadow" href="/">Settings</a>
+                </div>
+                </div>
+                
+            </div>
             
+        </div>   
+        <nav class="navbar navbar-expand-lg justify-content-center">
             <!-- <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
                 <span class="navbar-toggler-icon"></span>
             </button> -->

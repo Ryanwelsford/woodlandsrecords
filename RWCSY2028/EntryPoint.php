@@ -9,7 +9,7 @@ class EntryPoint {
 
 	public function run() {
 		//get the url
-		//session_start();
+		session_start();
 		$route = ltrim(explode('?', $_SERVER['REQUEST_URI'])[0], '/');
 
 		//get routes array 

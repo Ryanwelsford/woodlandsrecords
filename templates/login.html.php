@@ -1,6 +1,9 @@
 <div class="container">
     <div class="con">
+    
         <form class="form" action="/home" method="POST">
+            <h3>Woodlands University College</h3>
+            <p>Records Management Login</p>
             <input class="in" type="text" name="username" placeholder="Username">
             <input class="in" type="password" name="password" placeholder="Password">
             <!-- <button class="button">Login</button> -->

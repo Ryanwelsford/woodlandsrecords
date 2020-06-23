@@ -335,12 +335,51 @@ section .diary-delete {
     display: flex;
     flex-direction: row;
 }
-
+.logo-container {
+    width: 150px;
+}
 .navbar {
-    width: 80vw;
+    width: 77vw;
     margin-left: auto;
     margin-right: auto;
-    top: 0px;
+    top: -55px;
     font-size: 2.2vw;
+    display: flex;
+    align-content: flex-end;
 }
 
+.form h3, .form p{
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+.login-info {
+    font-size: 1.2vw;
+    width: 150px;
+    background-color: #e1e1e1;
+    display: flex;
+    flex-direction: row;
+}
+.login-info .btn-group {
+    margin-left: auto;
+}
+.usericon {
+    width:25px;
+    height:25px;
+    background-color: #e1e1e1;
+    margin-right: auto;
+    margin-top: 1px;
+    margin-left: 2px;
+}
+
+.user-dropdown {
+    height: 20px;
+    font-size: 20px;
+}
+
+.logout-button {
+    background-color: #e1e1e1;
+    border: none;
+    color: black;
+    margin-left: auto;
+}
