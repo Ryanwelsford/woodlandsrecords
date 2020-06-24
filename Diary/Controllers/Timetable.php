@@ -275,6 +275,7 @@ private $timetable_slotsTable;
     //page needs to function better, should search course table for name/year etc return id and then include that in the $search term
     public function results() {
         $title = "Search Results";
+        $courseSearchBox = new \RWCSY2028\TableSearchBox($this->tempCourseTable);
         $tableSearchBox = new \RWCSY2028\TableSearchBox($this->timetableTable);
         $searchBox = $tableSearchBox->generalSearchBox();
         
@@ -314,12 +315,19 @@ private $timetable_slotsTable;
 
             //$results = $this->tableSearchBox->getSearchResults($_GET['field'], $search, $limit);
         }
+        //pull course information based on search term, add that to the search term for timetable searches 
+        $courseResults = $courseSearchBox->getGeneralSearchResults($search);
+        foreach($courseResults as $course) {
+            $search .= " ".$course->id;
+        }
+
         $generalResults = $tableSearchBox->getGeneralSearchResults($search,$limit);
         $totalSearchResults = sizeof($tableSearchBox->getGeneralSearchResults($search));
         $pageNext = $tableSearchBox->paginationNext($pageno, $totalSearchResults, $resultsperpage);
         $pagePrevious = $tableSearchBox->paginationPrevious($pageno);
         $results = $generalResults;
 
+        //map course to timetable result
         foreach ($results as $result) {
             $course = $this->tempCourseTable->find('id', $result->course_id)[0];
             $result->course = $course;
@@ -336,8 +344,19 @@ private $timetable_slotsTable;
                 'pageno' => $pageno,
                 'resultsperpage' => $resultsperpage,
                 'pageNext' => $pageNext,
-                'pagePrevious' => $pagePrevious
+                'pagePrevious' => $pagePrevious,
             ]
         ];
+    }
+
+    public function delete() {
+        if(isset($_POST['timetable'])) {
+            $timetable = $_POST['timetable'];
+            //remove all mappings relating to timetable
+            $this->timetable_slotsTable->deleteWhere('timetable_id', $timetable['id'], 12);
+            //remove timetable reference
+            $this->timetableTable->delete($timetable['id']);
+            header('location: /timetable/results');
+        }
     }
 }

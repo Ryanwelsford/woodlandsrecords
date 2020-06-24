@@ -132,9 +132,9 @@
                     <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timetable</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/select">Create</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Delete</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Delete</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Archive</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/view">Display</a>
                     </div>
                 </li>

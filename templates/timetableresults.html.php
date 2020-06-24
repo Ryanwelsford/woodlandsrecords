@@ -39,8 +39,8 @@
                     
                 ?>
                     <td><?=$result->id;?></td>
-                    <td><?=$result->course->name;?></td>
-                    <td><?=$result->course->year;?></td>
+                    <td><?=$result->course->name ?? 'Course not found'?></td>
+                    <td><?=$result->course->year ?? 'Course not found'?></td>
                     <td><?=$result->date;?></td>
                     <td>
                         <article class="search-buttons-links">
@@ -49,9 +49,9 @@
                             <input class ="search-button search-button-amend" type ="submit" value="Amend">
                         </form>
                         <a href="/timetable/view?id=<?=$result->id;?>"><button class="search-button">View</button></a>
-                        <form method="POST" action="/diary/delete">
-                            <input type="hidden" value="<?=$result->id;?>" name="appointment[id]">
-                            <input type="hidden" value="<?=$result->date;?>" name="appointment[date]">
+                        <a href="/timetable/view?id=<?=$result->id;?>"><button class="search-button search-button-archive">Archive</button></a>
+                        <form method="POST" action="/timetable/delete">
+                            <input type="hidden" value="<?=$result->id;?>" name="timetable[id]">
                             <input class ="search-button search-button-delete" type ="submit" value="Delete">
                         </form>
                     </td>

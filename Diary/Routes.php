@@ -325,6 +325,12 @@ class Routes implements \RWCSY2028\Routes {
                     'function' => 'results'
                 ]
             ],
+            'timetable/delete' => [
+                'POST' => [
+                    'controller' => $timetableController,
+                    'function' => 'delete'
+                ]
+            ],
             '' => [
                 'GET' => [
                     'controller' =>$studentcontroller,

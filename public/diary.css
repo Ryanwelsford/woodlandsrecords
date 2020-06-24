@@ -322,6 +322,9 @@ section .diary-delete {
 .search-button-delete {
     background-color: red;
 }
+.search-button-archive {
+    background-color: rgb(77, 185, 149);
+}
 .search-result {
     margin-top: 2.5em;
 }
