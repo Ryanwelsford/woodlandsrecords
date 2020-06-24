@@ -1,4 +1,5 @@
 <?php
+//this is a test of github working on master
 // require '../database.php';
 require '../Classes/databasetable.php';
 require '../loadtemplate.php';
