@@ -229,6 +229,10 @@ class Diary {
         else {
             $pageno = 1;
         }
+        $resultsperpage = 5;
+        $limit['offset'] = ($pageno-1)*$resultsperpage;
+        $limit['total'] = $resultsperpage;
+        
         if(isset($_GET['search']) && isset($_GET['pageno']) && $_GET['pageno'] != '') {
             $search = $_GET['search'];
             $search = strtolower(str_replace('/', '-', $search));
@@ -245,29 +249,29 @@ class Diary {
             
             $heading = "Search Results";
             
-            $resultsperpage = 5;
-            $limit['offset'] = ($pageno-1)*$resultsperpage;
-            $limit['total'] = $resultsperpage;
 
             $generalResults = $this->tableSearchBox->getGeneralSearchResults($search,$limit);
             //var_dump($generalResults);
-            $totalSearchResults = sizeof($this->tableSearchBox->getGeneralSearchResults($search));
-            $pageNext = $this->tableSearchBox->paginationNext($pageno, $totalSearchResults, $resultsperpage);
-            $pagePrevious = $this->tableSearchBox->paginationPrevious($pageno);
             //$results = $this->tableSearchBox->getSearchResults($_GET['field'], $search, $limit);
 
             $results = $generalResults;
             
         }
         else {
-            $results = false;
-            $totalSearchResults = 0;
-            $resultsperpage =0;
-            $pageNext = $pagePrevious = false;
-            $heading = "Search Appointments";
+            $heading = "Displaying All Appointments";
+            
+            $search = '';
+            //var_dump($generalResults);
+
+            //$results = $this->tableSearchBox->getSearchResults($_GET['field'], $search, $limit);
         }
         //results array would in theory be the results of query of searchbox.
-        
+        $generalResults = $this->tableSearchBox->getGeneralSearchResults($search,$limit);
+        $totalSearchResults = sizeof($this->tableSearchBox->getGeneralSearchResults($search));
+        $pageNext = $this->tableSearchBox->paginationNext($pageno, $totalSearchResults, $resultsperpage);
+        $pagePrevious = $this->tableSearchBox->paginationPrevious($pageno);
+        $results = $generalResults;
+
         return [
             'template' => 'diaryresults.html.php',
             'title' => $title,

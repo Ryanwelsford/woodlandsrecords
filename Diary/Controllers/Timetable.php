@@ -198,6 +198,7 @@ private $timetable_slotsTable;
             //find tid and find all matching mappings, rebuild array
             $results = $this->timetableTable->find('id', $_GET['id']);
             //prevent errors from 0 results i.e search for invalid id
+            $t_id = $_GET['id'];
             if(isset($results[0])) {
                 $timetableObject = $results[0];
                 $timetable = $this->recreateTimetableArray($timetableObject->id);
@@ -206,12 +207,13 @@ private $timetable_slotsTable;
             else {
                 $timetable = false;
             }
+
         }
         else {
             $timetable = false;
             $t_id = '';
         }
-
+        //var_dump($t_id);
         $optionModules[] = '';
         for ($i = 1; $i < 7; $i++) {
             $methodString = 'module_'.$i;
@@ -268,5 +270,74 @@ private $timetable_slotsTable;
         }
         //$timetable = false;
         return $timetable;
+    }
+
+    //page needs to function better, should search course table for name/year etc return id and then include that in the $search term
+    public function results() {
+        $title = "Search Results";
+        $tableSearchBox = new \RWCSY2028\TableSearchBox($this->timetableTable);
+        $searchBox = $tableSearchBox->generalSearchBox();
+        
+        if(isset($_GET['pageno']) && $_GET['pageno'] > 1) {
+            $pageno = $_GET['pageno'];
+        }
+        else {
+            $pageno = 1;
+        }
+        $resultsperpage = 5;
+        $limit['offset'] = ($pageno-1)*$resultsperpage;
+        $limit['total'] = $resultsperpage;
+
+        if(isset($_GET['search']) && isset($_GET['pageno']) && $_GET['pageno'] != '') {
+            $search = $_GET['search'];
+            $search = strtolower(str_replace('/', '-', $search));
+            $dateOptions = explode('-',$search);
+            if(sizeof($dateOptions) == 3) {
+                try {
+                    $date = new \DateTime($search);
+                    $search = $date->format('Y-m-d');
+                }
+                catch (\Exception $e) {
+                    $search = $_GET['search'];
+                }
+            }
+            
+            $heading = "Timetable Search Results";
+            
+        }
+        else {
+            $title = "Select Results";
+            $heading = "Displaying All Timetables";
+            
+            $search = '';
+            //var_dump($generalResults);
+
+            //$results = $this->tableSearchBox->getSearchResults($_GET['field'], $search, $limit);
+        }
+        $generalResults = $tableSearchBox->getGeneralSearchResults($search,$limit);
+        $totalSearchResults = sizeof($tableSearchBox->getGeneralSearchResults($search));
+        $pageNext = $tableSearchBox->paginationNext($pageno, $totalSearchResults, $resultsperpage);
+        $pagePrevious = $tableSearchBox->paginationPrevious($pageno);
+        $results = $generalResults;
+
+        foreach ($results as $result) {
+            $course = $this->tempCourseTable->find('id', $result->course_id)[0];
+            $result->course = $course;
+        }
+        return [
+            'template' => 'timetableresults.html.php',
+            'title' => $title,
+            'variables' => 
+            [ 
+                'heading' => $heading,
+                'searchBox' => $searchBox,
+                'results' => $results,
+                'totalSearchResults' => $totalSearchResults,
+                'pageno' => $pageno,
+                'resultsperpage' => $resultsperpage,
+                'pageNext' => $pageNext,
+                'pagePrevious' => $pagePrevious
+            ]
+        ];
     }
 }

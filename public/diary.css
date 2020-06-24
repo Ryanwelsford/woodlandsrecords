@@ -307,13 +307,14 @@ section .diary-delete {
     display: flex;
     flex-direction: row;
 }
-.search-buttons-links button {
+.search-buttons-links button, .search-button-links form input {
     margin-right: 4px;
 }
 .search-button {
     border: none;
     color: white;
     background-color: blue;
+    margin-right: 4px;
 }
 .search-button-amend {
     background-color: green;

@@ -24,10 +24,9 @@
                 <table class="search-results-table">
                             <tr>
                                 <th>Id</th>
-                                <th>Type</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Details</th>
+                                <th>Course Name</th>
+                                <th>Course Year</th>
+                                <th>Date Created</th>
                                 <th>Links</th>
                             </tr>
                             
@@ -37,20 +36,19 @@
                     ?>
                     <tr>
                     <?php
-                    //update this into an actual search table would be ideal
-                    $a = strtotime($result->date);
-                    $yearMonth = date('Y-m', $a);
                     
                 ?>
                     <td><?=$result->id;?></td>
-                    <td><?=ucwords($result->type);?></td>
-                    <td><?=date('d-m-Y', $a);?></td>
-                    <td><?=$result->start_time;?>-<?=$result->end_time;?></td>
-                    <td><?=$result->details;?></td>
+                    <td><?=$result->course->name;?></td>
+                    <td><?=$result->course->year;?></td>
+                    <td><?=$result->date;?></td>
                     <td>
                         <article class="search-buttons-links">
-                        <a href="/diary/create?id=<?=$result->id;?>"><button class=" search-button search-button-amend">Amend</button></a>
-                        <a href="/diary/view?yearMonth=<?=$yearMonth;?>"><button class="search-button">View Calendar</button></a>
+                        <form method="POST" action="/timetable/create?id=<?=$result->id;?>">
+                            <input type="hidden" value="<?=$result->course_id;?>" name="course[id]">
+                            <input class ="search-button search-button-amend" type ="submit" value="Amend">
+                        </form>
+                        <a href="/timetable/view?id=<?=$result->id;?>"><button class="search-button">View</button></a>
                         <form method="POST" action="/diary/delete">
                             <input type="hidden" value="<?=$result->id;?>" name="appointment[id]">
                             <input type="hidden" value="<?=$result->date;?>" name="appointment[date]">

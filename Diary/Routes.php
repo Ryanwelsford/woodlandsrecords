@@ -319,6 +319,12 @@ class Routes implements \RWCSY2028\Routes {
                     'function' => 'selectionSearch'
                 ]
             ],
+            'timetable/results' => [
+                'GET' => [
+                    'controller' => $timetableController,
+                    'function' => 'results'
+                ]
+            ],
             '' => [
                 'GET' => [
                     'controller' =>$studentcontroller,

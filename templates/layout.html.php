@@ -14,7 +14,7 @@
         
         <title><?=$title?></title>
     </head>
-    <body>
+    
     
         <?php 
         //var_dump($route);
@@ -22,12 +22,15 @@
             if($route == 'login') {
                 //maybe load a template at this point for login box or etc
                 ?>
+                <body>
                 <img class="logo" src="/images/new logo.jpg" alt="logo"> 
                 <?=$output;?>
                 <?php
+                //to-do add section to enable printout of reports without nav and background image
             }
             else {
         ?>
+        <body>
         <div class = "logo-container">
             <img class="logo" src="/images/new logo.jpg" alt="logo">
             <div class="login-info">
