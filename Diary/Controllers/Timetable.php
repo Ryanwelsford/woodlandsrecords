@@ -10,6 +10,7 @@ private $tempCourseTable;
 private $roomDetails;
 private $timetableTable;
 private $timetable_slotsTable;
+private $autoDays;
 
     public function __construct($timetableTable, $timetable_slotsTable, $tempCourseTable,$roomsTable) {
         $this->timetableTable = $timetableTable;
@@ -25,6 +26,8 @@ private $timetable_slotsTable;
             "Thursday" => "Thu",
             "Friday" => "Fri"
         ];
+        
+        $this->autoDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
         $this->timeslots = ['9-10', '10-11', '11-12', '12-1', '1-2', '2-3', '3-4', '4-5'];
     }
 
@@ -153,7 +156,7 @@ private $timetable_slotsTable;
             $t_id = $_POST['t_id'];
             //errors test + save to tables
             //$errors[] = 'placeholder';
-            
+            $errors = $this->timetableErrors($errors);
             if(sizeof($errors) == 0) {
                 
                 //whats the logic here
@@ -362,15 +365,41 @@ private $timetable_slotsTable;
 
     public function automate() {
         $title = "Automated Creation";
+        //find info on course
         if(isset($_POST['course'])) {
             $course = $_POST['course']['id'];
         }
+        //used for testing to prevent post
         else {
             $course = 1;
         }
         $course = $this->tempCourseTable->find('id', $course)[0];
-        var_dump($course);
-        var_dump($this->rooms);
+        //establish list of modules, each should be input twice, once for lecture once for practical
+        $course_mods = [];
+        for ($i = 1; $i < 7; $i++) {
+            $methodString = 'module_'.$i;
+            if(isset($course->$methodString) && $course->$methodString != '') {
+                $course_mods[] = $course->$methodString;
+                $course_mods[] = $course->$methodString;
+            }
+        }
+
+        $timetableArray = $this->generateTimetable($course_mods); 
+        $timetable = [];
+        //reorganise array in order of day and timeslot
+        foreach ($this->days as $key => $day) {
+            if(isset($timetableArray[$day])) {
+                foreach ($this->timeslots as $tskey => $timeslot) {
+                    if(isset($timetableArray[$day][$timeslot])) {
+                        $timetable[$day][$timeslot] = $timetableArray[$day][$timeslot];
+                    }
+                }
+            }
+        }
+        $this->updateRooms($timetable);
+
+        //at this point we have a structure that matches the other timetable structures
+        var_dump($timetable);
         return [
             'template' => 'automatedump.html.php',
             'title' => $title,
@@ -378,5 +407,72 @@ private $timetable_slotsTable;
             [ 
             ]
         ];
+    }
+
+    function randomComboLecture(&$day, &$slot) {
+        $randomDay = rand(0, sizeof($this->autoDays)-1);
+        $day = $this->autoDays[$randomDay];
+
+        $randomSlot = rand(0, sizeof($this->timeslots)-1);
+        $slot = $this->timeslots[$randomSlot];
+
+    }
+
+    function randomRoom(&$room, $x, $y) {
+        $randomRoom = rand($x,$y);
+        $room = $this->rooms[$randomRoom]->name;
+    }
+
+    function generateTimetable($course_mods) {
+        $timetableArray = [];
+        foreach($course_mods as $mod) {
+            //pick day
+            $day;
+            $slot;
+            //generate combo, if already set regenerate
+            $this->randomComboLecture($day, $slot);
+            while(isset($timetableArray[$day][$slot])) {
+                $this->randomComboLecture($day, $slot);
+            }
+            
+            if(!isset($timetableArray[$day][$slot])) {
+                //only add if unique slot/day combo
+                $timetableArray[$day][$slot] = [
+                'module' => $mod
+                ];
+            }
+            
+        }
+        return $timetableArray;
+    }
+
+    function updateRooms(&$timetableArray) {
+        $moduleTrack = [];
+        $room;
+
+        foreach ($this->days as $key => $day) {
+            if(isset($timetableArray[$day])) {
+                foreach ($this->timeslots as $tskey => $timeslot) {
+                    if(isset($timetableArray[$day][$timeslot])) {
+
+                        if(!in_array($timetableArray[$day][$timeslot]['module'], $moduleTrack)) {
+                            $moduleTrack[] = $timetableArray[$day][$timeslot]['module'];
+                            $this->randomRoom($room, 0, 3);
+                        }
+                        else {
+                            $this->randomRoom($room, 4, sizeof($this->rooms)-1);
+                        }
+
+                        $timetableArray[$day][$timeslot]['room'] = $room;
+                    }
+                }
+            }
+        }
+        
+    }
+
+    function timetableErrors($errors) {
+
+        return $errors;
     }
 }
