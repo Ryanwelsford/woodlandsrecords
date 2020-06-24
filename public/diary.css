@@ -226,8 +226,9 @@ section .diary-delete {
 
 }
 .submit-hold {
+    width: inherit;
     display:flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 .table-submit {
     margin-top: 3vh;

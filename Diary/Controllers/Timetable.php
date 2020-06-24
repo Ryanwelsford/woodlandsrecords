@@ -359,4 +359,24 @@ private $timetable_slotsTable;
             header('location: /timetable/results');
         }
     }
+
+    public function automate() {
+        $title = "Automated Creation";
+        if(isset($_POST['course'])) {
+            $course = $_POST['course']['id'];
+        }
+        else {
+            $course = 1;
+        }
+        $course = $this->tempCourseTable->find('id', $course)[0];
+        var_dump($course);
+        var_dump($this->rooms);
+        return [
+            'template' => 'automatedump.html.php',
+            'title' => $title,
+            'variables' => 
+            [ 
+            ]
+        ];
+    }
 }
