@@ -114,7 +114,7 @@ else if($route == 'home')
 {
     $page = $studentcontroller->home();
 }
-//test
+
 return $page;
     }
 }
