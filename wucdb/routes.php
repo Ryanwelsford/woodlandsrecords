@@ -4,17 +4,29 @@ class routes {
     public function callControllerFunction($route) {
         require '../database.php';
         $studenttable = new \Classes\databasetable($pdo,'students','id');
-$archivestudenttable = new \Classes\databasetable($pdo,'archivedstudents','id');
-$stafftable = new \Classes\databasetable($pdo,'staff','id');
-$unassignedstafftable = new \Classes\databasetable($pdo,'unassignedstaff','id');
-$archivestafftable = new \Classes\databasetable($pdo,'archivedstaff','id');
-$unassignedstafftable = new \Classes\databasetable($pdo,'unassignedstaff','id');
-$personaltutortable = new \Classes\databasetable($pdo,'personaltutor','id');
-$tuteestable = new \Classes\databasetable($pdo,'tutees','id');
+        $archivestudenttable = new \Classes\databasetable($pdo,'archivedstudents','id');
+        $stafftable = new \Classes\databasetable($pdo,'staff','id');
+        $unassignedstafftable = new \Classes\databasetable($pdo,'unassignedstaff','id');
+        $archivestafftable = new \Classes\databasetable($pdo,'archivedstaff','id');
+        $unassignedstafftable = new \Classes\databasetable($pdo,'unassignedstaff','id');
+        $personaltutortable = new \Classes\databasetable($pdo,'personaltutor','id');
+        $tuteestable = new \Classes\databasetable($pdo,'tutees','id');
 
-$studentcontroller = new \Controllers\studentController($studenttable,$archivestudenttable);
-$staffcontroller = new \Controllers\staffController($stafftable,$unassignedstafftable,$archivestafftable);
-$personaltutorcontroller = new \Controllers\personaltutorController($unassignedstafftable,$personaltutortable,$studenttable,$tuteestable);
+        $studentcontroller = new \Controllers\studentController($studenttable,$archivestudenttable);
+        $staffcontroller = new \Controllers\staffController($stafftable,$unassignedstafftable,$archivestafftable);
+        $personaltutorcontroller = new \Controllers\personaltutorController($unassignedstafftable,$personaltutortable,$studenttable,$tuteestable);
+
+        //ryans section of tables and controllers
+        $appointmentsTable = new \RWCSY2028\DatabaseTable($pdo, 'appointment', 'id');
+        $diariesTable = new \RWCSY2028\DatabaseTable($pdo, 'diary', 'id');
+        //timetable tables
+        $roomsTable = new \RWCSY2028\DatabaseTable($pdo, 'rooms', 'id');
+        $timetableTable = new \RWCSY2028\DatabaseTable($pdo, 'timetable', 'id');
+        $timetable_slotsTable = new \RWCSY2028\DatabaseTable($pdo, 'timetable_slots', 'id');
+        $tempCourseTable = new \RWCSY2028\DatabaseTable($pdo, 'temp_course', 'id');
+
+        $timetableController = new \Diary\Controllers\Timetable($timetableTable, $timetable_slotsTable, $tempCourseTable, $roomsTable);
+        $diaryController = new \Diary\Controllers\Diary($diariesTable, $appointmentsTable, $_GET, $_POST);
 
 
 
@@ -102,7 +114,7 @@ else if($route == 'home')
 {
     $page = $studentcontroller->home();
 }
-//testing
+
 return $page;
     }
 }

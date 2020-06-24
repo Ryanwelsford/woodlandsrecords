@@ -1,0 +1,390 @@
+
+.large-table {
+    text-align: center;
+    /* border collapse makes each td th table have the same border */
+    border-collapse: collapse;
+    /*background-color: aquamarine;*/
+    text-decoration: none;
+}
+.diary h3, .large-table, .heading-course {
+    width: 70vw;
+    margin: 0vh 2vw 0vh 2vw;
+}
+.large-table,.large-table tr,.large-table th,.large-table td {
+    border: 1px solid grey;
+}
+
+.large-table td {
+    background-color: rgb(210, 235, 243);
+    width: 10vw;
+    height: 12vh;
+    font-size: 2.4vh;
+}
+/*colours for appointments can be hotpink light yellow and light red */
+/*redundant td no longer have ul inside*/
+.diary-table td ul {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
+/*sets text colour of final row of diary*/
+.diary-table th:nth-of-type(7), .diary-table td:nth-last-of-type(1) a {
+    color: red;
+}
+/*sets text colour of first row of diary*/
+
+.diary-table th:nth-of-type(1), .diary-table td:nth-last-of-type(7) a {
+    color: rgb(24, 192, 24);
+}
+/*set links in nav and appointment types to black, overrides colour due to nth*/
+.diary a , .diary-table div{
+    color: black;
+    text-decoration: none;
+}
+.diary-delete input {
+    color: red;
+    border: none;
+    background-color: inherit;
+}
+.diary-delete input:hover {
+    -webkit-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    transform: scale(1.3);
+    color: gold;
+}
+
+/*flex container for the page*/
+.table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    width: 74vw;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #e1e1e1;
+    border: 1px solid black;
+    padding: 1em 3em 1em 3em;
+}
+/*general appointment styling*/
+.diary-appointment, .diary-meeting, .diary-personal-tutorial, .diary-event {
+    list-style: none;
+    size: 4px;
+    display: flex;
+    flex-direction: column;
+    font-size: 2.1vh;
+    color: black;
+}
+
+.diary-appointment div, .diary-meeting div, .diary-personal-tutorial div, .diary-event div{
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    overflow: clip;
+}
+section .diary-delete {
+    font-size: 2.5vh;
+    margin-left: auto;
+    margin-right: 0px;
+}
+.diary-title-text {
+    font-size: 3.5vh;
+}
+.diary-appointment {
+    background-color: rgb(204, 192, 27);
+}
+
+.diary-meeting {
+    background-color: rgb(233, 134, 134);
+}
+
+.diary-personal-tutorial {
+    background-color: hotpink;
+}
+.diary-event {
+    background-color: rgb(101, 93, 177);
+}
+.diary-table th, .timetable-table th {
+    font-weight: 1000;
+    height: 8vh;
+    font-size: 2.4vh;
+    background-color: rgb(210, 235, 243);
+}
+
+.diary-table td a {
+    width: 100%;
+    display: block;
+  }
+
+.diary-table td:hover, .timetable-table td:hover {
+    background-color: lightgreen;
+}
+.diary-appointment:hover, .diary-meeting:hover, .diary-personal-tutorial:hover, .diary-event:hover , .timetable-table .timetable-module:hover{
+    background-color: rgb(223, 121, 63);
+}
+.diary-table .diary-today, .timetable-table tr .timetable-current {
+    background-color: rgb(184, 12, 184);
+}
+
+.diary .diary-title {
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+}
+.diary-left {
+    margin-right: auto;
+}
+.diary-right {
+    margin-left: auto;
+}
+.diary-right button, .diary-left button {
+    font-size: 2.5vh;
+    transition-duration: 0.4s;
+    padding: 5px;
+    border:black thick 1px;
+}
+.diary-right button:hover, .diary-left button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    text-align: flex-start;
+    background-color: #e1e1e1;
+    border: 1px solid black;
+    padding: 2em;
+    width: 40vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+.formContainer form{
+    display: grid;
+    grid-template-columns:2fr 2fr ;
+    grid-template-rows:auto;
+    gap: 10px;
+}
+.formContainer form input {
+    height: 4vh;
+}
+.formContainer form .submit {
+    grid-column: 1/3;
+    width: 50%;
+    justify-self: center;
+}
+.error {
+    color: red;
+    font-size: 2.5vh;
+}
+.diary-time {
+    font-weight: 500;
+}
+/* the hidden class hides an element until its parent is hovered*/
+.hidden {
+    /*opacity: 0.0;
+    display:none;
+    transition: width 0.3s;*/
+    transition: all 0.3s ease-in;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+.diary-event a:hover > .hidden,.diary-appointment a:hover > .hidden, .diary-meeting a:hover > .hidden, .diary-personal-tutorial a:hover > .hidden {
+    /*opacity:1.0;
+    display:block;
+    width: 100%;
+    align-self: flex-start;*/
+    opacity: 1;
+    height: 100%;
+    transition: all 1.5s ease-out;
+}
+
+/*Timetable section*/
+.timetable-table select {
+    min-width: 4.8vw;
+}
+.table-container .timetable-error {
+    width: inherit;
+    margin-right:auto;
+    font-size: 2.2vh;
+}
+
+.timetable-table .timetable-module {
+    margin: 0.4em;
+    background-color: rgb(204, 192, 27);
+}
+.timetable-table .timetable-practical {
+    background-color: rgb(121, 204, 27);
+}
+.timetable-table td:nth-of-type(1) {
+    font-weight: 1000;
+    height: 8vh;
+}
+.timetable-table td > div {
+    display: flex;
+    flex-direction: column;
+
+}
+.submit-hold {
+    width: inherit;
+    display:flex;
+    justify-content: space-evenly;
+}
+.table-submit {
+    margin-top: 3vh;
+    font-size: 2.3vh;
+}
+
+.heading-course {
+    border: 1px solid grey;
+    border-bottom: none;
+    background-color: rgb(210, 235, 243);
+    box-sizing:border-box;
+    font-weight: 1000;
+    padding: 0.5em;
+}
+/*tab styling*/
+.tab-container {
+    border-right: none;
+    box-sizing:border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 70vw;
+    margin: 0px;
+}
+.timetable-tab {
+    font-size: 2.5vh;
+    width: 15vw;
+    border: 1px solid grey;
+    border-bottom: none;
+    background-color: rgb(210, 235, 243);
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+.timetable-tab > .error {
+    margin-left: 2px;
+}
+.active-tab {
+    background-color: rgb(92, 168, 194);
+}
+.timetable-tabcontent {
+    display: none;
+}
+.error-display {
+    text-align: start;
+    background-color: rgb(210, 235, 243);
+}
+.error-display p {
+    margin-left: 5px;
+}
+.timetable-tab:hover {
+    background-color: rgb(103, 137, 148);
+}
+.left-search input {
+    margin-left: 5px;
+    font-size: 3.0vh;
+}
+.search-results-table, .search-results-table th, .search-results-table td {
+    border: none;
+    border-collapse: collapse;
+    padding: 3px;
+}
+.search-results-table th, .search-results-table td {
+    padding: 10px;
+}
+.search-results-table tr:nth-child(n) {
+    background-color: rgb(190, 190, 190);
+}
+.search-results-table tr:nth-child(2n) {
+    background-color: rgb(228, 227, 227);
+}
+
+
+.search-buttons-links {
+    display: flex;
+    flex-direction: row;
+}
+.search-buttons-links button, .search-button-links form input {
+    margin-right: 4px;
+}
+.search-button {
+    border: none;
+    color: white;
+    background-color: blue;
+    margin-right: 4px;
+}
+.search-button-amend {
+    background-color: green;
+}
+.search-button-delete {
+    background-color: red;
+}
+.search-button-archive {
+    background-color: rgb(77, 185, 149);
+}
+.search-result {
+    margin-top: 2.5em;
+}
+.search-previous {
+    margin-right: auto;
+}
+.search-next {
+    margin-left: auto;
+}
+.pagenation-holder {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+}
+.logo-container {
+    width: 150px;
+}
+.navbar {
+    width: 77vw;
+    margin-left: auto;
+    margin-right: auto;
+    top: -55px;
+    font-size: 2.2vw;
+    display: flex;
+    align-content: flex-end;
+}
+
+.form h3, .form p{
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+.login-info {
+    font-size: 1.2vw;
+    width: 150px;
+    background-color: #e1e1e1;
+    display: flex;
+    flex-direction: row;
+}
+.login-info .btn-group {
+    margin-left: auto;
+}
+.usericon {
+    width:25px;
+    height:25px;
+    background-color: #e1e1e1;
+    margin-right: auto;
+    margin-top: 1px;
+    margin-left: 2px;
+}
+
+.user-dropdown {
+    height: 20px;
+    font-size: 20px;
+}
+
+.logout-button {
+    background-color: #e1e1e1;
+    border: none;
+    color: black;
+    margin-left: auto;
+}
