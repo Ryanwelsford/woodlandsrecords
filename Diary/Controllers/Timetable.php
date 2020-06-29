@@ -485,18 +485,6 @@ private $autoDays;
             $this->archived_slotsTable->deleteWhere('timetable_id', $id);
             header('location: /timetable/archive/results');
         }
-
-        return [
-            'template' => 'viewtimetable.html.php',
-            'title' => $title,
-            'variables' => [
-                'course' => $course,
-                'days' =>$this->days,
-                'timeslots' => $this->timeslots,
-                'timetable' => $timetable,
-                't_id' => $t_id
-            ]
-        ];
     }
 
     public function delete() {
