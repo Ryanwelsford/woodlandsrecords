@@ -150,13 +150,14 @@ private $autoDays;
         foreach($this->rooms as $room) {
             $optionRooms[] = $room->name; 
         }
-        if(isset($_POST['timetable'])) {
+        //only do this if submit button is pressed
+        if(isset($_POST['timetable']) && isset($_POST['Submit'])) {
             $timetable = $_POST['timetable'];
             $this->simplifyArray($timetable);
             $t_id = $_POST['t_id'];
             //errors test + save to tables
-            //$errors[] = 'placeholder';
-            $errors = $this->timetableErrors($errors);
+            //$errors['Mon 9-11'] = 'Room in use';
+            $errors = $this->timetableErrors($timetable, $course);
             if(sizeof($errors) == 0) {
                 
                 //whats the logic here
@@ -211,6 +212,14 @@ private $autoDays;
                 $timetable = false;
             }
 
+        }
+        else if (isset($_POST['Automate'])) {
+            echo 'TEst';
+            $timetable = $_POST['timetable'];
+            $this->simplifyArray($timetable);
+            $t_id = $_POST['t_id'];
+
+            $timetable = $this->automate($timetable, $course);
         }
         else {
             $timetable = false;
@@ -363,19 +372,20 @@ private $autoDays;
         }
     }
 
-    public function automate() {
-        $title = "Automated Creation";
-        //find info on course
-        if(isset($_POST['course'])) {
-            $course = $_POST['course']['id'];
-        }
-        //used for testing to prevent post
-        else {
-            $course = 1;
-        }
-        $course = $this->tempCourseTable->find('id', $course)[0];
+    public function automate($timetable = [], $course = false) {
         //establish list of modules, each should be input twice, once for lecture once for practical
         $course_mods = [];
+        //so i need to pull the current info from $timetable array to establish modules that are already used. 
+        $already_applied_mods = [];
+        foreach($timetable as $day) {
+            foreach($day as $timeslot) {
+                if(isset($timeslot['module'])) {
+                    $already_applied_mods[] = $timeslot['module'];
+                }
+            }
+        }
+        //var_dump($already_applied_mods);
+        //this is the ideal modules in play 
         for ($i = 1; $i < 7; $i++) {
             $methodString = 'module_'.$i;
             if(isset($course->$methodString) && $course->$methodString != '') {
@@ -383,8 +393,14 @@ private $autoDays;
                 $course_mods[] = $course->$methodString;
             }
         }
-
-        $timetableArray = $this->generateTimetable($course_mods); 
+        //so the difference between the two is the modules still to be completed 
+        foreach($already_applied_mods as $mod) {
+            if(in_array($mod, $course_mods)) {
+                array_splice($course_mods, array_search($mod, $course_mods), 1);
+            }
+        }
+        //var_dump($course_mods);
+        $timetableArray = $this->generateTimetable($course_mods, $timetable); 
         $timetable = [];
         //reorganise array in order of day and timeslot
         foreach ($this->days as $key => $day) {
@@ -396,17 +412,11 @@ private $autoDays;
                 }
             }
         }
-        $this->updateRooms($timetable);
+        $this->updateRooms($timetable, $already_applied_mods);
 
         //at this point we have a structure that matches the other timetable structures
-        var_dump($timetable);
-        return [
-            'template' => 'automatedump.html.php',
-            'title' => $title,
-            'variables' => 
-            [ 
-            ]
-        ];
+        //var_dump($timetable);
+        return $timetable;
     }
 
     function randomComboLecture(&$day, &$slot) {
@@ -423,8 +433,7 @@ private $autoDays;
         $room = $this->rooms[$randomRoom]->name;
     }
 
-    function generateTimetable($course_mods) {
-        $timetableArray = [];
+    function generateTimetable($course_mods, $timetableArray) {
         foreach($course_mods as $mod) {
             //pick day
             $day;
@@ -446,24 +455,24 @@ private $autoDays;
         return $timetableArray;
     }
 
-    function updateRooms(&$timetableArray) {
-        $moduleTrack = [];
+    function updateRooms(&$timetableArray, $moduleTrack = []) {
         $room;
-
+        //this is overly complicated for no good reason
         foreach ($this->days as $key => $day) {
             if(isset($timetableArray[$day])) {
                 foreach ($this->timeslots as $tskey => $timeslot) {
                     if(isset($timetableArray[$day][$timeslot])) {
+                        if(!isset($timetableArray[$day][$timeslot]['room'])) {
+                            if(!in_array($timetableArray[$day][$timeslot]['module'], $moduleTrack)) {
+                                $moduleTrack[] = $timetableArray[$day][$timeslot]['module'];
+                                $this->randomRoom($room, 0, 3);
+                            }
+                            else {
+                                $this->randomRoom($room, 4, sizeof($this->rooms)-1);
+                            }
 
-                        if(!in_array($timetableArray[$day][$timeslot]['module'], $moduleTrack)) {
-                            $moduleTrack[] = $timetableArray[$day][$timeslot]['module'];
-                            $this->randomRoom($room, 0, 3);
+                            $timetableArray[$day][$timeslot]['room'] = $room;
                         }
-                        else {
-                            $this->randomRoom($room, 4, sizeof($this->rooms)-1);
-                        }
-
-                        $timetableArray[$day][$timeslot]['room'] = $room;
                     }
                 }
             }
@@ -471,7 +480,46 @@ private $autoDays;
         
     }
 
-    function timetableErrors($errors) {
+    function timetableErrors($timetable, $course) {
+        //var_dump($course);
+        //establish count and correct number of each module
+        if($course->year == 3) {
+            $idealModuleCount = 10;
+        }
+        else {
+            $idealModuleCount = 12;
+        }
+        //count all modules in use
+        $modCount = 0;
+        $modulesInUse = [];
+        $countOccurenceModule = [];
+        foreach($timetable as $day) {
+            foreach ($day as $timeslot) {
+                if(isset($timeslot['module'])) {
+                    $modCount++;
+                    $modulesInUse[] = $timeslot['module'];
+
+                    //set up counter for each module in turn
+                    if(!isset($countOccurenceModule[$timeslot['module']])) {
+                        $countOccurenceModule[$timeslot['module']] = 1;
+                    }
+                    else {
+                        $countOccurenceModule[$timeslot['module']] = $countOccurenceModule[$timeslot['module']]+1;
+                    }
+
+                }
+            }
+        }
+        //display error for incorrect total module count
+        if($modCount != $idealModuleCount) {
+            $errors['Incorrect Module Number'] = "Courses of year ".$course->year. " should contain ".$idealModuleCount." Modules";
+        }
+        //display error for incorrect occurence of each module
+        foreach($countOccurenceModule as $key =>$mod) {
+            if($mod != 2) {
+                $errors['Module Counter '.$key] = "Incorrect quantity of ".$key." 2 required in total";
+            }
+        }
 
         return $errors;
     }

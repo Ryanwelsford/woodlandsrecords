@@ -31,7 +31,7 @@
     foreach($errors as $key => $error) {
         ?>
             <p class = "error timetable-error">
-                <?=$key." ";?>
+                <?=$key." - ";?>
                 <?=$error;?>
             </p>
     <?php
@@ -120,11 +120,7 @@
         
         <div class="submit-hold">
             <input class="table-submit" type="submit" name="Submit">
-            <form method="POST" action="/timetable/automate">
-            <input type = "hidden" name="course[id]" value="<?=$course->id;?>">
-            <input type = "hidden" name="t_id" value="<?=$t_id ?? '';?>">
             <input type="submit" class = "table-submit" name="Automate" value="Automate">
-            </form>
         </div>
         <input type = "hidden" name="course[id]" value="<?=$course->id;?>">
         <input type = "hidden" name="t_id" value="<?=$t_id ?? '';?>">
