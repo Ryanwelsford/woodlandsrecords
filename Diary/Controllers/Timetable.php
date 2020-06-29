@@ -10,13 +10,18 @@ private $tempCourseTable;
 private $roomDetails;
 private $timetableTable;
 private $timetable_slotsTable;
+private $archived_slotsTable;
+private $archived_timetableTable;
 private $autoDays;
 
-    public function __construct($timetableTable, $timetable_slotsTable, $tempCourseTable,$roomsTable) {
+    public function __construct($timetableTable, $timetable_slotsTable, $tempCourseTable,$roomsTable, $archived_timetableTable, $archived_slotsTable) {
         $this->timetableTable = $timetableTable;
         $this->timetable_slotsTable = $timetable_slotsTable;
         $this->tempCourseTable = $tempCourseTable;
         $this->roomsTable = $roomsTable;
+        $this->archived_timetableTable = $archived_timetableTable;
+        $this->archived_slotsTable = $archived_slotsTable;
+
         $this->generateRooms();
         $this->days =
         [
@@ -361,6 +366,139 @@ private $autoDays;
         ];
     }
 
+    public function archiveResults() {
+        $pageDetails = $this->results();
+        $pageDetails['template'] = 'timetablearchiveresults.html.php';
+
+        return $pageDetails;
+    }
+
+    public function archiveSearch() {
+        $title = "Archive Search Results";
+        $courseSearchBox = new \RWCSY2028\TableSearchBox($this->tempCourseTable);
+        //would need to change to archived table
+        $tableSearchBox = new \RWCSY2028\TableSearchBox($this->archived_timetableTable);
+        $searchBox = $tableSearchBox->generalSearchBox('/timetable/archive/results');
+        
+        if(isset($_GET['pageno']) && $_GET['pageno'] > 1) {
+            $pageno = $_GET['pageno'];
+        }
+        else {
+            $pageno = 1;
+        }
+        $resultsperpage = 5;
+        $limit['offset'] = ($pageno-1)*$resultsperpage;
+        $limit['total'] = $resultsperpage;
+
+        if(isset($_GET['search']) && isset($_GET['pageno']) && $_GET['pageno'] != '') {
+            $search = $_GET['search'];
+            $search = strtolower(str_replace('/', '-', $search));
+            $dateOptions = explode('-',$search);
+            if(sizeof($dateOptions) == 3) {
+                try {
+                    $date = new \DateTime($search);
+                    $search = $date->format('Y-m-d');
+                }
+                catch (\Exception $e) {
+                    $search = $_GET['search'];
+                }
+            }
+            
+            $heading = "Archived Timetable Search Results";
+            
+        }
+        else {
+            $title = "Select Results";
+            $heading = "Displaying All Archived Timetables";
+            //display all results
+            $search = '';
+        }
+        //pull course information based on search term, add that to the search term for timetable searches 
+        $courseResults = $courseSearchBox->getGeneralSearchResults($search);
+        foreach($courseResults as $course) {
+            $search .= " ".$course->id;
+        }
+
+        $generalResults = $tableSearchBox->getGeneralSearchResults($search,$limit);
+        $totalSearchResults = sizeof($tableSearchBox->getGeneralSearchResults($search));
+        $pageNext = $tableSearchBox->paginationNext($pageno, $totalSearchResults, $resultsperpage);
+        $pagePrevious = $tableSearchBox->paginationPrevious($pageno);
+        $results = $generalResults;
+
+        //map course to timetable result
+        foreach ($results as $result) {
+            $course = $this->tempCourseTable->find('id', $result->course_id)[0];
+            $result->course = $course;
+        }
+        return [
+            'template' => 'archivedtimetable.html.php',
+            'title' => $title,
+            'variables' => 
+            [ 
+                'heading' => $heading,
+                'searchBox' => $searchBox,
+                'results' => $results,
+                'totalSearchResults' => $totalSearchResults,
+                'pageno' => $pageno,
+                'resultsperpage' => $resultsperpage,
+                'pageNext' => $pageNext,
+                'pagePrevious' => $pagePrevious,
+            ]
+        ];
+    }
+
+    //based on passed post id remove mappings and timetable reference from standard tables and add to archived tables
+    public function store() {
+        if(isset($_POST['timetable'])) {
+            $id = $_POST['timetable']['id'];
+            $timetable = $this->timetableTable->find('id', $id)[0];
+            //find timetable mappings
+            $mappings = $this->timetable_slotsTable->find('timetable_id', $id);
+            //add to archives
+            $this->archived_timetableTable->saveObject($timetable);
+            foreach($mappings as $mapping) {
+                $this->archived_slotsTable->saveObject($mapping);
+            }
+            //remove from standard
+            $this->timetableTable->delete($id);
+            $this->timetable_slotsTable->deleteWhere('timetable_id', $id);
+            header('location: /timetable/results');
+        }
+    }
+
+    //inverse of store, move stored items back to active tables
+    public function restore() {
+        if(isset($_POST['timetable'])) {
+            $id = $_POST['timetable']['id'];
+            $timetable = $this->archived_timetableTable->find('id', $id)[0];
+            
+            //find timetable mappings
+            $mappings = $this->archived_slotsTable->find('timetable_id', $id);
+            
+            //add to standard
+            $this->timetableTable->saveObject($timetable);
+            foreach($mappings as $mapping) {
+                $this->timetable_slotsTable->saveObject($mapping);
+            }
+            //remove from archives
+            $this->archived_timetableTable->delete($id);
+            $this->archived_slotsTable->deleteWhere('timetable_id', $id);
+            header('location: /timetable/archive/results');
+        }
+
+        return [
+            'template' => 'viewtimetable.html.php',
+            'title' => $title,
+            'variables' => [
+                'course' => $course,
+                'days' =>$this->days,
+                'timeslots' => $this->timeslots,
+                'timetable' => $timetable,
+                't_id' => $t_id
+            ]
+        ];
+    }
+
     public function delete() {
         if(isset($_POST['timetable'])) {
             $timetable = $_POST['timetable'];
@@ -481,7 +619,7 @@ private $autoDays;
     }
 
     function timetableErrors($timetable, $course) {
-        //var_dump($course);
+        //errors to complete, room in use error although that would require changes to automation of rooms method
         //establish count and correct number of each module
         if($course->year == 3) {
             $idealModuleCount = 10;
@@ -493,9 +631,10 @@ private $autoDays;
         $modCount = 0;
         $modulesInUse = [];
         $countOccurenceModule = [];
-        foreach($timetable as $day) {
-            foreach ($day as $timeslot) {
+        foreach($timetable as $dayKey => $day) {
+            foreach ($day as $timeKey => $timeslot) {
                 if(isset($timeslot['module'])) {
+                    //count total modules
                     $modCount++;
                     $modulesInUse[] = $timeslot['module'];
 
@@ -504,9 +643,18 @@ private $autoDays;
                         $countOccurenceModule[$timeslot['module']] = 1;
                     }
                     else {
+                        //if element exists in array increase count by one
                         $countOccurenceModule[$timeslot['module']] = $countOccurenceModule[$timeslot['module']]+1;
                     }
 
+                }
+                //module selected but room not selected 
+                if(isset($timeslot['module']) && !isset($timeslot['room'])) {
+                    $errors[$dayKey." ".$timeKey] = "Room not set";
+                }
+                //room selected without a module
+                if(isset($timeslot['room']) && !isset($timeslot['module'])) {
+                    $errors[$dayKey." ".$timeKey] = "Module not set";
                 }
             }
         }
@@ -517,7 +665,7 @@ private $autoDays;
         //display error for incorrect occurence of each module
         foreach($countOccurenceModule as $key =>$mod) {
             if($mod != 2) {
-                $errors['Module Counter '.$key] = "Incorrect quantity of ".$key." 2 required in total";
+                $errors['Module Counter '.$key] = "Incorrect quantity of ".$key." 2 required ".$mod. " found";
             }
         }
 

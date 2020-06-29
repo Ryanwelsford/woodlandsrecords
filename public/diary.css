@@ -225,6 +225,9 @@ section .diary-delete {
     flex-direction: column;
 
 }
+.timetable-table td.table-error {
+    background-color: rgb(246, 31, 31);
+}
 .submit-hold {
     width: inherit;
     display:flex;
@@ -283,6 +286,10 @@ section .diary-delete {
 }
 .timetable-tab:hover {
     background-color: rgb(103, 137, 148);
+}
+.left-search {
+    margin-top: 5px;
+    margin-bottom: 1em;
 }
 .left-search input {
     margin-left: 5px;
@@ -386,5 +393,13 @@ section .diary-delete {
     background-color: #e1e1e1;
     border: none;
     color: black;
+    margin-left: auto;
+}
+.Archive-link {
+    display: flex;
+    justify-content: flex-end;
+}
+.Archive-link > a{
+    width: inherit;
     margin-left: auto;
 }

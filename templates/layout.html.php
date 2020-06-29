@@ -134,8 +134,9 @@
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/select">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Amend</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Delete</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/archive">Archive</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/view">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Search</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

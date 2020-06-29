@@ -64,9 +64,12 @@
                 <td><?=$day;?></td>
                 <?php 
                 foreach ($timeslots as $keyslot => $value) {
-
+                    $tdclass = '';
+                    if(isset($errors[$day . " ". $value])) {
+                        $tdclass = "class = table-error";
+                    }
                 ?>
-                <td>
+                <td <?=$tdclass;?> >
                     <select id="type" name='timetable[<?=$day;?>][<?=$value;?>][module]'>
                     <?php
                     if(isset($timetable[$days[$daykey]][$timeslots[$keyslot]]['module'])) {
