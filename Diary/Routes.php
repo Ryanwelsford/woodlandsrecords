@@ -376,7 +376,8 @@ class Routes implements \RWCSY2028\Routes {
         return $routes;
     }
     
-
+    //if user attempts to access unset route reroute to default page
+    //ultimately would be dashboard concept
     public function getReroute() {
             $route = '';
         
@@ -390,12 +391,14 @@ class Routes implements \RWCSY2028\Routes {
         ];
     }
 
+    //ensure user is logged in order to access any page of rm
     public function checkLogin($route) {
         //session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             return $route;
         }
         else {
+            // if not logged send to login page
             return 'login';
         }
     }
