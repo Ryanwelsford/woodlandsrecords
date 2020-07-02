@@ -59,7 +59,7 @@ class TableSearchBox {
     return $contents;
 
     }
-
+    //general search box provides no select option but instead searchs all applicable fields of table
     public function generalSearchBox($action = 'results') {
         ob_start();
         ?>
