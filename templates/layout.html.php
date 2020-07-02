@@ -31,18 +31,21 @@
             else {
         ?>
         <body>
+        <!--Container for logo and user access box-->
         <div class = "logo-container">
             <img class="logo" src="/images/new logo.jpg" alt="logo">
             <div class="login-info">
                 <img class="usericon" src="/images/usericon.png"> <?=$user->name ?? 'Admin'?>
                 <div class="btn-group">
-                <button class="btn btn-secondary btn-sm dropdown-toggle logout-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle logout-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
                     
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item hvr-grow-shadow" href="/">Logout</a>
-                    <a class="dropdown-item hvr-grow-shadow" href="/">Settings</a>
-                </div>
+                    <!--Dropdown menu for user access, i.e. other none main selection items-->
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item hvr-grow-shadow" href="/">Logout</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/">Settings</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/">Help</a>
+                    </div>
                 </div>
                 
             </div>
