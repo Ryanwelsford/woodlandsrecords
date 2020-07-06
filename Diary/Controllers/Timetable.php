@@ -591,9 +591,14 @@ private $autoDays;
                         if(!isset($timetableArray[$day][$timeslot]['room'])) {
                             if(!in_array($timetableArray[$day][$timeslot]['module'], $moduleTrack)) {
                                 $moduleTrack[] = $timetableArray[$day][$timeslot]['module'];
+                                //this should be changed to check for room availability, only checked for lecture rooms
+                                //returning the array of applicable rooms
+                                //will need an instance of no available room
                                 $this->randomRoom($room, 0, 3);
                             }
                             else {
+                                
+                                //this should be changed to check for room availability, only checking for non lecture rooms
                                 $this->randomRoom($room, 4, sizeof($this->rooms)-1);
                             }
 
@@ -657,6 +662,7 @@ private $autoDays;
             }
         }
 
+        //loop through timetable, if room set to false, no available room at timeslot?
         return $errors;
     }
 }
