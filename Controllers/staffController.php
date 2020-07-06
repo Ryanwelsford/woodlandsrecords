@@ -14,7 +14,7 @@ class staffController{
 
     public function createstaff()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_POST['submit']))
@@ -48,7 +48,7 @@ class staffController{
 
     public function liststaff()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_GET['submit']))
@@ -72,7 +72,7 @@ class staffController{
         'variables' => [
             'stmt' => $stmt,
             'buttonName' => 'Amend',
-            'location' => '/amendstaff'
+            'location' => '/staff/amend'
         ]
         ];
     }
@@ -90,7 +90,7 @@ class staffController{
 
     public function amendstaff()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_POST['submit']))
@@ -129,7 +129,7 @@ class staffController{
 
     public function archivestaff()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_POST['archive']))
@@ -199,7 +199,7 @@ if(isset($_GET['submit']))
 
     public function staffdisplaylist()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_GET['submit']))
@@ -224,7 +224,7 @@ return [
     'variables' => [
         'stmt' => $stmt,
         'buttonName' => 'Display',
-        'location' => '/displaystaff'
+        'location' => '/staff/displaystaff'
     ]
     ];
 
@@ -243,7 +243,7 @@ else{
 
     public function displaystaff()
     {
-        session_start();
+        // session_start();
 
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {

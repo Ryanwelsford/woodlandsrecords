@@ -1,7 +1,7 @@
 <div class="container">
     <div class="con">
     
-        <form class="form" action="/home" method="POST">
+        <form class="form" action="/student/home" method="POST">
             <h3>Woodlands University College</h3>
             <p>Records Management Login</p>
             <input class="in" type="text" name="username" placeholder="Username">
