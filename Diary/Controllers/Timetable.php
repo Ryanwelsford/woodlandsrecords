@@ -219,7 +219,6 @@ private $autoDays;
 
         }
         else if (isset($_POST['Automate'])) {
-            echo 'TEst';
             $timetable = $_POST['timetable'];
             $this->simplifyArray($timetable);
             $t_id = $_POST['t_id'];
@@ -490,7 +489,7 @@ private $autoDays;
     public function delete() {
         if(isset($_POST['timetable'])) {
             $timetable = $_POST['timetable'];
-            //remove all mappings relating to timetable
+            //remove all mappings relating to timetable, max 12 mappings therefore delete limit to 12
             $this->timetable_slotsTable->deleteWhere('timetable_id', $timetable['id'], 12);
             //remove timetable reference
             $this->timetableTable->delete($timetable['id']);
@@ -583,6 +582,7 @@ private $autoDays;
 
     function updateRooms(&$timetableArray, $moduleTrack = []) {
         $room;
+        //update this to loop through timetable array rather than loop through days and timeslots surely
         //this is overly complicated for no good reason
         foreach ($this->days as $key => $day) {
             if(isset($timetableArray[$day])) {

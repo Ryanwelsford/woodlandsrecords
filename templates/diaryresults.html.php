@@ -33,6 +33,7 @@
                             
                         
                 <?php
+                //$count = 1;
                 foreach($results as $result) {
                     ?>
                     <tr>
@@ -55,6 +56,7 @@
                             <input type="hidden" value="<?=$result->id;?>" name="appointment[id]">
                             <input type="hidden" value="<?=$result->date;?>" name="appointment[date]">
                             <input class ="search-button search-button-delete" type ="submit" value="Delete">
+                            <!--<button class="search-button search-button-delete" type="submit" form="form"><img class="wastebin_image" src="/images/wastebin.png"></button>-->
                         </form>
                     </td>
                     
@@ -62,6 +64,7 @@
                     </article>
                     </tr>
                     <?php
+                    //$count++;
                 }
                 ?>
                 </table>

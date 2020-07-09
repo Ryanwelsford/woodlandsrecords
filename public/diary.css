@@ -376,9 +376,9 @@ section .diary-delete {
     margin-left: auto;
 }
 .usericon {
-    width:25px;
+    width:30px;
     height:25px;
-    background-color: #e1e1e1;
+    background-color: inherit;
     margin-right: auto;
     margin-top: 1px;
     margin-left: 2px;
@@ -402,4 +402,10 @@ section .diary-delete {
 .Archive-link > a{
     width: inherit;
     margin-left: auto;
+}
+
+.wastebin_image {
+    width: 2vw;
+    height: inherit;
+    font-size: 100px;
 }
