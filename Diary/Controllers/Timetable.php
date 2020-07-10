@@ -582,6 +582,15 @@ private $autoDays;
 
     function updateRooms(&$timetableArray, $moduleTrack = []) {
         $room;
+        for($i = 0; $i < sizeof($this->rooms); $i++) {
+            if($i < 4) {
+                $lectureRooms[] = $this->rooms[$i]->name;
+            }
+            else {
+                $tempRooms[] = $this->rooms[$i]->name;
+            }
+        }
+        //establish valid rooms for lectures and non-lecture modules
         //update this to loop through timetable array rather than loop through days and timeslots surely
         //this is overly complicated for no good reason
         foreach ($this->days as $key => $day) {
@@ -589,19 +598,38 @@ private $autoDays;
                 foreach ($this->timeslots as $tskey => $timeslot) {
                     if(isset($timetableArray[$day][$timeslot])) {
                         if(!isset($timetableArray[$day][$timeslot]['room'])) {
+                            $restrictedRooms = $tempRooms;
+                            $lectureRooms = ['C1','C2','C3','C4'];
+                            //find mappings at the same time and day but not the same module
+                            //modules can be shared between different timetables, i.e. 3 timetable groups having the same lecture slot
+                            $restriction = [
+                                [
+                                    'day', $day, '=', 'AND'
+                                ],
+                                [
+                                    'timeslot', $timeslot, '=', 'AND'
+                                ],
+                                [
+                                    'module_code', $timetableArray[$day][$timeslot]['module'], '!=', 'AND'
+                                ]
+                            ];
+                            $alreadyMapped = $this->timetable_slotsTable->restrictionFind($restriction);
+                            
+                            //decide which list to pull the room from, the first pass through for a module should be a lecture room. therefore each module is added to the track after first instance.
                             if(!in_array($timetableArray[$day][$timeslot]['module'], $moduleTrack)) {
                                 $moduleTrack[] = $timetableArray[$day][$timeslot]['module'];
-                                //this should be changed to check for room availability, only checked for lecture rooms
-                                //returning the array of applicable rooms
-                                //will need an instance of no available room
-                                $this->randomRoom($room, 0, 3);
+                                $selectedRoomList = $lectureRooms;
                             }
                             else {
-                                
-                                //this should be changed to check for room availability, only checking for non lecture rooms
-                                $this->randomRoom($room, 4, sizeof($this->rooms)-1);
+                                $selectedRoomList = $restrictedRooms;
                             }
-
+                            //remove the invalid mapping options from list
+                            foreach($alreadyMapped as $mapping) {
+                                //var_dump(array_search($mapping->room, $tempRooms));
+                                array_splice($selectedRoomList, array_search($mapping->room, $selectedRoomList), 1);
+                            }
+                            //it is possible that the valid rooms can be zero!
+                            $room = $selectedRoomList[rand(0,sizeof($selectedRoomList)-1)];
                             $timetableArray[$day][$timeslot]['room'] = $room;
                         }
                     }
