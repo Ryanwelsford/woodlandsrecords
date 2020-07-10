@@ -132,7 +132,7 @@ return [
     'variables' => [
         'stmt' => $stmt,
         'buttonName' => 'Select',
-        'location' => '/amendpersonaltutor'
+        'location' => '/tutor/amendpersonaltutor'
     ]
     ];
 }
@@ -163,7 +163,7 @@ else{
                 'staffid' => $_POST['staffid']
             ];
             $update->execute($record);
-            header('location: /amendpersonaltutorlist');
+            header('location: /tutor/amendpersonaltutorlist');
         }
         else{
             $staff = $this->personaltutortable->find('id',$_POST['id'])[0];
@@ -217,7 +217,7 @@ else{
             'variables' => [
                 'stmt' => $stmt,
                 'buttonName' => 'Assign',
-                'location' => '/assignpersonaltutor'
+                'location' => '/tutor/assignpersonaltutor'
             ]
             ];
         }
@@ -264,7 +264,7 @@ else{
                 'course' => $_POST['course']
             ];
             $stmt->execute($values);
-            header('location: /assignpersonaltutorlist');
+            header('location: /tutor/assignpersonaltutorlist');
         }
         else{
 
@@ -320,7 +320,7 @@ else{
             'variables' => [
                 'stmt' => $stmt,
                 'buttonName' => 'Display',
-                'location' => '/displaypersonaltutor'
+                'location' => '/tutor/displaypersonaltutor'
             ]
             ];
         }
