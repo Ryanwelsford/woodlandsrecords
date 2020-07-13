@@ -2,7 +2,9 @@
     <h2><?=$heading;?></h2>
 
     <div class ="left-search"><?=$searchBox;?></div>
+    
     <article class="search-results-container">
+    <div class = "Archive-link"><a href=/timetable/archive/results>Search Archives</a></div>
         <?php
         if(isset($_GET['search']) || !isset($_GET['search'])) {
             if($totalSearchResults == 0) {
@@ -24,39 +26,38 @@
                 <table class="search-results-table">
                             <tr>
                                 <th>Id</th>
-                                <th>Type</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Details</th>
+                                <th>Course Name</th>
+                                <th>Course Year</th>
+                                <th>Date Created</th>
                                 <th>Links</th>
                             </tr>
                             
                         
                 <?php
-                //$count = 1;
                 foreach($results as $result) {
                     ?>
                     <tr>
                     <?php
-                    //update this into an actual search table would be ideal
-                    $a = strtotime($result->date);
-                    $yearMonth = date('Y-m', $a);
                     
                 ?>
                     <td><?=$result->id;?></td>
-                    <td><?=ucwords($result->type);?></td>
-                    <td><?=date('d-m-Y', $a);?></td>
-                    <td><?=$result->start_time;?>-<?=$result->end_time;?></td>
-                    <td><?=$result->details;?></td>
+                    <td><?=$result->course->name ?? 'Course not found'?></td>
+                    <td><?=$result->course->year ?? 'Course not found'?></td>
+                    <td><?=$result->date;?></td>
                     <td>
                         <article class="search-buttons-links">
-                        <a href="/diary/create?id=<?=$result->id;?>"><button class=" search-button search-button-amend">Amend</button></a>
-                        <a href="/diary/view?yearMonth=<?=$yearMonth;?>"><button class="search-button">View Calendar</button></a>
-                        <form method="POST" action="/diary/delete">
-                            <input type="hidden" value="<?=$result->id;?>" name="appointment[id]">
-                            <input type="hidden" value="<?=$result->date;?>" name="appointment[date]">
+                        <form method="POST" action="/timetable/create?id=<?=$result->id;?>">
+                            <input type="hidden" value="<?=$result->course_id;?>" name="course[id]">
+                            <input class ="search-button search-button-amend" type ="submit" value="Amend">
+                        </form>
+                        <a href="/timetable/view?id=<?=$result->id;?>"><button class="search-button">View</button></a>
+                        <form method="POST" action="/timetable/store">
+                            <input type="hidden" value="<?=$result->id;?>" name="timetable[id]">
+                            <input class ="search-button search-button-archive" type ="submit" value="Archive">
+                        </form>
+                        <form method="POST" action="/timetable/delete">
+                            <input type="hidden" value="<?=$result->id;?>" name="timetable[id]">
                             <input class ="search-button search-button-delete" type ="submit" value="Delete">
-                            <!--<button class="search-button search-button-delete" type="submit" form="form"><img class="wastebin_image" src="/images/wastebin.png"></button>-->
                         </form>
                     </td>
                     
@@ -64,7 +65,6 @@
                     </article>
                     </tr>
                     <?php
-                    //$count++;
                 }
                 ?>
                 </table>

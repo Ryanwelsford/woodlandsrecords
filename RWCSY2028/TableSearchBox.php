@@ -59,7 +59,7 @@ class TableSearchBox {
     return $contents;
 
     }
-
+    //general search box provides no select option but instead searchs all applicable fields of table
     public function generalSearchBox($action = 'results') {
         ob_start();
         ?>
@@ -124,7 +124,6 @@ class TableSearchBox {
 
     //search all fields within given dbtable object, fields that are allowed to be searched
     public function getGeneralSearchResults($value, $limit = false) {
-        
         $results = $this->databasetable->findGeneralLike($this->fields, $value, $limit);
         return $results;
     }

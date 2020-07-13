@@ -8,6 +8,7 @@ class Diary {
     private $post;
     private $tableSearchBox;
 
+    //basic class constructor, creates a table search box class for use througout controller due to only one being required 
     public function __construct($diariesTable, $appointmentsTable, $get, $post) {
         $this->diariesTable = $diariesTable;
         $this->appointmentsTable = $appointmentsTable;
@@ -16,6 +17,7 @@ class Diary {
         $this->tableSearchBox = $TableSearchBox = new \RWCSY2028\TableSearchBox($this->appointmentsTable,['diary_id']);
     }
 
+    //purpose is to display the calendar style element in table format and allow user a visual input
     public function view() {
         $title = 'View Diary';
         // ref https://codingwithsara.com/how-to-code-calendar-in-php/
@@ -66,6 +68,7 @@ class Diary {
         $startmonth = $yearMonth."-01";
         $endmonth = $yearMonth."-".$dayCount;
         $order = ['date', 'start_time'];
+        //this should in theory also have an id passed to it aswell, the diary id associated with the logged user
         $appointments = $this->appointmentsTable->findBetweenOrdered('date', $startmonth, $endmonth, $order);
 
         //reorder appointments into an array with the date as the key
@@ -79,22 +82,24 @@ class Diary {
         // type, id start and end times description would all be attributes of appointment along with the link it would follow. i.e. would be createAppointment etc etc
         for ( $day = 1; $day <= $dayCount; $day++, $str++) {
             
+            //prevents errors with posting dates
             if($day < 10) {
                 $date = $yearMonth . '-0' . $day;
             }
             else {
                 $date = $yearMonth . '-' . $day;
             }
-            
+            //day anchor used to have unique links on each clickable td element corresponding to the date of said element
             $dayanchor = '<a href="/diary/create?date='.$date.'">'.$day.'</a>';
 
+            //display today in unique style
             if ($today == $date) {
                 $week .= '<td class="diary-today">';
             } 
             else {
                 $week .= '<td>';
             }
-
+            //if set in appointments array add to diary 
             if(isset($appointments[$date])) {
                 //var_dump($appointments[$date]);
                 $week .= $this->loadTemplateInternal('../templates/diaryappointment.html.php', ['appointments'=> $appointments[$date]]);
@@ -145,6 +150,7 @@ class Diary {
         return $array;
     }
 
+    //used to create appointments and edit
     public function create($errors = []) {
         $title = "Add an Appointment";
         if (isset($this->post['appointment'])) {
@@ -219,16 +225,19 @@ class Diary {
         }
     }
 
+    //used as a search entry and results page, uses tablesearchbox class 
     public function results() {
         $title = "Search Results";
         $searchBox = $this->tableSearchBox->generalSearchBox();
         
+        //find which page is required for search
         if(isset($_GET['pageno']) && $_GET['pageno'] > 1) {
             $pageno = $_GET['pageno'];
         }
         else {
             $pageno = 1;
         }
+        //set up limits for page display, quantity of results per page
         $resultsperpage = 5;
         $limit['offset'] = ($pageno-1)*$resultsperpage;
         $limit['total'] = $resultsperpage;
@@ -237,6 +246,7 @@ class Diary {
             $search = $_GET['search'];
             $search = strtolower(str_replace('/', '-', $search));
             $dateOptions = explode('-',$search);
+            //attempt to validate date, if date appears to be in date format re format into date within table else continue as not date
             if(sizeof($dateOptions) == 3) {
                 try {
                     $date = new \DateTime($search);
@@ -249,7 +259,7 @@ class Diary {
             
             $heading = "Search Results";
             
-
+            //get results of search with pagenation
             $generalResults = $this->tableSearchBox->getGeneralSearchResults($search,$limit);
             //var_dump($generalResults);
             //$results = $this->tableSearchBox->getSearchResults($_GET['field'], $search, $limit);
@@ -259,15 +269,18 @@ class Diary {
         }
         else {
             $heading = "Displaying All Appointments";
-            
+            //if search is not entered, i.e. on first entry to page display all 
             $search = '';
             //var_dump($generalResults);
 
             //$results = $this->tableSearchBox->getSearchResults($_GET['field'], $search, $limit);
         }
         //results array would in theory be the results of query of searchbox.
+        //create results and set total size of result page
         $generalResults = $this->tableSearchBox->getGeneralSearchResults($search,$limit);
         $totalSearchResults = sizeof($this->tableSearchBox->getGeneralSearchResults($search));
+        
+        //create instance of pagination buttons
         $pageNext = $this->tableSearchBox->paginationNext($pageno, $totalSearchResults, $resultsperpage);
         $pagePrevious = $this->tableSearchBox->paginationPrevious($pageno);
         $results = $generalResults;
@@ -289,7 +302,7 @@ class Diary {
         ];
     }
 
-
+    //used to reroute to view page based on date, i.e. if created appointment then send user to diary view of the page
     private function rerouteDate($date) {
         $yearMonth = substr($date,0,-3);
         $headerstring = "location: /diary/view?yearMonth=".$yearMonth;
@@ -297,6 +310,7 @@ class Diary {
     }
 
 
+    //prevent errors based on start times and details
     public function appointmentErrors($appointment) {
         $errors = [];
         if($appointment->start_time > $appointment->end_time) {
@@ -305,10 +319,11 @@ class Diary {
         if($appointment->details == '' || $appointment->details == ' ') {
             $errors[] = "Appointment details must be completed";
         }
-
+        //could add a clashing appointment aspect also
         return $errors;
     }
 
+    //remove appointment
     public function delete() {
         if(isset($this->post['appointment'])) {
             var_dump($this->post['appointment']);
@@ -318,6 +333,7 @@ class Diary {
         
     }
 
+    //setup an array of variables and build them into a template file, returns a html page with variables built into it
     private function loadTemplateInternal($fileName, $templateVars) {
         extract($templateVars);
         ob_start();
