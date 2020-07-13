@@ -54,7 +54,7 @@ class studentController {
 
     public function amendstudentlist()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_GET['submit']))
@@ -80,7 +80,7 @@ class studentController {
             'variables' => [
                 'stmt' => $stmt,
                 'buttonName' => 'Amend',
-                'location' => '/amendstudent'
+                'location' => '/student/amendstudent'
             ]
             ];
 
@@ -101,7 +101,7 @@ class studentController {
 
     public function amendstudent()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_POST['submit']))
@@ -143,7 +143,7 @@ class studentController {
 
     public function archive()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
         if(isset($_POST['archive']))
 {
@@ -214,7 +214,7 @@ $stmt = $this->studenttable->findAll();
 
 public function displaystudentlist()
 {
-    session_start();
+    // session_start();
     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
     {
     $stmt = $this->studenttable->findAll();
@@ -227,7 +227,7 @@ return [
     'variables' => [
         'stmt' => $stmt,
         'buttonName' => 'Display',
-        'location' => '/displaystudent'
+        'location' => '/student/displaystudent'
     ]
     ];
     }
@@ -245,7 +245,7 @@ return [
 
 public function displaystudent()
 {
-    session_start();
+    // session_start();
     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
     {
     $student = $this->studenttable->find('id',$_POST['id'])[0];

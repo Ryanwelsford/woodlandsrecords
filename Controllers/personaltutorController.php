@@ -16,7 +16,7 @@ class personaltutorController{
 
     public function personaltutorlist()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_GET['submit']))
@@ -40,7 +40,7 @@ class personaltutorController{
             'variables' => [
                 'stmt' => $stmt,
                 'buttonName' => 'Select',
-                'location' => '/personaltutor'
+                'location' => '/tutor/personaltutor'
         ]
         ];
     }
@@ -58,7 +58,7 @@ class personaltutorController{
 
     public function personaltutor()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_POST['submit']))
@@ -108,7 +108,7 @@ class personaltutorController{
 
     public function amendpersonaltutorlist()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_GET['submit']))
@@ -132,7 +132,7 @@ return [
     'variables' => [
         'stmt' => $stmt,
         'buttonName' => 'Select',
-        'location' => '/amendpersonaltutor'
+        'location' => '/tutor/amendpersonaltutor'
     ]
     ];
 }
@@ -150,7 +150,7 @@ else{
 
     public function amendpersonaltutor()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         $pdo = new \PDO('mysql:dbname=woodlands;host=127.0.0.1', 'student', 'student', [\PDO::ATTR_ERRMODE =>  \PDO::ERRMODE_EXCEPTION ]);
@@ -163,7 +163,7 @@ else{
                 'staffid' => $_POST['staffid']
             ];
             $update->execute($record);
-            header('location: /amendpersonaltutorlist');
+            header('location: /tutor/amendpersonaltutorlist');
         }
         else{
             $staff = $this->personaltutortable->find('id',$_POST['id'])[0];
@@ -193,7 +193,7 @@ else{
 
     public function assignpersonaltutorlist()
     {
-        session_start();
+        // session_start();
 
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
@@ -217,7 +217,7 @@ else{
             'variables' => [
                 'stmt' => $stmt,
                 'buttonName' => 'Assign',
-                'location' => '/assignpersonaltutor'
+                'location' => '/tutor/assignpersonaltutor'
             ]
             ];
         }
@@ -234,7 +234,7 @@ else{
 
     public function assignpersonaltutor()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         $stmt = $this->personaltutortable->findAll();
@@ -264,7 +264,7 @@ else{
                 'course' => $_POST['course']
             ];
             $stmt->execute($values);
-            header('location: /assignpersonaltutorlist');
+            header('location: /tutor/assignpersonaltutorlist');
         }
         else{
 
@@ -297,7 +297,7 @@ else{
 
     public function displaytutorlist()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         if(isset($_GET['submit']))
@@ -320,7 +320,7 @@ else{
             'variables' => [
                 'stmt' => $stmt,
                 'buttonName' => 'Display',
-                'location' => '/displaypersonaltutor'
+                'location' => '/tutor/displaypersonaltutor'
             ]
             ];
         }
@@ -337,7 +337,7 @@ else{
 
     public function displaypersonaltutor()
     {
-        session_start();
+        // session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)
         {
         $student = $this->tuteestable->find('id',$_POST['id'])[0];

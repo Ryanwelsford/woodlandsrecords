@@ -2,7 +2,7 @@
 <form action="amendstudent.php" method="POST">
     <div class="row ">
         <div class="col propic">
-                <img class="profile" src="images\blank-profile-picture-973460_640.png" alt="Profile Picture" width="200" height="200">
+                <img class="profile" src="/images\blank-profile-picture-973460_640.png" alt="Profile Picture" width="200" height="200">
         </div>
     </div>
             <div class="row row1 justify-content-between">
