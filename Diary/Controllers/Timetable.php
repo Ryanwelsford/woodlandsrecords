@@ -565,6 +565,7 @@ private $autoDays;
             $slot;
             //generate combo, if already set regenerate
             $this->randomComboLecture($day, $slot);
+            //this should also ensure that there is at least 1 valid room a the slot specified, if not should reroll the slot
             while(isset($timetableArray[$day][$slot])) {
                 $this->randomComboLecture($day, $slot);
             }
@@ -592,6 +593,7 @@ private $autoDays;
         }
         //establish valid rooms for lectures and non-lecture modules
         //update this to loop through timetable array rather than loop through days and timeslots surely
+
         //this is overly complicated for no good reason
         foreach ($this->days as $key => $day) {
             if(isset($timetableArray[$day])) {
