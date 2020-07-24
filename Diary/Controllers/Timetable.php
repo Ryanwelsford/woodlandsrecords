@@ -10,12 +10,18 @@ private $tempCourseTable;
 private $roomDetails;
 private $timetableTable;
 private $timetable_slotsTable;
+private $archived_slotsTable;
+private $archived_timetableTable;
+private $autoDays;
 
-    public function __construct($timetableTable, $timetable_slotsTable, $tempCourseTable,$roomsTable) {
+    public function __construct($timetableTable, $timetable_slotsTable, $tempCourseTable,$roomsTable, $archived_timetableTable, $archived_slotsTable) {
         $this->timetableTable = $timetableTable;
         $this->timetable_slotsTable = $timetable_slotsTable;
         $this->tempCourseTable = $tempCourseTable;
         $this->roomsTable = $roomsTable;
+        $this->archived_timetableTable = $archived_timetableTable;
+        $this->archived_slotsTable = $archived_slotsTable;
+
         $this->generateRooms();
         $this->days =
         [
@@ -25,6 +31,8 @@ private $timetable_slotsTable;
             "Thursday" => "Thu",
             "Friday" => "Fri"
         ];
+        
+        $this->autoDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
         $this->timeslots = ['9-10', '10-11', '11-12', '12-1', '1-2', '2-3', '3-4', '4-5'];
     }
 
@@ -147,13 +155,14 @@ private $timetable_slotsTable;
         foreach($this->rooms as $room) {
             $optionRooms[] = $room->name; 
         }
-        if(isset($_POST['timetable'])) {
+        //only do this if submit button is pressed
+        if(isset($_POST['timetable']) && isset($_POST['Submit'])) {
             $timetable = $_POST['timetable'];
             $this->simplifyArray($timetable);
             $t_id = $_POST['t_id'];
             //errors test + save to tables
-            //$errors[] = 'placeholder';
-            
+            //$errors['Mon 9-11'] = 'Room in use';
+            $errors = $this->timetableErrors($timetable, $course);
             if(sizeof($errors) == 0) {
                 
                 //whats the logic here
@@ -208,6 +217,13 @@ private $timetable_slotsTable;
                 $timetable = false;
             }
 
+        }
+        else if (isset($_POST['Automate'])) {
+            $timetable = $_POST['timetable'];
+            $this->simplifyArray($timetable);
+            $t_id = $_POST['t_id'];
+
+            $timetable = $this->automate($timetable, $course);
         }
         else {
             $timetable = false;
@@ -349,10 +365,131 @@ private $timetable_slotsTable;
         ];
     }
 
+    public function archiveResults() {
+        $pageDetails = $this->results();
+        $pageDetails['template'] = 'timetablearchiveresults.html.php';
+
+        return $pageDetails;
+    }
+
+    public function archiveSearch() {
+        $title = "Archive Search Results";
+        $courseSearchBox = new \RWCSY2028\TableSearchBox($this->tempCourseTable);
+        //would need to change to archived table
+        $tableSearchBox = new \RWCSY2028\TableSearchBox($this->archived_timetableTable);
+        $searchBox = $tableSearchBox->generalSearchBox('/timetable/archive/results');
+        
+        if(isset($_GET['pageno']) && $_GET['pageno'] > 1) {
+            $pageno = $_GET['pageno'];
+        }
+        else {
+            $pageno = 1;
+        }
+        $resultsperpage = 5;
+        $limit['offset'] = ($pageno-1)*$resultsperpage;
+        $limit['total'] = $resultsperpage;
+
+        if(isset($_GET['search']) && isset($_GET['pageno']) && $_GET['pageno'] != '') {
+            $search = $_GET['search'];
+            $search = strtolower(str_replace('/', '-', $search));
+            $dateOptions = explode('-',$search);
+            if(sizeof($dateOptions) == 3) {
+                try {
+                    $date = new \DateTime($search);
+                    $search = $date->format('Y-m-d');
+                }
+                catch (\Exception $e) {
+                    $search = $_GET['search'];
+                }
+            }
+            
+            $heading = "Archived Timetable Search Results";
+            
+        }
+        else {
+            $title = "Select Results";
+            $heading = "Displaying All Archived Timetables";
+            //display all results
+            $search = '';
+        }
+        //pull course information based on search term, add that to the search term for timetable searches 
+        $courseResults = $courseSearchBox->getGeneralSearchResults($search);
+        foreach($courseResults as $course) {
+            $search .= " ".$course->id;
+        }
+
+        $generalResults = $tableSearchBox->getGeneralSearchResults($search,$limit);
+        $totalSearchResults = sizeof($tableSearchBox->getGeneralSearchResults($search));
+        $pageNext = $tableSearchBox->paginationNext($pageno, $totalSearchResults, $resultsperpage);
+        $pagePrevious = $tableSearchBox->paginationPrevious($pageno);
+        $results = $generalResults;
+
+        //map course to timetable result
+        foreach ($results as $result) {
+            $course = $this->tempCourseTable->find('id', $result->course_id)[0];
+            $result->course = $course;
+        }
+        return [
+            'template' => 'archivedtimetable.html.php',
+            'title' => $title,
+            'variables' => 
+            [ 
+                'heading' => $heading,
+                'searchBox' => $searchBox,
+                'results' => $results,
+                'totalSearchResults' => $totalSearchResults,
+                'pageno' => $pageno,
+                'resultsperpage' => $resultsperpage,
+                'pageNext' => $pageNext,
+                'pagePrevious' => $pagePrevious,
+            ]
+        ];
+    }
+
+    //based on passed post id remove mappings and timetable reference from standard tables and add to archived tables
+    public function store() {
+        if(isset($_POST['timetable'])) {
+            $id = $_POST['timetable']['id'];
+            $timetable = $this->timetableTable->find('id', $id)[0];
+            //find timetable mappings
+            $mappings = $this->timetable_slotsTable->find('timetable_id', $id);
+            //add to archives
+            $this->archived_timetableTable->saveObject($timetable);
+            foreach($mappings as $mapping) {
+                $this->archived_slotsTable->saveObject($mapping);
+            }
+            //remove from standard
+            $this->timetableTable->delete($id);
+            $this->timetable_slotsTable->deleteWhere('timetable_id', $id);
+            header('location: /timetable/results');
+        }
+    }
+
+    //inverse of store, move stored items back to active tables
+    public function restore() {
+        if(isset($_POST['timetable'])) {
+            $id = $_POST['timetable']['id'];
+            $timetable = $this->archived_timetableTable->find('id', $id)[0];
+            
+            //find timetable mappings
+            $mappings = $this->archived_slotsTable->find('timetable_id', $id);
+            
+            //add to standard
+            $this->timetableTable->saveObject($timetable);
+            foreach($mappings as $mapping) {
+                $this->timetable_slotsTable->saveObject($mapping);
+            }
+            //remove from archives
+            $this->archived_timetableTable->delete($id);
+            $this->archived_slotsTable->deleteWhere('timetable_id', $id);
+            header('location: /timetable/archive/results');
+        }
+    }
+
     public function delete() {
         if(isset($_POST['timetable'])) {
             $timetable = $_POST['timetable'];
-            //remove all mappings relating to timetable
+            //remove all mappings relating to timetable, max 12 mappings therefore delete limit to 12
             $this->timetable_slotsTable->deleteWhere('timetable_id', $timetable['id'], 12);
             //remove timetable reference
             $this->timetableTable->delete($timetable['id']);
@@ -360,23 +497,202 @@ private $timetable_slotsTable;
         }
     }
 
-    public function automate() {
-        $title = "Automated Creation";
-        if(isset($_POST['course'])) {
-            $course = $_POST['course']['id'];
+    public function automate($timetable = [], $course = false) {
+        //establish list of modules, each should be input twice, once for lecture once for practical
+        $course_mods = [];
+        //so i need to pull the current info from $timetable array to establish modules that are already used. 
+        $already_applied_mods = [];
+        foreach($timetable as $day) {
+            foreach($day as $timeslot) {
+                if(isset($timeslot['module'])) {
+                    $already_applied_mods[] = $timeslot['module'];
+                }
+            }
+        }
+        //var_dump($already_applied_mods);
+        //this is the ideal modules in play 
+        for ($i = 1; $i < 7; $i++) {
+            $methodString = 'module_'.$i;
+            if(isset($course->$methodString) && $course->$methodString != '') {
+                $course_mods[] = $course->$methodString;
+                $course_mods[] = $course->$methodString;
+            }
+        }
+        //so the difference between the two is the modules still to be completed 
+        foreach($already_applied_mods as $mod) {
+            if(in_array($mod, $course_mods)) {
+                array_splice($course_mods, array_search($mod, $course_mods), 1);
+            }
+        }
+        //var_dump($course_mods);
+        $timetableArray = $this->generateTimetable($course_mods, $timetable); 
+        $timetable = [];
+        //reorganise array in order of day and timeslot
+        foreach ($this->days as $key => $day) {
+            if(isset($timetableArray[$day])) {
+                foreach ($this->timeslots as $tskey => $timeslot) {
+                    if(isset($timetableArray[$day][$timeslot])) {
+                        $timetable[$day][$timeslot] = $timetableArray[$day][$timeslot];
+                    }
+                }
+            }
+        }
+        $this->updateRooms($timetable, $already_applied_mods);
+
+        //at this point we have a structure that matches the other timetable structures
+        //var_dump($timetable);
+        return $timetable;
+    }
+
+    function randomComboLecture(&$day, &$slot) {
+        $randomDay = rand(0, sizeof($this->autoDays)-1);
+        $day = $this->autoDays[$randomDay];
+
+        $randomSlot = rand(0, sizeof($this->timeslots)-1);
+        $slot = $this->timeslots[$randomSlot];
+
+    }
+
+    function randomRoom(&$room, $x, $y) {
+        $randomRoom = rand($x,$y);
+        $room = $this->rooms[$randomRoom]->name;
+    }
+
+    function generateTimetable($course_mods, $timetableArray) {
+        foreach($course_mods as $mod) {
+            //pick day
+            $day;
+            $slot;
+            //generate combo, if already set regenerate
+            $this->randomComboLecture($day, $slot);
+            //this should also ensure that there is at least 1 valid room a the slot specified, if not should reroll the slot
+            while(isset($timetableArray[$day][$slot])) {
+                $this->randomComboLecture($day, $slot);
+            }
+            
+            if(!isset($timetableArray[$day][$slot])) {
+                //only add if unique slot/day combo
+                $timetableArray[$day][$slot] = [
+                'module' => $mod
+                ];
+            }
+            
+        }
+        return $timetableArray;
+    }
+
+    function updateRooms(&$timetableArray, $moduleTrack = []) {
+        $room;
+        for($i = 0; $i < sizeof($this->rooms); $i++) {
+            if($i < 4) {
+                $lectureRooms[] = $this->rooms[$i]->name;
+            }
+            else {
+                $tempRooms[] = $this->rooms[$i]->name;
+            }
+        }
+        //establish valid rooms for lectures and non-lecture modules
+        //update this to loop through timetable array rather than loop through days and timeslots surely
+
+        //this is overly complicated for no good reason
+        foreach ($this->days as $key => $day) {
+            if(isset($timetableArray[$day])) {
+                foreach ($this->timeslots as $tskey => $timeslot) {
+                    if(isset($timetableArray[$day][$timeslot])) {
+                        if(!isset($timetableArray[$day][$timeslot]['room'])) {
+                            $restrictedRooms = $tempRooms;
+                            $lectureRooms = ['C1','C2','C3','C4'];
+                            //find mappings at the same time and day but not the same module
+                            //modules can be shared between different timetables, i.e. 3 timetable groups having the same lecture slot
+                            $restriction = [
+                                [
+                                    'day', $day, '=', 'AND'
+                                ],
+                                [
+                                    'timeslot', $timeslot, '=', 'AND'
+                                ],
+                                [
+                                    'module_code', $timetableArray[$day][$timeslot]['module'], '!=', 'AND'
+                                ]
+                            ];
+                            $alreadyMapped = $this->timetable_slotsTable->restrictionFind($restriction);
+                            
+                            //decide which list to pull the room from, the first pass through for a module should be a lecture room. therefore each module is added to the track after first instance.
+                            if(!in_array($timetableArray[$day][$timeslot]['module'], $moduleTrack)) {
+                                $moduleTrack[] = $timetableArray[$day][$timeslot]['module'];
+                                $selectedRoomList = $lectureRooms;
+                            }
+                            else {
+                                $selectedRoomList = $restrictedRooms;
+                            }
+                            //remove the invalid mapping options from list
+                            foreach($alreadyMapped as $mapping) {
+                                //var_dump(array_search($mapping->room, $tempRooms));
+                                array_splice($selectedRoomList, array_search($mapping->room, $selectedRoomList), 1);
+                            }
+                            //it is possible that the valid rooms can be zero!
+                            $room = $selectedRoomList[rand(0,sizeof($selectedRoomList)-1)];
+                            $timetableArray[$day][$timeslot]['room'] = $room;
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+
+    function timetableErrors($timetable, $course) {
+        //errors to complete, room in use error although that would require changes to automation of rooms method
+        //establish count and correct number of each module
+        if($course->year == 3) {
+            $idealModuleCount = 10;
         }
         else {
-            $course = 1;
+            $idealModuleCount = 12;
         }
-        $course = $this->tempCourseTable->find('id', $course)[0];
-        var_dump($course);
-        var_dump($this->rooms);
-        return [
-            'template' => 'automatedump.html.php',
-            'title' => $title,
-            'variables' => 
-            [ 
-            ]
-        ];
+        //count all modules in use
+        $modCount = 0;
+        $modulesInUse = [];
+        $countOccurenceModule = [];
+        foreach($timetable as $dayKey => $day) {
+            foreach ($day as $timeKey => $timeslot) {
+                if(isset($timeslot['module'])) {
+                    //count total modules
+                    $modCount++;
+                    $modulesInUse[] = $timeslot['module'];
+
+                    //set up counter for each module in turn
+                    if(!isset($countOccurenceModule[$timeslot['module']])) {
+                        $countOccurenceModule[$timeslot['module']] = 1;
+                    }
+                    else {
+                        //if element exists in array increase count by one
+                        $countOccurenceModule[$timeslot['module']] = $countOccurenceModule[$timeslot['module']]+1;
+                    }
+
+                }
+                //module selected but room not selected 
+                if(isset($timeslot['module']) && !isset($timeslot['room'])) {
+                    $errors[$dayKey." ".$timeKey] = "Room not set";
+                }
+                //room selected without a module
+                if(isset($timeslot['room']) && !isset($timeslot['module'])) {
+                    $errors[$dayKey." ".$timeKey] = "Module not set";
+                }
+            }
+        }
+        //display error for incorrect total module count
+        if($modCount != $idealModuleCount) {
+            $errors['Incorrect Module Number'] = "Courses of year ".$course->year. " should contain ".$idealModuleCount." Modules";
+        }
+        //display error for incorrect occurence of each module
+        foreach($countOccurenceModule as $key =>$mod) {
+            if($mod != 2) {
+                $errors['Module Counter '.$key] = "Incorrect quantity of ".$key." 2 required ".$mod. " found";
+            }
+        }
+
+        //loop through timetable, if room set to false, no available room at timeslot?
+        return $errors;
     }
 }

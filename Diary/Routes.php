@@ -25,9 +25,11 @@ class Routes implements \RWCSY2028\Routes {
         $roomsTable = new \RWCSY2028\DatabaseTable($pdo, 'rooms', 'id');
         $timetableTable = new \RWCSY2028\DatabaseTable($pdo, 'timetable', 'id');
         $timetable_slotsTable = new \RWCSY2028\DatabaseTable($pdo, 'timetable_slots', 'id');
+        $archivedTimetableTable = new \RWCSY2028\DatabaseTable($pdo, 'archived_timetable', 'id');
+        $archived_slotsTable = new \RWCSY2028\DatabaseTable($pdo, 'archived_timetable_slots', 'id');
         $tempCourseTable = new \RWCSY2028\DatabaseTable($pdo, 'temp_course', 'id');
 
-        $timetableController = new \Diary\Controllers\Timetable($timetableTable, $timetable_slotsTable, $tempCourseTable, $roomsTable);
+        $timetableController = new \Diary\Controllers\Timetable($timetableTable, $timetable_slotsTable, $tempCourseTable, $roomsTable, $archivedTimetableTable, $archived_slotsTable);
         $diaryController = new \Diary\Controllers\Diary($diariesTable, $appointmentsTable, $_GET, $_POST);
 
         $routes = [
@@ -331,14 +333,32 @@ class Routes implements \RWCSY2028\Routes {
                     'function' => 'delete'
                 ]
             ],
-            'timetable/automate' => [
+            'timetable/archive' => [
                 'GET' => [
                     'controller' => $timetableController,
-                    'function' => 'automate'
+                    'function' => 'archiveResults'
                 ],
                 'POST' => [
                     'controller' => $timetableController,
-                    'function' => 'automate'
+                    'function' => 'archiveResults'
+                ]
+            ],
+            'timetable/archive/results' => [
+                'GET' => [
+                    'controller' => $timetableController,
+                    'function' => 'archiveSearch'
+                ]
+            ],
+            'timetable/restore' => [
+                'POST' => [
+                    'controller' => $timetableController,
+                    'function' => 'restore'
+                ]
+            ],
+            'timetable/store' => [
+                'POST' => [
+                    'controller' => $timetableController,
+                    'function' => 'store'
                 ]
             ],
             '' => [
@@ -356,7 +376,8 @@ class Routes implements \RWCSY2028\Routes {
         return $routes;
     }
     
-
+    //if user attempts to access unset route reroute to default page
+    //ultimately would be dashboard concept
     public function getReroute() {
             $route = '';
         
@@ -370,12 +391,14 @@ class Routes implements \RWCSY2028\Routes {
         ];
     }
 
+    //ensure user is logged in order to access any page of rm
     public function checkLogin($route) {
         //session_start();
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             return $route;
         }
         else {
+            // if not logged send to login page
             return 'login';
         }
     }
