@@ -1,11 +1,13 @@
 <div class="container">
     <div class="con">
     
-        <form class="form" action="/student/home" method="POST">
+        <form class="form form-colour-background" action="/login" method="POST">
             <h3>Woodlands University College</h3>
-            <p>Records Management Login</p>
+            <p class="secondary-title">Records Management Login</p>
             <input class="in" type="text" name="username" placeholder="Username">
             <input class="in" type="password" name="password" placeholder="Password">
+            <p class='error'><?=$error ?? ''?></p>
+
             <!-- <button class="button">Login</button> -->
             <!-- <input id="login-button" class="button" type="submit" name="submit" value="Login"> -->
             <div class="logbutton">

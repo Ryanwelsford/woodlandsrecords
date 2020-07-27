@@ -19,9 +19,12 @@ function openTab(evt, tabId) {
     document.getElementById(tabId).style.display = "block";
     evt.currentTarget.className += " active-tab";
   }
+
+  
   document.addEventListener("DOMContentLoaded", function(){
     if(document.getElementById("defaultOpen") != null) { 
       document.getElementById("defaultOpen").click();
     }
+
   });
   
