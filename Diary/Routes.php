@@ -30,10 +30,13 @@ class Routes implements \RWCSY2028\Routes {
         $archived_slotsTable = new \RWCSY2028\DatabaseTable($pdo, 'archived_timetable_slots', 'id');
         $tempCourseTable = new \RWCSY2028\DatabaseTable($pdo, 'temp_course', 'id');
 
+        //reports tables
+        $studentReportTable = new \RWCSY2028\DatabaseTable($pdo,'students','id');
+
         $timetableController = new \Diary\Controllers\Timetable($timetableTable, $timetable_slotsTable, $tempCourseTable, $roomsTable, $archivedTimetableTable, $archived_slotsTable);
         $diaryController = new \Diary\Controllers\Diary($diariesTable, $appointmentsTable, $_GET, $_POST);
         $generalController = new \Diary\Controllers\General();
-        $reportController = new \Diary\Controllers\Report();
+        $reportController = new \Diary\Controllers\Report($studentReportTable);
 
         $routes = [
             'student/home' => [
@@ -398,6 +401,13 @@ class Routes implements \RWCSY2028\Routes {
                 'GET' => [
                     'controller' => $timetableController,
                     'function' => 'studentTimetable',
+                    'print' => true
+                ]
+            ],
+            'report/student/contacts-by-id' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'studentContactsId',
                     'print' => true
                 ]
             ],
