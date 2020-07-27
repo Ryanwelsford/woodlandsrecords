@@ -109,7 +109,7 @@ class studentController {
             //once the submit button is pressed update the selected student that needed to be amended
 
             $this->studenttable->update($_POST['student']);
-            header('location: /amendstudentlist');
+            header('location: /student/amendstudentlist');
     
 
         }
