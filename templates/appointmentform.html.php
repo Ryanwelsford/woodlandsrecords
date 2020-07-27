@@ -18,7 +18,7 @@
     }
     $date = new DateTime();
     ?>
-<div class = 'formContainer'>
+<div class = 'formContainer form-colour-background'>
     <h3>Appointment Creation</h3>
     
     <?php

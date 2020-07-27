@@ -28,6 +28,29 @@
                 <?php
                 //to-do add section to enable printout of reports without nav and background image
             }
+            //in order to print a route must be printable, i.e. print is set in the route + get var must be set
+            else if (isset($_GET['print']) && $_GET == true && isset($routes[$route][$method]['print']) && $routes[$route][$method]['print'] == true){
+                ?>
+                
+                <body class = "printout">
+                <div class = "printout-top">
+                <img class="logo-printout" src="/images/new logo.jpg" alt="logo"> 
+
+                <h2>Woodlands University College</h2>
+
+                <section class="address-info">
+                    <ul>
+                        <li>123 Woodlands Lane</li>
+                        <li>Northampton</li>
+                        <li>Northamptonshire</li>
+                        <li>NN1 5SF</li>
+                    </ul>
+                </section>
+                
+                </div>
+                <?=$output;?>
+                <?php
+            }
             else {
         ?>
         <body>
@@ -42,9 +65,10 @@
                     
                     <!--Dropdown menu for user access, i.e. other none main selection items-->
                     <div class="dropdown-menu">
-                        <a class="dropdown-item hvr-grow-shadow" href="/">Logout</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Dashboard</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/">Settings</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/">Help</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/logout">Logout</a>
                     </div>
                 </div>
                 
@@ -156,8 +180,8 @@
                     <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Report</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Print</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/report/display">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/report/print">Print</a>
                     </div>
                 </li>
             </ul>

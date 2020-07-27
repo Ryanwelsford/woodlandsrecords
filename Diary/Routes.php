@@ -16,6 +16,7 @@ class Routes implements \RWCSY2028\Routes {
         $studentcontroller = new \Controllers\studentController($studenttable,$archivestudenttable);
         $staffcontroller = new \Controllers\staffController($stafftable,$unassignedstafftable,$archivestafftable);
         $personaltutorcontroller = new \Controllers\personaltutorController($unassignedstafftable,$personaltutortable,$studenttable,$tuteestable);
+        $loginController = new \Controllers\loginController(false);
 
         //ryans
         //diary tables
@@ -31,19 +32,11 @@ class Routes implements \RWCSY2028\Routes {
 
         $timetableController = new \Diary\Controllers\Timetable($timetableTable, $timetable_slotsTable, $tempCourseTable, $roomsTable, $archivedTimetableTable, $archived_slotsTable);
         $diaryController = new \Diary\Controllers\Diary($diariesTable, $appointmentsTable, $_GET, $_POST);
+        $generalController = new \Diary\Controllers\General();
+        $reportController = new \Diary\Controllers\Report();
 
         $routes = [
             'student/home' => [
-                'GET' => [
-                    'controller' =>$studentcontroller,
-                    'function' => 'home'
-                ],
-                'POST' => [
-                    'controller' =>$studentcontroller,
-                    'function' => 'home'
-                ]
-            ],
-            'login' => [
                 'GET' => [
                     'controller' =>$studentcontroller,
                     'function' => 'home'
@@ -361,6 +354,53 @@ class Routes implements \RWCSY2028\Routes {
                     'function' => 'store'
                 ]
             ],
+            'login' => [
+                'GET' => [
+                    'controller' => $loginController,
+                    'function' => 'login'
+                ],
+                'POST' => [
+                    'controller' => $loginController,
+                    'function' => 'login'
+                ]
+            ],
+            'logout' => [
+                'GET' => [
+                    'controller' => $loginController,
+                    'function' => 'logout'
+                ]
+            ],
+            'construction' => [
+                'GET' => [
+                    'controller' => $generalController,
+                    'function' => 'construction'
+                ]
+            ],
+            'pagenotfound' => [
+                'GET' => [
+                    'controller' => $generalController,
+                    'function' => 'pageNotFound'
+                ]
+            ],
+            'report/display' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'display'
+                ]
+            ],
+            'report/print' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'print'
+                ]
+            ],
+            'report/timetable/student' => [
+                'GET' => [
+                    'controller' => $timetableController,
+                    'function' => 'studentTimetable',
+                    'print' => true
+                ]
+            ],
             '' => [
                 'GET' => [
                     'controller' =>$studentcontroller,
@@ -379,7 +419,7 @@ class Routes implements \RWCSY2028\Routes {
     //if user attempts to access unset route reroute to default page
     //ultimately would be dashboard concept
     public function getReroute() {
-            $route = '';
+            $route = 'pagenotfound';
         
         return $route;
     }

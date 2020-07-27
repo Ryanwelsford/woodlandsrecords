@@ -137,6 +137,45 @@ private $autoDays;
         ];
     }
 
+    public function studentTimetable() {
+        if(isset($_GET['print']) && $_GET['print'] == true) {
+
+        }
+
+        $timetableId = 6;
+        $student = new \stdClass();
+        $student->id = "S1256";
+        $student->name = "Steve Linford";
+        $title = 'Student Timetable';
+        $course['title'] = "Software Engineering";
+        $results = $this->timetableTable->find('id', $timetableId);
+        //prevent errors from 0 results i.e search for invalid id
+        if(isset($results[0])) {
+            $timetableObject = $results[0];
+            $timetable = $this->recreateTimetableArray($timetableObject->id);
+            $course = $this->tempCourseTable->find('id',$timetableObject->course_id)[0];
+            $t_id = $timetableId;
+        }
+        else {
+            $timetable = false;
+            $t_id = false;
+        }
+        
+        
+        return [
+            'template' => 'reportstudenttimetable.html.php',
+            'title' => $title,
+            'variables' => [
+                'course' => $course,
+                'days' =>$this->days,
+                'timeslots' => $this->timeslots,
+                'timetable' => $timetable,
+                't_id' => $t_id,
+                'student' => $student
+            ]
+        ];
+    }
+
     public function create($errors = []) {
         $title = "Create Timetable";
         if(isset($_POST['course'])) {
