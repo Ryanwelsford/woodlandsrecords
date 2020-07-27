@@ -40,15 +40,20 @@
 
                 <section class="address-info">
                     <ul>
-                        <li>123 Woodlands Lane</li>
-                        <li>Northampton</li>
-                        <li>Northamptonshire</li>
-                        <li>NN1 5SF</li>
+                        <li>123 Woodlands Lane, NN1 5SF</li>
+                        <li>contact@woodlands.ac.uk</li>
+                        <li>01733 451786</li>
                     </ul>
                 </section>
                 
                 </div>
                 <?=$output;?>
+
+                <section class="print-footer">
+                    <ul>
+                        <li>Woodland University College &copy;</li>
+                    </ul>
+                </section>
                 <?php
             }
             else {
@@ -179,7 +184,7 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Report</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/report/display">Display</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/report/print">Print</a>
                     </div>

@@ -491,12 +491,22 @@ section .diary-delete {
     background-image: none;
 }
 
-.printout-top {
+.printout-top, .print-footer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin: 3vh 11vw;
+    width: 70vw;
+    margin: 3vh auto;
 } 
-.address-info ul {
+.print-footer, .address-info {
+    display: flex;
+    justify-content: flex-end;
+}
+.address-info ul, .print-footer ul {
     list-style-type: none;
+}
+.logo-printout {
+    margin-right: auto;
+}
+.address-info {
+    margin-left: auto;
 }
