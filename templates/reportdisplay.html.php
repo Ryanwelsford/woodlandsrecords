@@ -22,10 +22,10 @@
                         <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Current Tutor Timetable</div>
                         </div></a>
-                        <a href="/report/timetable/student<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/report/timetable/student<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Current Student Timetable</div>
                         </div></a>
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Current Timetable by Year</div>
                         </div></a>
 
@@ -35,13 +35,13 @@
                     <div id="Personal-Tutor" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a href="/construction<?=$linkAddition ?? '';?>"div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Tutees by Tutor</div>
                         </div></a>
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Tutees by Tutor and Year</div>
                         </div></a>
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Tutorial outcomes by student by year</div>
                         </div></a>
 
@@ -51,16 +51,16 @@
                     <div id="Grades" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Grade Profile by Student</div>
                         </div></a>
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Grade List by Module</div>
                         </div></a>
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Outstanding Grades by Module</div>
                         </div></a>
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Grades by Module Year by Year</div>
                         </div></a>
 
@@ -70,13 +70,13 @@
                     <div id="Attendance" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Attendance by Module</div>
                         </div></a>
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Attendance by Student</div>
                         </div></a>
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Poor Attendance</div>
                         </div></a>
 
@@ -85,10 +85,10 @@
                     <div id="Student" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Contacts by ID</div>
                         </div></a>
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Contacts by Name</div>
                         </div></a>
 
@@ -97,10 +97,10 @@
                     <div id="Staff" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Contacts by ID</div>
                         </div></a>
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Contacts by Name</div>
                         </div></a>
 
@@ -109,7 +109,7 @@
                     <div id="Module" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Current Modules by Year</div>
                         </div></a>
 
@@ -118,7 +118,7 @@
                     <div id="Assignment" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Assignments Scheduled by Year</div>
                         </div></a>
 
