@@ -85,10 +85,10 @@
                     <div id="Student" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/report/student/contacts-by-id<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Contacts by ID</div>
                         </div></a>
-                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/report/student/contacts-by-name<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Contacts by Name</div>
                         </div></a>
 
@@ -97,10 +97,10 @@
                     <div id="Staff" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/report/staff/contacts-by-id<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Contacts by ID</div>
                         </div></a>
-                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/report/staff/contacts-by-name<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Contacts by Name</div>
                         </div></a>
 
@@ -109,7 +109,7 @@
                     <div id="Module" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/report/module/year<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Current Modules by Year</div>
                         </div></a>
 

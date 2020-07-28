@@ -13,6 +13,7 @@ class loginController{
         // $content = loadtemplate('../templates/login.html.php',[]);
         // $header = 'Login';
         // $title = 'Login';
+        $user = false;
         if(isset($_POST['loginsubmit'])) {
             if($_POST['username'] == 'admin' && $_POST['password'] == 'test')
             {
@@ -21,6 +22,7 @@ class loginController{
             }
             else {
                 $error = "Incorrect username or password";
+                $user['username'] = $_POST['username'];
             }
         }
         
@@ -33,7 +35,8 @@ class loginController{
             'template' => 'login.html.php',
             'title' => $title,
             'variables' => [
-                'error' => $error
+                'error' => $error,
+                'user' => $user
             ]
         ];
     }

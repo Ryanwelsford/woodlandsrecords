@@ -1,5 +1,5 @@
-<article class = "table-container">
-    <h2><?=$heading;?></h2>
+<article class = "table-container mid-table-container">
+    <h2 class="report-heading"><?=$heading;?></h2>
 
     <article class="search-results-container">
         <table class="search-results-table">
@@ -12,13 +12,14 @@
             </tr>
             <?php
             foreach($students as $student) {
+                //var_dump($student);
                 ?>
                 <tr>
-                    <td><?=$student->id;?></td>
+                    <td><?=$student->studentid;?></td>
                     <td><?=$student->firstname." ".$student->surname;?></td>
                     <td><?=$student->email;?></td>
                     <td><?=$student->phonenum;?></td>
-                    <td><?=$student->termaddress;?></td>
+                    <td class="report-address-td"><?=$student->termaddress;?></td>
                 </tr>
                 <?php
             }

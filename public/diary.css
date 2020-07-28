@@ -473,7 +473,7 @@ section .diary-delete {
 .report-tab div {
     font-size: 2.5vh;
     text-align: center;
-    padding: 3px;
+    padding: 15px;
     text-decoration: none;
 }
 
@@ -484,7 +484,15 @@ section .diary-delete {
 .report-tab-bar {
     display: flex;
     flex-direction: row;
+    width:inherit;
     justify-content: space-between;
+}
+.report-tab-bar button {
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+.report-tab-bar button:last-child {
+    margin-right: 0px;
 }
 
 .printout {
@@ -509,4 +517,23 @@ section .diary-delete {
 }
 .address-info {
     margin-left: auto;
+}
+.report-heading {
+    margin: 3vh 0vw 5vh 0vw;
+}
+
+.mid-table-container {
+    width: min-content;
+}
+.report-address-td {
+    min-width: 200px;
+}
+
+.report-p-spacer {
+    margin-top:5px;
+    font-weight: bold;
+}
+
+.username-login {
+    overflow: hidden;
 }

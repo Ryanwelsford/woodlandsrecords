@@ -4,7 +4,7 @@
         <form class="form form-colour-background" action="/login" method="POST">
             <h3>Woodlands University College</h3>
             <p class="secondary-title">Records Management Login</p>
-            <input class="in" type="text" name="username" placeholder="Username">
+            <input class="in" type="text" name="username" placeholder="Username" value="<?=$user['username'] ?? '' ?>">
             <input class="in" type="password" name="password" placeholder="Password">
             <p class='error'><?=$error ?? ''?></p>
 

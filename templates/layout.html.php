@@ -63,7 +63,8 @@
         <div class = "logo-container">
             <img class="logo" src="/images/new logo.jpg" alt="logo">
             <div class="login-info">
-                <img class="usericon" src="/images/profile-icon-illustration-user-profile-computer-icons-girl-customer-avatar-png-clip-art.png"> <?=$user->name ?? 'Admin'?>
+                <img class="usericon" src="/images/profile-icon-illustration-user-profile-computer-icons-girl-customer-avatar-png-clip-art.png"> 
+                <div class="username-login"><?=$user['name'] ?? 'Admin'?></div>
                 <div class="btn-group">
                     <button class="btn btn-secondary btn-sm dropdown-toggle logout-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
@@ -71,8 +72,8 @@
                     <!--Dropdown menu for user access, i.e. other none main selection items-->
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="/construction">Dashboard</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/">Settings</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/">Help</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Settings</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Help</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/logout">Logout</a>
                     </div>
                 </div>

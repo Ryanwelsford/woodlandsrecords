@@ -32,11 +32,12 @@ class Routes implements \RWCSY2028\Routes {
 
         //reports tables
         $studentReportTable = new \RWCSY2028\DatabaseTable($pdo,'students','id');
+        $staffReportTable = new \RWCSY2028\DatabaseTable($pdo,'staff','id');
 
         $timetableController = new \Diary\Controllers\Timetable($timetableTable, $timetable_slotsTable, $tempCourseTable, $roomsTable, $archivedTimetableTable, $archived_slotsTable);
         $diaryController = new \Diary\Controllers\Diary($diariesTable, $appointmentsTable, $_GET, $_POST);
         $generalController = new \Diary\Controllers\General();
-        $reportController = new \Diary\Controllers\Report($studentReportTable);
+        $reportController = new \Diary\Controllers\Report($studentReportTable, $staffReportTable, $tempCourseTable);
 
         $routes = [
             'student/home' => [
@@ -411,6 +412,34 @@ class Routes implements \RWCSY2028\Routes {
                     'print' => true
                 ]
             ],
+            'report/student/contacts-by-name' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'studentContactsName',
+                    'print' => true
+                ]
+            ],
+            'report/staff/contacts-by-id' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'staffContactsId',
+                    'print' => true
+                ]
+            ],
+            'report/staff/contacts-by-name' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'staffContactsName',
+                    'print' => true
+                ]
+            ],
+            'report/module/year' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'moduleYear',
+                    'print' => true
+                ]
+            ],
             '' => [
                 'GET' => [
                     'controller' =>$studentcontroller,
@@ -436,8 +465,9 @@ class Routes implements \RWCSY2028\Routes {
 
     public function getLayoutVariables() {
         //this would pull out the user information of logged user
+        $user['name'] = "Simms, J";
         return [
-    
+            'user' => $user
         ];
     }
 
