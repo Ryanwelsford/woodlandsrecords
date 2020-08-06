@@ -40,6 +40,7 @@ class EntryPoint {
 		//pull out variables required for layouts pages
 		$layoutVars = $this->routes->getLayoutVariables();
 		extract($layoutVars);
+		
 		require  '../templates/layout.html.php';
 	}
 	

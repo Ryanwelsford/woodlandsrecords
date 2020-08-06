@@ -16,7 +16,7 @@
                 ?>
                 <tr>
                     <td><?=$single->staffid;?></td>
-                    <td><?=$single->firstname." ".$single->surname;?></td>
+                    <td><?=$single->surname.", ".$single->firstname;?></td>
                     <td><?=$single->email;?></td>
                     <td><?=$single->phonenumber;?></td>
                     <td class="report-address-td"><?=$single->address;?></td>

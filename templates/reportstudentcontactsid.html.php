@@ -16,7 +16,7 @@
                 ?>
                 <tr>
                     <td><?=$student->studentid;?></td>
-                    <td><?=$student->firstname." ".$student->surname;?></td>
+                    <td><?=$student->surname.", ".$student->firstname;?></td>
                     <td><?=$student->email;?></td>
                     <td><?=$student->phonenum;?></td>
                     <td class="report-address-td"><?=$student->termaddress;?></td>
