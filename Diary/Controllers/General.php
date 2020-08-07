@@ -12,12 +12,14 @@ class General {
         $title = 'Under Construction';
         $h1 = "This page is currently under construction";
         $p = "Watch this space for more details";
+        $back = true;
         return [
             'template' => 'construction.html.php',
             'title' => $title,
             'variables' => [
                 'h1' => $h1,
-                'p' => $p
+                'p' => $p,
+                'back' => $back
             ]
         ];
     }
@@ -27,12 +29,14 @@ class General {
         $title = 'Under Construction';
         $h1 = "This page was not found";
         $p = "If you are encountering this error please check you have accessed the correct page";
+        $back = true;
         return [
             'template' => 'construction.html.php',
             'title' => $title,
             'variables' => [
                 'h1' => $h1,
-                'p' => $p
+                'p' => $p,
+                'back' => $back
             ]
         ];
     }

@@ -144,12 +144,12 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Attendance</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Monitor</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Action Poor Attendance</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/module/select">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/form/search">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Monitor</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Action Poor Attendance</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

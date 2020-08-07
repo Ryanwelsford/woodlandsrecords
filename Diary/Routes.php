@@ -29,15 +29,22 @@ class Routes implements \RWCSY2028\Routes {
         $archivedTimetableTable = new \RWCSY2028\DatabaseTable($pdo, 'archived_timetable', 'id');
         $archived_slotsTable = new \RWCSY2028\DatabaseTable($pdo, 'archived_timetable_slots', 'id');
         $tempCourseTable = new \RWCSY2028\DatabaseTable($pdo, 'temp_course', 'id');
+        $tempModuleTable = new \RWCSY2028\DatabaseTable($pdo, 'temp_module', 'id');
 
         //reports tables
         $studentReportTable = new \RWCSY2028\DatabaseTable($pdo,'students','id');
         $staffReportTable = new \RWCSY2028\DatabaseTable($pdo,'staff','id');
 
+        //attendance tables
+        $attendanceTable = new \RWCSY2028\DatabaseTable($pdo,'attendance','id');
+        $attendance_mapppingsTable = new \RWCSY2028\DatabaseTable($pdo,'attendance_mappings','id');
+        //ryans controllers
         $timetableController = new \Diary\Controllers\Timetable($timetableTable, $timetable_slotsTable, $tempCourseTable, $roomsTable, $archivedTimetableTable, $archived_slotsTable);
         $diaryController = new \Diary\Controllers\Diary($diariesTable, $appointmentsTable, $_GET, $_POST);
         $generalController = new \Diary\Controllers\General();
         $reportController = new \Diary\Controllers\Report($studentReportTable, $staffReportTable, $tempCourseTable);
+        $attendanceController = new \Diary\Controllers\Attendance($studentReportTable, $tempCourseTable, $tempModuleTable, $attendanceTable, $attendance_mapppingsTable);
+
 
         $routes = [
             'student/home' => [
@@ -438,6 +445,34 @@ class Routes implements \RWCSY2028\Routes {
                     'controller' => $reportController,
                     'function' => 'moduleYear',
                     'print' => true
+                ]
+            ],
+            'attendance/create' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'create'
+                ],
+                'POST' => [
+                    'controller' => $attendanceController,
+                    'function' => 'create'
+                ]
+            ],
+            'attendance/module/select' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'moduleSelect'
+                ]
+            ],
+            'attendance/module/search' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'moduleSearch'
+                ]
+            ],
+            'attendance/form/search' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'amend'
                 ]
             ],
             '' => [

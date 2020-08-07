@@ -153,7 +153,7 @@ section .diary-delete {
     flex-direction: column;
     align-items: center;    
     text-align: flex-start;
-    background-color: #e1e1e1;
+    background: rgba(225,225,225, 0.8);
     border: 1px solid black;
     padding: 2em;
     width: 40vw;
@@ -536,4 +536,9 @@ section .diary-delete {
 
 .username-login {
     overflow: hidden;
+}
+
+.search-results-table select {
+    display: block;
+    margin: 0 auto;
 }
