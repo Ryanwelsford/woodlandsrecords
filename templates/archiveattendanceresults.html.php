@@ -3,7 +3,7 @@
 
     <div class ="left-search"><?=$searchBox;?></div>
     <article class="search-results-container">
-    <div class = "Archive-link"><a href='/attendance/archive/results'>Search Archives</a></div>
+    <div class = "Archive-link"><a href='/attendance/form/search'>Search Active Attendance</a></div>
         <?php
         if(isset($_GET['search']) || !isset($_GET['search'])) {
             if($totalSearchResults == 0) {
@@ -43,10 +43,9 @@
                     <td><?=$result->date ?? 'date not found'?></td>
                     <td>
                         <article class="search-buttons-links">
-                        <a href="/attendance/create?id=<?=$result->id;?>"><button class="search-button search-button-amend">Amend</button></a>
-                        <form method="POST" action="/attendance/archive">
+                        <form method="POST" action="/attendance/restore">
                             <input type="hidden" value="<?=$result->id;?>" name="attendance[id]">
-                            <input class ="search-button search-button-archive" type ="submit" value="Archive">
+                            <input class ="search-button search-button-archive" type ="submit" value="Restore">
                         </form>
                     </td>
                     

@@ -38,12 +38,15 @@ class Routes implements \RWCSY2028\Routes {
         //attendance tables
         $attendanceTable = new \RWCSY2028\DatabaseTable($pdo,'attendance','id');
         $attendance_mapppingsTable = new \RWCSY2028\DatabaseTable($pdo,'attendance_mappings','id');
+        //attendance archive tables
+        $archivedAttendanceTable = new \RWCSY2028\DatabaseTable($pdo,'archived_attendance','id');
+        $archivedAttendance_mapppingsTable = new \RWCSY2028\DatabaseTable($pdo,'archived_attendance_mappings','id');
         //ryans controllers
         $timetableController = new \Diary\Controllers\Timetable($timetableTable, $timetable_slotsTable, $tempCourseTable, $roomsTable, $archivedTimetableTable, $archived_slotsTable);
         $diaryController = new \Diary\Controllers\Diary($diariesTable, $appointmentsTable, $_GET, $_POST);
         $generalController = new \Diary\Controllers\General();
         $reportController = new \Diary\Controllers\Report($studentReportTable, $staffReportTable, $tempCourseTable);
-        $attendanceController = new \Diary\Controllers\Attendance($studentReportTable, $tempCourseTable, $tempModuleTable, $attendanceTable, $attendance_mapppingsTable);
+        $attendanceController = new \Diary\Controllers\Attendance($studentReportTable, $tempCourseTable, $tempModuleTable, $attendanceTable, $attendance_mapppingsTable, $archivedAttendanceTable, $archivedAttendance_mapppingsTable);
 
 
         $routes = [
@@ -473,6 +476,24 @@ class Routes implements \RWCSY2028\Routes {
                 'GET' => [
                     'controller' => $attendanceController,
                     'function' => 'amend'
+                ]
+            ],
+            'attendance/archive/results' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'archiveResults'
+                ]
+            ],
+            'attendance/archive' => [
+                'POST' => [
+                    'controller' => $attendanceController,
+                    'function' => 'archive'
+                ]
+            ],
+            'attendance/restore' => [
+                'POST' => [
+                    'controller' => $attendanceController,
+                    'function' => 'restore'
                 ]
             ],
             '' => [

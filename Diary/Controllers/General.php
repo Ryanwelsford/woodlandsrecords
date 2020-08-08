@@ -26,7 +26,7 @@ class General {
 
     //for when navigating to a page that does not exist
     public function pageNotFound() {
-        $title = 'Under Construction';
+        $title = 'Page Not Found';
         $h1 = "This page was not found";
         $p = "If you are encountering this error please check you have accessed the correct page";
         $back = true;
