@@ -122,7 +122,7 @@ class Attendance {
     }
     //find which attendance to amend and display
     public function amend() {
-        $title = "Find Attendance to Amend";
+        $title = "Find Attendance";
         $moduleSearch = new \RWCSY2028\TableSearchBox($this->moduleTable);
         $tableSearchBox = new \RWCSY2028\TableSearchBox($this->attendance_mappingsTable);
         $searchBox = $tableSearchBox->generalSearchBox('/attendance/form/search');
@@ -159,9 +159,6 @@ class Attendance {
             $heading = "Displaying All Attendance Forms";
             
             $search = '';
-            //var_dump($generalResults);
-
-            //$results = $this->tableSearchBox->getSearchResults($_GET['field'], $search, $limit);
         }
         //pull module information based on search term, add that to the search term for attendance searches
         $moduleResults = $moduleSearch->getGeneralSearchResults($search);
@@ -294,7 +291,7 @@ class Attendance {
         $page = $this->success();
         $page['title'] = "Archived Attendance";
         $page['variables']['h1'] = "Attendance Successfully Archived";
-        $page['variables']['p'] = "<a href='/attendance/form/search'>Return</a>";
+        $page['variables']['p'] = "Return to search <a href='/attendance/form/search'>here</a>";
         return $page;
     }
     //inversion of archive so remove from archive tables and place into standard
@@ -318,7 +315,7 @@ class Attendance {
         $page = $this->success();
         $page['title'] = "Restored Attendance";
         $page['variables']['h1'] = "Attendance Successfully Restored";
-        $page['variables']['p'] = "View restored attendance <a href='/attendance/create?id=". $attendanceRef ."'>here</a>";
+        $page['variables']['p'] = "View restored attendance <a href='/attendance/view?id=". $attendanceRef ."'>here</a>";
         return $page;
     }
 
@@ -397,4 +394,234 @@ class Attendance {
     //action poor attendance in some way, i.e. for those that have poor attendance produce a printout for it ..?
 
     //monitor should display which students have not attended some count of modules within a certain time frame?
+
+    public function monitor() {
+        //select all mappings that have an X in attended
+        $attendances = $this->attendanceTable->find('attended', 'X');
+        //var_dump($attendances);
+        $title = 'Monitor Student Attendance';
+        /*$missedCounter = array();
+        foreach ($attendances as $attendance) {
+            if(isset($missedCounter[$attendance->student_id])) {
+                $missedCounter[$attendance->student_id]['count'] ++;
+                $missedCounter[$attendance->student_id]['mappings'][] = $attendance->mapping_id;
+            }
+            else {
+                $missedCounter[$attendance->student_id]['count'] = 1;
+                $missedCounter[$attendance->student_id]['mappings'][] = $attendance->mapping_id;
+                $missedCounter[$attendance->student_id]['student'] = $this->studentsTable->find('studentid', $attendance->student_id)[0];
+            }
+        }*/
+        //var_dump($missedCounter);
+        $tableSearchBox = new \RWCSY2028\TableSearchBox($this->studentsTable);
+        $searchBox = $tableSearchBox->generalSearchBox('/attendance/monitor');
+        
+        if(isset($_GET['pageno']) && $_GET['pageno'] > 1) {
+            $pageno = $_GET['pageno'];
+        }
+        else {
+            $pageno = 1;
+        }
+        $resultsperpage = 5;
+        $limit['offset'] = ($pageno-1)*$resultsperpage;
+        $limit['total'] = $resultsperpage;
+
+        if(isset($_GET['search']) && isset($_GET['pageno']) && $_GET['pageno'] != '') {
+            $search = $_GET['search'];
+            $search = strtolower(str_replace('/', '-', $search));
+            $dateOptions = explode('-',$search);
+            if(sizeof($dateOptions) == 3) {
+                try {
+                    $date = new \DateTime($search);
+                    $search = $date->format('Y-m-d');
+                }
+                catch (\Exception $e) {
+                    $search = $_GET['search'];
+                }
+            }
+            
+            $heading = "Student Attendance Search Results";
+            
+        }
+        else {
+            $title = "Search for Students";
+            $heading = "Displaying All Students";
+            
+            $search = '';
+            //var_dump($generalResults);
+
+            //$results = $this->tableSearchBox->getSearchResults($_GET['field'], $search, $limit);
+        }
+
+        $generalResults = $tableSearchBox->getGeneralSearchResults($search,$limit);
+        $totalSearchResults = sizeof($tableSearchBox->getGeneralSearchResults($search));
+        $pageNext = $tableSearchBox->paginationNext($pageno, $totalSearchResults, $resultsperpage);
+        $pagePrevious = $tableSearchBox->paginationPrevious($pageno);
+        $results = $generalResults;
+
+        //var_dump($results);
+
+        return[
+            'template' => 'attendancemonitor.html.php',
+            'title' => $title,
+            'variables' => [
+                'heading' => $title,
+                'searchBox' => $searchBox,
+                'results' => $results,
+                'totalSearchResults' => $totalSearchResults,
+                'pageno' => $pageno,
+                'resultsperpage' => $resultsperpage,
+                'pageNext' => $pageNext,
+                'pagePrevious' => $pagePrevious,
+            ]
+        ];
+    }
+
+    public function attendanceProfile() {
+        //generate a list of modules relative to their id
+        $modules = $this->moduleTable->findAll();
+        $formattedModules = array();
+        foreach($modules as $module) {
+            $formattedModules[$module->id] = $module->name;
+        }
+
+
+        //var_dump($formattedModules);
+        //ensure a student is set
+        if(isset($_GET['sid'])) {
+            $student = $this->studentsTable->find('studentid', $_GET['sid']);
+            //if student is found, prevents get manipulation
+            if(isset($student[0])) {
+                $student = $student[0];
+                //var_dump($student);
+
+                //find attendance information based on student id
+                $attendance = $this->attendanceTable->find('student_id', $student->studentid);
+
+                foreach($attendance as $each) {
+                    
+                    $mapping = $this->attendance_mappingsTable->find('id', $each->mapping_id)[0];
+                    $each->module = $formattedModules[$mapping->module_id];
+                }
+                //var_dump($attendance);
+
+                $student->module = array();
+                $totalAttended = 0;
+                $totalMappings = 0;
+                foreach($attendance as $each) {
+                    if($each->attended == 'O') {
+                        $totalAttended++;
+                    }
+                    $totalMappings++;
+                    if(!isset($student->module[$each->module])) {
+                        $student->module[$each->module] = array();
+                        $student->module[$each->module]['attended'] = 0;
+                        $student->module[$each->module]['total'] = 0;
+                    }
+
+                    if($each->attended == 'O' || $each->attended == 'A') {
+                        $student->module[$each->module]['attended']++;
+                    }
+
+                    $student->module[$each->module]['total']++;
+                }
+                //var_dump($student);
+                //prevent divide by zero in weird case
+                if($totalMappings !=0) {
+                    $percentageAttended = round(($totalAttended/$totalMappings)*100, 2);
+                }
+                else {
+                    $percentageAttended = 0;
+                }
+                //ksort sorts an array alphabetically based on key
+                ksort($student->module);
+                $student->percentageAttended = $percentageAttended;
+                $student->totalMappings = $totalMappings;
+                //var_dump($percentageAttended);
+            }
+            else {
+                header('location: /attendance/monitor');
+            }
+        }
+        else {
+            header('location: /attendance/monitor');
+        }
+        $students = array();
+        $students[] = $student;
+        $title = 'Student Attendance Profile';
+        $heading = $title;
+        return [
+            'template' => 'attendanceprofile.html.php',
+            'title' => $title,
+            'variables' => [
+                'heading' => $heading,
+                'students' => $students,
+                'percentageAttended' => $percentageAttended,
+                'totalMappings' => $totalMappings
+            ]
+        ];
+    }
+    //display attendence form with no option to edit,allow to display archived attendence
+    public function view() {
+        //pull from standard tables
+        if(isset($_GET['id'])) {
+            $refTable = $this->attendance_mappingsTable;
+            $attendanceTable = $this->attendanceTable;
+            $id = $_GET['id'];
+            $title = 'View Attendance Form';
+        }
+        //pull from archived tables
+        else if (isset($_GET['aid'])) {
+            $refTable = $this->archivedAttendance_mappingsTable;
+            $attendanceTable = $this->archivedAttendanceTable;
+            $id = $_GET['aid'];
+            $title = 'View Archived Attendance Form';
+        }
+        //reroute to select an attendence to view
+        else {
+            header('location: /attendence/form/search');
+        }
+        //pull reference from appropriate table
+        $ref = $refTable->find('id', $id);
+
+        //this shoud be its own function refactoring and all that
+        if(isset($ref[0])) {
+            //rebuild form with student information 
+            $attendanceRef = $ref[0];
+            $module = $this->moduleTable->find('id', $attendanceRef->module_id)[0];
+            $date = $attendanceRef->date;
+            $attendanceRef = $attendanceRef->id;
+
+            //find all students involved within the attendance
+            $mappings = $attendanceTable->find('mapping_id', $attendanceRef);
+            $students = array();
+            //map details to students based on the ref and if they attended in the previous iteration of the form
+            foreach($mappings as $mapping) {
+                    $student = new \stdclass;
+                    $student = $this->studentsTable->find('studentid', $mapping->student_id)[0];
+                    $student->attendance = $mapping->id;
+                    $student->attended = $mapping->attended;
+                    //add mapped student to students array 
+                    $students[] = $student;
+                }
+        }
+        //invalid get var set
+        else {
+            header('location: /attendence/form/search');
+        }
+
+        $heading = $title;
+        return [
+            'template' => 'attendanceview.html.php',
+            'title' => $title,
+            'variables' => [
+                'students' => $students,
+                'date' => $date,
+                'module' => $module,
+                'attendanceRef' => $attendanceRef,
+                'heading' => $title
+            ]
+        ];
+
+    }
 }

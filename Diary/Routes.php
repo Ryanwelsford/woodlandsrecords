@@ -496,6 +496,24 @@ class Routes implements \RWCSY2028\Routes {
                     'function' => 'restore'
                 ]
             ],
+            'attendance/view' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'view'
+                ]
+            ],
+            'attendance/monitor' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'monitor'
+                ]
+            ],
+            'attendance/monitor/student' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'attendanceProfile'
+                ]
+            ],
             '' => [
                 'GET' => [
                     'controller' =>$studentcontroller,

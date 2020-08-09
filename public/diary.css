@@ -542,3 +542,30 @@ section .diary-delete {
     display: block;
     margin: 0 auto;
 }
+.attended {
+    text-align: center;
+}
+.not-attended div {
+    margin: 0 auto;
+    width: 2.5vw;
+    background-color: black;
+}
+.not-attended {
+    color: white;
+}
+
+.search-results-table td.centered {
+    text-align: center;
+}
+.search-results-table td.poor-attendance {
+    color: red;
+}
+
+.fit-table {
+    width: fit-content;
+}
+
+.bold-text {
+    font-size: 1.5vw;
+    font-weight: bold;
+}

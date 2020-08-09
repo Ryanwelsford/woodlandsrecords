@@ -3,7 +3,6 @@
 
     <div class ="left-search"><?=$searchBox;?></div>
     <article class="search-results-container">
-    <div class = "Archive-link"><a href='/attendance/archive/results'>Search Archives</a></div>
         <?php
         if(isset($_GET['search']) || !isset($_GET['search'])) {
             if($totalSearchResults == 0) {
@@ -24,9 +23,10 @@
                 <p>Displaying <?=sizeof($results);?> of <?=$totalSearchResults;?> <?=$resultWord;?></p>
                 <table class="search-results-table">
                             <tr>
-                                <th>Id</th>
-                                <th>Module Code</th>
-                                <th>Date Created</th>
+                                <th>Student Id</th>
+                                <th>First Name</th>
+                                <th>Surname</th>
+                                <th>Course Code</th>
                                 <th>Links</th>
                             </tr>
                             
@@ -38,20 +38,18 @@
                     <?php
                     
                 ?>
-                    <td><?=$result->id;?></td>
-                    <td><?=$result->module->name ?? 'Module not found'?></td>
-                    <td><?=$result->date ?? 'date not found'?></td>
+                    <td><?=$result->studentid;?></td>
+                    <td><?=$result->firstname;?></td>
+                    <td><?=$result->surname;?></td>
+                    <td><?=$result->coursecode;?></td>
                     <td>
                         <article class="search-buttons-links">
-                        <a href="/attendance/create?id=<?=$result->id;?>"><button class="search-button search-button-amend">Amend</button></a>
-                        <a href="/attendance/view?id=<?=$result->id;?>"><button class="search-button search-button-view">View</button></a>
-                        <form method="POST" action="/attendance/archive">
-                            <input type="hidden" value="<?=$result->id;?>" name="attendance[id]">
-                            <input class ="search-button search-button-archive" type ="submit" value="Archive">
-                        </form>
+                            <a href="/attendance/monitor/student?sid=<?=$result->studentid;?>"><button class="search-button">Profile</button></a>
+                            <a href="/construction?sid=<?=$result->studentid;?>"><button class="search-button search-button-delete">Action</button></a>
+                        </article>
                     </td>
                     
-                    </article>
+                    
                     </article>
                     </tr>
                     <?php

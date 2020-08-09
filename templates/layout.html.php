@@ -146,9 +146,9 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="/attendance/module/select">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/attendance/form/search">Amend</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Archive</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Monitor</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/form/search">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/monitor">Monitor</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/form/search">Display</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/construction">Action Poor Attendance</a>
                     </div>
                 </li>
@@ -168,7 +168,7 @@
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Amend</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Delete</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/archive">Archive</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/view">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Display</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Search</a>
                     </div>
                 </li>
