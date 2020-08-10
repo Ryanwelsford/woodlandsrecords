@@ -7,7 +7,8 @@
     </div>
 </div>
 </form>
-<table class="studentamend" style="width:100%">
+<article class = "table-container fit-table">
+    <table class="studentamend search-results-table" >
             <tr>
                 <th>First name</th>
                 <th>Middle name</th>
@@ -26,7 +27,7 @@
                 <td class="am">
                     <form action="#" method="POST">
                     <input type="hidden" name="id" value=<?= $row['studentid']?>>
-                    <input type="submit" name="archive" value="Archive">
+                    <input class="search-button search-button-archive" type="submit" name="archive" value="Archive">
                 </form>
             </td>
             </tr>

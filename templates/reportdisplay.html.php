@@ -70,13 +70,13 @@
                     <div id="Attendance" class="w3-container city" style="display:none">
                         <div class="report-grid">
 
-                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/report/attendance/module<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Attendance by Module</div>
                         </div></a>
-                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/report/attendance/student<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Attendance by Student</div>
                         </div></a>
-                        <a <?=$target ?? '';?> href="/construction<?=$linkAddition ?? '';?>"><div class="report-tab">
+                        <a <?=$target ?? '';?> href="/report/attendance/poor-attendance<?=$linkAddition ?? '';?>"><div class="report-tab">
                             <div>Poor Attendance</div>
                         </div></a>
 

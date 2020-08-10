@@ -2,7 +2,7 @@
 <form action="/student/amendstudent" method="POST">
             <div class="row row1 justify-content-between">
                 
-                <div class="col-md-5 mycol">
+                <div class="col-md-5 mycol form-colour-background">
                     <label for="status">Student Status: </label>
                     <select id="status" name="student[studentstatus]">
                         <option name="live">Live</option>
@@ -16,7 +16,7 @@
                     <label for="sname">Surname: </label> <input type="text" name="student[surname]" id="sname" value=<?= $student['surname']?>>
                     <label for="id">Student ID: </label> <input type="text" name="student[studentid]" id="id" value=<?=$student['studentid']?>>
                 </div>
-                <div class="col-md-5 mycol">
+                <div class="col-md-5 mycol form-colour-background">
                     <label for="term">Term Time Address: </label> <textarea name="student[termaddress]" id="term"><?=$student['termaddress']?></textarea>
                     <label for="non">Non-Term Time Address: </label> <textarea name="student[nonaddress]" id="non"><?=$student['nonaddress']?></textarea>
                     <label for="num">Phone Number: </label> <input type="text" name="student[phonenum]" id="num" value=<?=$student['phonenum']?>>

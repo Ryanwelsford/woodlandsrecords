@@ -130,7 +130,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Assignement</a>
+                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Assignment</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>

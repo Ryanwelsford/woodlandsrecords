@@ -44,7 +44,7 @@
                     <td>
                         <article class="search-buttons-links">
                         <a href="/attendance/create?id=<?=$result->id;?>"><button class="search-button search-button-amend">Amend</button></a>
-                        <a href="/attendance/view?id=<?=$result->id;?>"><button class="search-button search-button-view">View</button></a>
+                        <a href="/attendance/view?id=<?=$result->id;?>"><button class="search-button search-button-view">Display</button></a>
                         <form method="POST" action="/attendance/archive">
                             <input type="hidden" value="<?=$result->id;?>" name="attendance[id]">
                             <input class ="search-button search-button-archive" type ="submit" value="Archive">

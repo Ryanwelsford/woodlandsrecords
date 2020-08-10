@@ -43,7 +43,7 @@
                     <td><?=$result->date ?? 'date not found'?></td>
                     <td>
                         <article class="search-buttons-links">
-                        <a href="/attendance/view?aid=<?=$result->id;?>"><button class="search-button search-button-view">View</button></a>
+                        <a href="/attendance/view?aid=<?=$result->id;?>"><button class="search-button search-button-view">Display</button></a>
                         <form method="POST" action="/attendance/restore">
                             <input type="hidden" value="<?=$result->id;?>" name="attendance[id]">
                             <input class ="search-button search-button-archive" type ="submit" value="Restore">

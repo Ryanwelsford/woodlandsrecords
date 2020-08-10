@@ -514,6 +514,27 @@ class Routes implements \RWCSY2028\Routes {
                     'function' => 'attendanceProfile'
                 ]
             ],
+            'report/attendance/module' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'attendanceByModule',
+                    'print' => true
+                ]
+            ],
+            'report/attendance/student' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'attendanceByStudent',
+                    'print' => true
+                ]
+            ],
+            'report/attendance/poor-attendance' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'poorAttendanceReport',
+                    'print' => true
+                ]
+            ],
             '' => [
                 'GET' => [
                     'controller' =>$studentcontroller,

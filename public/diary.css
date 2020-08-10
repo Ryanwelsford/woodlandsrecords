@@ -440,6 +440,7 @@ section .diary-delete {
     background: rgb(225,225,225);
     
     border: 1px solid black;
+    border-collapse: collapse;
 }
 
 .top-report, .bottom-report {
@@ -560,6 +561,9 @@ section .diary-delete {
 .search-results-table td.poor-attendance {
     color: red;
 }
+.search-results-table td.good-attendance {
+    color: green;
+}
 
 .fit-table {
     width: fit-content;
@@ -568,4 +572,12 @@ section .diary-delete {
 .bold-text {
     font-size: 1.5vw;
     font-weight: bold;
+}
+
+.form-colours-opaque {
+    background: rgba(225,225,225, 0.8);
+}
+
+.form-colours {
+    background: rgb(225,225,225);
 }

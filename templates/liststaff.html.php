@@ -7,7 +7,8 @@
     </div>
 </div>
 </form>
-<table class="studentamend" style="width:100%">
+<article class = "table-container fit-table">
+    <table class="studentamend search-results-table" >
             <tr>
                 <th>First name</th>
                 <th>Middle name</th>
@@ -16,7 +17,15 @@
                 <th>Staff Status</th>
                 <th>Action</th>
             </tr>
-            <?php foreach($stmt as $row) { ?>
+            <?php foreach($stmt as $row) { 
+                $class = "search-button";
+                if($buttonName == "Amend") {
+                    $class .= " search-button-amend";
+                }
+                else if($buttonName == "Archive") {
+                    $class .= " search-button-archive";
+                }
+                ?>
             <tr>
                 <td><?= $row['firstname'] ?></td>
                 <td><?= $row['middlename'] ?></td>
@@ -26,9 +35,10 @@
                 <td class="am">
                     <form action="<?=$location?>" method="POST">
                     <input type="hidden" name="id" value=<?= $row['id']?>>
-                    <input type="submit" name="archive" value="<?=$buttonName?>">
+                    <input class="<?=$class;?>" type="submit" name="archive" value="<?=$buttonName?>">
                 </form>
             </td>
             </tr>
          <?php   } ?>
         </table>
+            </article>

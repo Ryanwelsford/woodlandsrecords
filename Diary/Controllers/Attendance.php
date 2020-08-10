@@ -476,14 +476,17 @@ class Attendance {
             ]
         ];
     }
-
-    public function attendanceProfile() {
-        //generate a list of modules relative to their id
+    public function formattedModules() {
         $modules = $this->moduleTable->findAll();
         $formattedModules = array();
         foreach($modules as $module) {
             $formattedModules[$module->id] = $module->name;
         }
+        return $formattedModules;
+    }
+    public function attendanceProfile() {
+        //generate a list of modules relative to their id
+        $formattedModules = $this->formattedModules();
 
 
         //var_dump($formattedModules);
@@ -509,9 +512,6 @@ class Attendance {
                 $totalAttended = 0;
                 $totalMappings = 0;
                 foreach($attendance as $each) {
-                    if($each->attended == 'O') {
-                        $totalAttended++;
-                    }
                     $totalMappings++;
                     if(!isset($student->module[$each->module])) {
                         $student->module[$each->module] = array();
@@ -521,6 +521,7 @@ class Attendance {
 
                     if($each->attended == 'O' || $each->attended == 'A') {
                         $student->module[$each->module]['attended']++;
+                        $totalAttended++;
                     }
 
                     $student->module[$each->module]['total']++;
@@ -623,5 +624,136 @@ class Attendance {
             ]
         ];
 
+    }
+    public function reformatMappings() {
+        $formattedModules = $this->formattedModules();
+        $attendance_mappings = $this->attendance_mappingsTable->findAll();
+        $attendances = array();
+        foreach($attendance_mappings as $each) {
+            $attendances[$each->id] = $formattedModules[$each->module_id];
+        }
+        return $attendances;
+    }
+    //produce a list of all modules that have attendance mappings with their percentage of attendance
+    public function attendanceByModule() {
+        $attendances = $this->attendanceTable->findAll();
+        $mappingsToModules = $this->reformatMappings();
+        
+        $moduleInfo = array();
+        foreach($attendances as $attendance ) {
+            $id = $attendance->mapping_id;
+            if(!isset($moduleInfo[$id])) {
+                $moduleInfo[$id] = array();
+                $moduleInfo[$id]['total'] = 0;
+                $moduleInfo[$id]['attended'] = 0;
+            }
+            if($attendance->attended == 'O' || $attendance->attended == 'A') {
+                $moduleInfo[$id]['attended']++;
+            }
+            $moduleInfo[$id]['total']++;
+        }
+        $moduleWithCount = array();
+        foreach($mappingsToModules as $key => $mappings) {
+            $moduleInfo[$key]['total'];
+            $moduleInfo[$key]['attended'];
+
+            if(!isset($moduleWithCount[$mappings])) {
+                $moduleWithCount[$mappings]['total'] =  $moduleInfo[$key]['total'];
+                $moduleWithCount[$mappings]['attended'] = $moduleInfo[$key]['attended'];
+            }
+            else {
+                $moduleWithCount[$mappings]['total'] += $moduleInfo[$key]['total'];
+                $moduleWithCount[$mappings]['attended'] += $moduleInfo[$key]['attended'];
+            }
+        }
+        ksort($moduleWithCount);
+        //echo sizeof($attendances);
+        //echo ' '.sizeof($unattended);
+        $title = 'Attendance by Module';
+        $heading = $title;
+        return [
+            'template' => 'reportattendancebymodule.html.php',
+            'title' => $title,
+            'variables' => [
+                'moduleWithCount' => $moduleWithCount,
+                'heading' => $heading
+            ]
+        ];
+    }
+
+    public function attendanceByStudent() {
+        $students = $this->studentsTable->findAll();
+        $formattedStudents= array();
+        foreach($students as $student) {
+            $formattedStudents[$student->studentid] = $student;
+        }
+        //$attendances = $this->attendanceTable->find('student_id', 14151613);
+        $attendances = $this->attendanceTable->findAll();
+        $studentPercs = array();
+        foreach($attendances as $attendance) {
+            $id = $attendance->student_id;
+            if(!isset($studentPercs[$id])) {
+                $studentPercs[$id] = array();
+                $studentPercs[$id]['total'] = 0;
+                $studentPercs[$id]['attended'] = 0;
+            }
+
+            if($attendance->attended == 'O' || $attendance->attended == 'A') {
+                $studentPercs[$id]['attended']+= 1;
+            }
+            $studentPercs[$id]['total']+= 1;
+        }
+        $title = $heading = 'Attendance by Student';
+        
+        return [
+            'template' => 'reportattendancebystudent.html.php',
+            'title' => $title,
+            'variables' => [
+                'heading' => $heading,
+                'students' => $studentPercs,
+                'formattedStudents' => $formattedStudents
+            ]
+        ];
+    }
+
+    public function poorAttendanceReport() {
+        $students = $this->studentsTable->findAll();
+        $formattedStudents= array();
+        foreach($students as $student) {
+            $formattedStudents[$student->studentid] = $student;
+        }
+        //$attendances = $this->attendanceTable->find('student_id', 14151613);
+        $attendances = $this->attendanceTable->findAll();
+        $studentPercs = array();
+        foreach($attendances as $attendance) {
+            $id = $attendance->student_id;
+            if(!isset($studentPercs[$id])) {
+                $studentPercs[$id] = array();
+                $studentPercs[$id]['total'] = 0;
+                $studentPercs[$id]['attended'] = 0;
+            }
+
+            if($attendance->attended == 'O' || $attendance->attended == 'A') {
+                $studentPercs[$id]['attended']+= 1;
+            }
+            $studentPercs[$id]['total']+= 1;
+        }
+        foreach($studentPercs as $key =>$each) {
+            $modAttendance = round(($each['attended']/$each['total'])*100, 2);
+
+            if($modAttendance >= 75) {
+                unset($studentPercs[$key]);
+            }
+        }
+        $title = $heading = 'Poor Attendance Report';
+        return [
+            'template' => 'reportattendancebystudent.html.php',
+            'title' => $title,
+            'variables' => [
+                'heading' => $heading,
+                'students' => $studentPercs,
+                'formattedStudents' => $formattedStudents
+            ]
+        ];
     }
 }

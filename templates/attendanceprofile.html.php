@@ -23,8 +23,11 @@ foreach ($students as $student) {
                     //round to 2 dp
                     $modAttendance = round(($module['attended']/$module['total'])*100, 2);
                     $class = "centered";
-                    if($modAttendance < 50) {
+                    if($modAttendance <= 50) {
                         $class .= " poor-attendance";
+                    }
+                    else if ($modAttendance >= 80) {
+                        $class .= " good-attendance";
                     }
                     ?>
                     <tr>

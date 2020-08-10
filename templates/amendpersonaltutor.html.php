@@ -1,7 +1,7 @@
 <div class="container">
 <form action="/tutor/amendpersonaltutor" method=POST>
             <div class="row row1 justify-content-center">
-                <div class="col-md-5 mycol">
+                <div class="col-md-5 mycol form-colour-background">
 
                     <label for="fname">First Name: </label> <input type="text" name="firstname" id="fname" value="<?=$staff['firstname']?>" readonly>
                     <label for="sname">Surname: </label> <input type="text" name="surname" id="sname" value="<?= $staff['surname'] ?>" readonly>

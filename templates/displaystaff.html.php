@@ -7,7 +7,7 @@
     </div>
             <div class="row row1 justify-content-between">
                 
-                <div class="col-md-5 mycol">
+                <div class="col-md-5 mycol form-colour-background">
                     <label for="status">Staff Status: </label> <input type="text" name="studentstatus" value="<?=$staff['staffstatus']?>" readonly>
                     <label for="reason">Reason for Dormancy: </label> <textarea id="reason" name="dormancy" readonly><?=$staff['dormancyreason']?></textarea>
                     <label for="fname">First Name: </label> <input type="text" name="firstname" id="fname" value=<?=$staff['firstname']?> readonly>
@@ -15,7 +15,7 @@
                     <label for="sname">Surname: </label> <input type="text" name="surname" id="sname" value=<?= $staff['surname']?> readonly>
                     <label for="id">Staff ID: </label> <input type="text" name="studentid" id="id" value=<?=$staff['staffid']?> readonly>
                 </div>
-                <div class="col-md-5 mycol">
+                <div class="col-md-5 mycol form-colour-background">
                     <label for="term">Address: </label> <textarea name="termaddress" id="term" readonly><?=$staff['address']?></textarea>
                     <label for="num">Phone Number: </label> <input type="text" name="number" id="num" value=<?=$staff['phonenumber']?> readonly>
                     <label for="em">Email: </label> <input type="text" name="email" id="em" value=<?=$staff['email']?> readonly>
