@@ -73,6 +73,7 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="/construction">Dashboard</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/construction">Settings</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/tutorial/timetable">Tutorials</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/construction">Help</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/logout">Logout</a>
                     </div>
@@ -149,7 +150,7 @@
                         <a class="dropdown-item hvr-grow-shadow" href="/attendance/form/search">Archive</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/attendance/monitor">Monitor</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/attendance/form/search">Display</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Action Poor Attendance</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/action/list">Action Poor Attendance</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

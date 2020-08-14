@@ -27,7 +27,7 @@ class EntryPoint {
 			$route = $this->routes->getReroute();
 		}
 
-		
+		//var_dump($route);
 		$controller = $routes[$route][$method]['controller'];
 		$functionName = $routes[$route][$method]['function'];
 		//pull controller and function from routes array build page

@@ -394,6 +394,10 @@ class Routes implements \RWCSY2028\Routes {
                 'GET' => [
                     'controller' => $generalController,
                     'function' => 'pageNotFound'
+                ],
+                'POST' => [
+                    'controller' => $generalController,
+                    'function' => 'pageNotFound'
                 ]
             ],
             'report/display' => [
@@ -533,6 +537,25 @@ class Routes implements \RWCSY2028\Routes {
                     'controller' => $attendanceController,
                     'function' => 'poorAttendanceReport',
                     'print' => true
+                ]
+            ],
+            'attendance/action/list' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'actionList'
+                ]
+            ],
+            'attendance/action' => [
+                'POST' => [
+                    'controller' => $attendanceController,
+                    'function' => 'action',
+                    'print' => true
+                ]
+            ],
+            'tutorial/timetable' => [
+                'GET' => [
+                    'controller' => $generalController,
+                    'function' => 'tutorial'
                 ]
             ],
             '' => [

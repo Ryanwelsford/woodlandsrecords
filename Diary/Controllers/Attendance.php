@@ -715,6 +715,68 @@ class Attendance {
             ]
         ];
     }
+    //produce a list of students that have missed more than two lectures.
+    public function actionList() {
+        $attendances = $this->attendanceTable->findAll();
+        $studentPercs = array();
+        //build a list of attendances based on each student, counting the missed lectures
+        foreach($attendances as $attendance) {
+            $id = $attendance->student_id;
+            if(!isset($studentPercs[$id])) {
+                $studentPercs[$id] = array();
+                $studentPercs[$id]['total'] = 0;
+                $studentPercs[$id]['missed'] = 0;
+            }
+
+            if($attendance->attended == 'X') {
+                $studentPercs[$id]['missed']+= 1;
+            }
+            $studentPercs[$id]['total']+= 1;
+        }
+        //based on missed lectures if less than 2 missed remove from list
+        foreach($studentPercs as $key => $each) {
+            if($each['missed'] < 2) {
+                unset($studentPercs[$key]);
+            }
+            if(isset($studentPercs[$key])) {
+                $studentPercs[$key]['student'] = $this->studentsTable->find('studentid', $key)[0];
+            }
+        }
+        $title = $heading ='Students Requiring Action';
+        return [
+            'template' => 'actionlist.html.php',
+            'title' => $title,
+            'variables' => [
+                'heading' => $heading,
+                'results' => $studentPercs 
+            ]
+        ];
+    }
+    //open print document cause for concern
+    public function action() {
+        if(isset($_POST['student'])) {
+            $student = $this->studentsTable->find('studentid', $_POST['student'])[0];
+            $missed = $_POST['missed'];
+
+            //at this point action should then update attendance fields so they are considered actioned
+        }
+        else {
+            header('location /attendance/action/list');
+        }
+        $title = 'Cause For Concern';
+        $date = new \DateTime();
+        $afterdate = $date->modify('+1 week');
+        return [
+            'template' => 'causeforconcern.html.php',
+            'title' => $title,
+            'variables' => [
+                'student' => $student,
+                'missed' => $missed,
+                'date' => $date,
+                'afterdate' => $afterdate
+            ]
+        ];
+    }
 
     public function poorAttendanceReport() {
         $students = $this->studentsTable->findAll();

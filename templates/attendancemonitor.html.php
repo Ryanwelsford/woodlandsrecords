@@ -45,7 +45,6 @@
                     <td>
                         <article class="search-buttons-links">
                             <a href="/attendance/monitor/student?sid=<?=$result->studentid;?>"><button class="search-button">Profile</button></a>
-                            <a href="/construction?sid=<?=$result->studentid;?>"><button class="search-button search-button-delete">Action</button></a>
                         </article>
                     </td>
                     

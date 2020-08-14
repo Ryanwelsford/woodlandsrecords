@@ -40,4 +40,20 @@ class General {
             ]
         ];
     }
+
+    public function tutorial() {
+        $title = "Timetable Tutorial";
+        $h1 = "This page was not found";
+        $p = "If you are encountering this error please check you have accessed the correct page";
+        $back = true;
+        return [
+            'template' => 'tutorialtimetable.html.php',
+            'title' => $title,
+            'variables' => [
+                'h1' => $h1,
+                'p' => $p,
+                'back' => $back
+            ]
+        ];
+    }
 }
