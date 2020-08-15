@@ -50,7 +50,7 @@
                             <input type="hidden" value="<?=$result->course_id;?>" name="course[id]">
                             <input class ="search-button search-button-amend" type ="submit" value="Amend">
                         </form>
-                        <a href="/timetable/view?id=<?=$result->id;?>"><button class="search-button">View</button></a>
+                        <a href="/timetable/view?id=<?=$result->id;?>"><button class="search-button">Display</button></a>
                         <form method="POST" action="/timetable/store">
                             <input type="hidden" value="<?=$result->id;?>" name="timetable[id]">
                             <input class ="search-button search-button-archive" type ="submit" value="Archive">

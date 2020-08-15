@@ -27,7 +27,7 @@ class EntryPoint {
 			$route = $this->routes->getReroute();
 		}
 
-		
+		//var_dump($route);
 		$controller = $routes[$route][$method]['controller'];
 		$functionName = $routes[$route][$method]['function'];
 		//pull controller and function from routes array build page
@@ -40,6 +40,7 @@ class EntryPoint {
 		//pull out variables required for layouts pages
 		$layoutVars = $this->routes->getLayoutVariables();
 		extract($layoutVars);
+		
 		require  '../templates/layout.html.php';
 	}
 	

@@ -23,10 +23,10 @@
                 <p>Displaying <?=sizeof($results);?> of <?=$totalSearchResults;?> <?=$resultWord;?></p>
                 <table class="search-results-table">
                             <tr>
-                                <th>Id</th>
-                                <th>Course Name</th>
-                                <th>Course Year</th>
-                                <th>Date Created</th>
+                                <th>Student Id</th>
+                                <th>First Name</th>
+                                <th>Surname</th>
+                                <th>Course Code</th>
                                 <th>Links</th>
                             </tr>
                             
@@ -38,25 +38,17 @@
                     <?php
                     
                 ?>
-                    <td><?=$result->id;?></td>
-                    <td><?=$result->course->name ?? 'Course not found'?></td>
-                    <td><?=$result->course->year ?? 'Course not found'?></td>
-                    <td><?=$result->date;?></td>
+                    <td><?=$result->studentid;?></td>
+                    <td><?=$result->firstname;?></td>
+                    <td><?=$result->surname;?></td>
+                    <td><?=$result->coursecode;?></td>
                     <td>
                         <article class="search-buttons-links">
-                        <form method="POST" action="/timetable/create?id=<?=$result->id;?>">
-                            <input type="hidden" value="<?=$result->course_id;?>" name="course[id]">
-                            <input class ="search-button search-button-amend" type ="submit" value="Amend">
-                        </form>
-                        <a href="/timetable/view?id=<?=$result->id;?>"><button class="search-button">Display</button></a>
-                        <a href="/timetable/view?id=<?=$result->id;?>"><button class="search-button search-button-archive">Archive</button></a>
-                        <form method="POST" action="/timetable/delete">
-                            <input type="hidden" value="<?=$result->id;?>" name="timetable[id]">
-                            <input class ="search-button search-button-delete" type ="submit" value="Delete">
-                        </form>
+                            <a href="/attendance/monitor/student?sid=<?=$result->studentid;?>"><button class="search-button">Profile</button></a>
+                        </article>
                     </td>
                     
-                    </article>
+                    
                     </article>
                     </tr>
                     <?php

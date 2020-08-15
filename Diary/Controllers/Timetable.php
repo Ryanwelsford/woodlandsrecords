@@ -53,7 +53,7 @@ private $autoDays;
     }
 
     public function selectionSearch() {
-        $title = "Select by Search Course";
+        $title = "Select Course";
         $TableSearchBox = new \RWCSY2028\TableSearchBox($this->tempCourseTable);
         $searchBox = $TableSearchBox->generalSearchBox('/timetable/selectionSearch');
 

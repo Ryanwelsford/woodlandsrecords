@@ -63,7 +63,8 @@
         <div class = "logo-container">
             <img class="logo" src="/images/new logo.jpg" alt="logo">
             <div class="login-info">
-                <img class="usericon" src="/images/profile-icon-illustration-user-profile-computer-icons-girl-customer-avatar-png-clip-art.png"> <?=$user->name ?? 'Admin'?>
+                <img class="usericon" src="/images/profile-icon-illustration-user-profile-computer-icons-girl-customer-avatar-png-clip-art.png"> 
+                <div class="username-login"><?=$user['name'] ?? 'Admin'?></div>
                 <div class="btn-group">
                     <button class="btn btn-secondary btn-sm dropdown-toggle logout-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
@@ -71,8 +72,9 @@
                     <!--Dropdown menu for user access, i.e. other none main selection items-->
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="/construction">Dashboard</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/">Settings</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/">Help</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Settings</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/tutorial/timetable">Tutorials</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Help</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/logout">Logout</a>
                     </div>
                 </div>
@@ -129,7 +131,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Assignement</a>
+                    <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Assignment</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
                         <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
@@ -143,12 +145,12 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link hvr-sweep-to-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Attendance</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Create</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Amend</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Archive</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Monitor</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Display</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="#">Action Poor Attendance</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/module/select">Create</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/form/search">Amend</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/form/search">Archive</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/monitor">Monitor</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/form/search">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/attendance/action/list">Action Poor Attendance</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -167,7 +169,7 @@
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Amend</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Delete</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/archive">Archive</a>
-                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/view">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Display</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Search</a>
                     </div>
                 </li>

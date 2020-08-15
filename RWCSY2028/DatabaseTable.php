@@ -100,6 +100,26 @@ class DatabaseTable {
 
 		return $stmt->fetchAll();
 	}
+	//find all records ordered by array, array key is field, value is asc/desc etc
+	public function findAllOrdered($orderby = []) {
+		$query = "SELECT * FROM ".$this->table;
+		$orderstring = "";
+		foreach($orderby as $field => $each) {
+			$orderstring .= $field." ".$each.", ";
+		}
+		//allow for find all with empty array
+		if(sizeof($orderby) > 0) {
+			$orderstring = substr($orderstring, 0,-2 );
+			$query .= " ORDER BY ".$orderstring;
+		}
+
+		//var_dump($query);
+		//return object
+		$stmt = $this->pdo->prepare($query);
+		$stmt->setFetchMode(\PDO::FETCH_CLASS, $this->entityClass, $this->entityConstructor);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
 	public function searchAllFields($fields, $values) {
 
 	}

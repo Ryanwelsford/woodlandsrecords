@@ -9,10 +9,10 @@
                     <button class="w3-bar-item w3-button hvr-pulse-shrink" onclick="openContent('Academic')">Academic Info</button>
                 </div>
             </div>
-            <form action="/createstaff" method="POST">
+            <form action="/staff/create" method="POST">
             <div class="bottom">
                 <div class="inner">
-                    <div id="Status" class="w3-container city">
+                    <div id="Status" class="w3-container city form-colour-background">
                         <div class="data">
                             <p></p>
                             <p></p>
@@ -26,7 +26,7 @@
                         </div>    
                     </div>
 
-                    <div id="Pinfo" class="w3-container city" style="display:none">
+                    <div id="Pinfo" class="w3-container city form-colour-background" style="display:none">
                         <div class="data">
                             <p></p>
                             <p></p>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
 
-                    <div id="Contact" class="w3-container city" style="display:none">
+                    <div id="Contact" class="w3-container city form-colour-background" style="display:none">
                         <div class="data">
                             <p></p>
                             <p></p>
@@ -47,7 +47,7 @@
                         </div>
                     </div>
 
-                    <div id="Academic" class="w3-container city" style="display:none">
+                    <div id="Academic" class="w3-container city form-colour-background" style="display:none">
                         <div class="data">
                             <p></p>
                             <p></p>

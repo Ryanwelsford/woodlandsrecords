@@ -29,11 +29,25 @@ class Routes implements \RWCSY2028\Routes {
         $archivedTimetableTable = new \RWCSY2028\DatabaseTable($pdo, 'archived_timetable', 'id');
         $archived_slotsTable = new \RWCSY2028\DatabaseTable($pdo, 'archived_timetable_slots', 'id');
         $tempCourseTable = new \RWCSY2028\DatabaseTable($pdo, 'temp_course', 'id');
+        $tempModuleTable = new \RWCSY2028\DatabaseTable($pdo, 'temp_module', 'id');
 
+        //reports tables
+        $studentReportTable = new \RWCSY2028\DatabaseTable($pdo,'students','id');
+        $staffReportTable = new \RWCSY2028\DatabaseTable($pdo,'staff','id');
+
+        //attendance tables
+        $attendanceTable = new \RWCSY2028\DatabaseTable($pdo,'attendance','id');
+        $attendance_mapppingsTable = new \RWCSY2028\DatabaseTable($pdo,'attendance_mappings','id');
+        //attendance archive tables
+        $archivedAttendanceTable = new \RWCSY2028\DatabaseTable($pdo,'archived_attendance','id');
+        $archivedAttendance_mapppingsTable = new \RWCSY2028\DatabaseTable($pdo,'archived_attendance_mappings','id');
+        //ryans controllers
         $timetableController = new \Diary\Controllers\Timetable($timetableTable, $timetable_slotsTable, $tempCourseTable, $roomsTable, $archivedTimetableTable, $archived_slotsTable);
         $diaryController = new \Diary\Controllers\Diary($diariesTable, $appointmentsTable, $_GET, $_POST);
         $generalController = new \Diary\Controllers\General();
-        $reportController = new \Diary\Controllers\Report();
+        $reportController = new \Diary\Controllers\Report($studentReportTable, $staffReportTable, $tempCourseTable);
+        $attendanceController = new \Diary\Controllers\Attendance($studentReportTable, $tempCourseTable, $tempModuleTable, $attendanceTable, $attendance_mapppingsTable, $archivedAttendanceTable, $archivedAttendance_mapppingsTable);
+
 
         $routes = [
             'student/home' => [
@@ -380,6 +394,10 @@ class Routes implements \RWCSY2028\Routes {
                 'GET' => [
                     'controller' => $generalController,
                     'function' => 'pageNotFound'
+                ],
+                'POST' => [
+                    'controller' => $generalController,
+                    'function' => 'pageNotFound'
                 ]
             ],
             'report/display' => [
@@ -399,6 +417,145 @@ class Routes implements \RWCSY2028\Routes {
                     'controller' => $timetableController,
                     'function' => 'studentTimetable',
                     'print' => true
+                ]
+            ],
+            'report/student/contacts-by-id' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'studentContactsId',
+                    'print' => true
+                ]
+            ],
+            'report/student/contacts-by-name' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'studentContactsName',
+                    'print' => true
+                ]
+            ],
+            'report/staff/contacts-by-id' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'staffContactsId',
+                    'print' => true
+                ]
+            ],
+            'report/staff/contacts-by-name' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'staffContactsName',
+                    'print' => true
+                ]
+            ],
+            'report/module/year' => [
+                'GET' => [
+                    'controller' => $reportController,
+                    'function' => 'moduleYear',
+                    'print' => true
+                ]
+            ],
+            'attendance/create' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'create'
+                ],
+                'POST' => [
+                    'controller' => $attendanceController,
+                    'function' => 'create'
+                ]
+            ],
+            'attendance/module/select' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'moduleSelect'
+                ]
+            ],
+            'attendance/module/search' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'moduleSearch'
+                ]
+            ],
+            'attendance/form/search' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'amend'
+                ]
+            ],
+            'attendance/archive/results' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'archiveResults'
+                ]
+            ],
+            'attendance/archive' => [
+                'POST' => [
+                    'controller' => $attendanceController,
+                    'function' => 'archive'
+                ]
+            ],
+            'attendance/restore' => [
+                'POST' => [
+                    'controller' => $attendanceController,
+                    'function' => 'restore'
+                ]
+            ],
+            'attendance/view' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'view'
+                ]
+            ],
+            'attendance/monitor' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'monitor'
+                ]
+            ],
+            'attendance/monitor/student' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'attendanceProfile'
+                ]
+            ],
+            'report/attendance/module' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'attendanceByModule',
+                    'print' => true
+                ]
+            ],
+            'report/attendance/student' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'attendanceByStudent',
+                    'print' => true
+                ]
+            ],
+            'report/attendance/poor-attendance' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'poorAttendanceReport',
+                    'print' => true
+                ]
+            ],
+            'attendance/action/list' => [
+                'GET' => [
+                    'controller' => $attendanceController,
+                    'function' => 'actionList'
+                ]
+            ],
+            'attendance/action' => [
+                'POST' => [
+                    'controller' => $attendanceController,
+                    'function' => 'action',
+                    'print' => true
+                ]
+            ],
+            'tutorial/timetable' => [
+                'GET' => [
+                    'controller' => $generalController,
+                    'function' => 'tutorial'
                 ]
             ],
             '' => [
@@ -426,8 +583,9 @@ class Routes implements \RWCSY2028\Routes {
 
     public function getLayoutVariables() {
         //this would pull out the user information of logged user
+        $user['name'] = "Blake, S";
         return [
-    
+            'user' => $user
         ];
     }
 
