@@ -1,15 +1,19 @@
 <article class = "table-container">
     <h2 class="report-heading">Timetable Tutorials</h2>
     <article class="search-results-container">
-    <div class="two-by-grid-tutorial">
-        <p>You can access the errors display by selecting the timetable errors tab shown here, this can only be selected when errors are present. The red indicator displays the number of errors present.</p>
-        <img src = "/images/timetableerrorstab.png">
-    </div>
-    <div class="two-by-grid-tutorial">
-        <p>Did you know, using the automate function can correct errors for you!</p>
-        <img src = "/images/automate.png">
-    </div>
-    <p>Below is a list of errors associated with timetable creation</p>
+
+        <div class="two-by-grid-tutorial">
+            <p>You can access the errors display by selecting the timetable errors tab shown here, this can only be selected when errors are present. The red indicator displays the number of errors present.</p>
+            <img src = "/images/timetableerrorstab.png">
+        </div>
+
+        <div class="two-by-grid-tutorial">
+            <p>Did you know, using the automate function can correct errors for you!</p>
+            <img src = "/images/automate.png">
+        </div>
+
+        <p>Below is a list of errors associated with timetable creation</p>
+        
         <table class="search-results-table">
         <tr>
             <th>Error Code</th>
@@ -42,17 +46,20 @@
             <td>Update the red highlighted input with a module or automate the timetable</td>
         </tr>
         </table>
-        <div class="centered">
-        <p>Timetable Video Tutorial</p>
-        <video width="400" height="300" controls>
-            <source src="#" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <p>See the video tutorial for further help with Timetables</p>
-        </div>
+
+        <article class="centered">
+            <p>Timetable Video Tutorial</p>
+            <video width="400" height="300" controls>
+                <source src="#" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p>See the video tutorial for further help with Timetables</p>
+        </article>
+
         <div class="two-by-grid-tutorial">
-        <img src="/images/timetablesearch.png">
-        <p>Did you know you can search by module code when searching through timetables, this even works for archived timetables!</p>
+            <img src="/images/timetablesearch.png">
+            <p>Did you know you can search by module code when searching through timetables, this even works for archived timetables!</p>
         </div>
+
     </article>
 </article>

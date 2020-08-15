@@ -594,7 +594,7 @@ section .diary-delete {
     max-width: 35vw;
 }
 
-div.centered {
+article.centered {
     margin: 10px 0px;
     display: flex;
     flex-direction: column;
