@@ -581,3 +581,22 @@ section .diary-delete {
 .form-colours {
     background: rgb(225,225,225);
 }
+
+.two-by-grid-tutorial {
+    display: grid;
+    grid-template-columns:2fr 2fr ;
+    grid-template-rows:auto;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.two-by-grid-tutorial img {
+    max-width: 35vw;
+}
+
+div.centered {
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

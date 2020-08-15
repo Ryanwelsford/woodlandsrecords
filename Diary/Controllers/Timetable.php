@@ -145,7 +145,7 @@ private $autoDays;
         $timetableId = 6;
         $student = new \stdClass();
         $student->id = "S1256";
-        $student->name = "Steve Linford";
+        $student->name = "Thomas Cook";
         $title = 'Student Timetable';
         $course['title'] = "Software Engineering";
         $results = $this->timetableTable->find('id', $timetableId);
