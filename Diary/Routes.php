@@ -583,7 +583,7 @@ class Routes implements \RWCSY2028\Routes {
 
     public function getLayoutVariables() {
         //this would pull out the user information of logged user
-        $user['name'] = "Blake, S";
+        $user['name'] = "Blake, A";
         return [
             'user' => $user
         ];
