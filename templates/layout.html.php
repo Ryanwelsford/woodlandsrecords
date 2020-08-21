@@ -170,7 +170,9 @@
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Delete</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/archive">Archive</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Display</a>
+                        <a class="dropdown-item hvr-grow-shadow" href="/construction">Assign</a>
                         <a class="dropdown-item hvr-grow-shadow" href="/timetable/results">Search</a>
+                        
                     </div>
                 </li>
                 <li class="nav-item dropdown">
